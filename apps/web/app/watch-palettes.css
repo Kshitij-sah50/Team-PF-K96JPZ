@@ -1,0 +1,228 @@
+/* Each palette supplies both night and day colors through the same tokens. */
+:root[data-palette="akatsuki"] .watchtower {
+  --watch-bg: #180c13;
+  --watch-text: #fff1e3;
+  --watch-sidebar: #13090f;
+  --watch-panel: #28131b;
+  --watch-control: #3b1a23;
+  --watch-muted: #d0b3bc;
+  --watch-faint: #c3a6b0;
+  --watch-accent: #f5c384;
+  --watch-highlight: #ffe0a6;
+  --watch-vermilion: #ff806b;
+  --watch-cta: #ba303f;
+  --watch-cta-text: #fff7eb;
+  --watch-ambient: #af23362b;
+  --watch-glow: #fb615b26;
+  --watch-star: #ffd9a1;
+  --watch-border: #e9a4a52b;
+  --watch-border-strong: #e9a4a54d;
+  --watch-accent-border: #e6ab6466;
+  --watch-tint: #ec796b0d;
+  --watch-selected: #e94c4029;
+  --watch-decoration: #e6ab6455;
+  --watch-map-caption: #32151f;
+  --watch-ridge-back: #6b2839;
+  --watch-ridge-front: #391825;
+  --watch-scroll-thumb: #9d5f6e;
+  --watch-scroll-track: #210f18;
+  --watch-moon-center: #ffe1ac;
+  --watch-moon-edge: #e79a77;
+  --watch-gate: #10080d;
+}
+:root.light[data-palette="akatsuki"] .watchtower {
+  --watch-bg: #fff0e5;
+  --watch-text: #421c27;
+  --watch-sidebar: #f7ddd2;
+  --watch-panel: #fff8f0;
+  --watch-control: #efd6ce;
+  --watch-muted: #79505b;
+  --watch-faint: #805362;
+  --watch-accent: #924812;
+  --watch-highlight: #8e3d12;
+  --watch-vermilion: #b22635;
+  --watch-cta: #a92736;
+  --watch-cta-text: #fff7eb;
+  --watch-ambient: #df8f7a30;
+  --watch-glow: #d37e5426;
+  --watch-star: #9c411d;
+  --watch-border: #8c34402b;
+  --watch-border-strong: #8c34404d;
+  --watch-accent-border: #a44f2466;
+  --watch-tint: #a9273608;
+  --watch-selected: #bd323f18;
+  --watch-decoration: #a44f2455;
+  --watch-map-caption: #f0d6ca;
+  --watch-ridge-back: #d7a196;
+  --watch-ridge-front: #ac686d;
+  --watch-scroll-thumb: #b18085;
+  --watch-scroll-track: #f7ddd2;
+  --watch-moon-center: #ffe5af;
+  --watch-moon-edge: #e7a97d;
+  --watch-gate: #a02733;
+}
+:root[data-palette="sakura"] .watchtower {
+  --watch-bg: #1b1025;
+  --watch-text: #fff1f5;
+  --watch-sidebar: #150c1e;
+  --watch-panel: #291932;
+  --watch-control: #382342;
+  --watch-muted: #d1b8d6;
+  --watch-faint: #c4adce;
+  --watch-accent: #f3bed2;
+  --watch-highlight: #f9d7e3;
+  --watch-vermilion: #ef9dc1;
+  --watch-cta: #a23b77;
+  --watch-cta-text: #fff7fc;
+  --watch-ambient: #a9508d26;
+  --watch-glow: #f1b6d626;
+  --watch-star: #ffe2ee;
+  --watch-border: #d9a8df2b;
+  --watch-border-strong: #d9a8df4d;
+  --watch-accent-border: #edb4ce66;
+  --watch-tint: #edb4ce0d;
+  --watch-selected: #ed9bc926;
+  --watch-decoration: #edb4ce55;
+  --watch-map-caption: #321e3b;
+  --watch-ridge-back: #654574;
+  --watch-ridge-front: #3a284b;
+  --watch-scroll-thumb: #987aab;
+  --watch-scroll-track: #23152e;
+  --watch-moon-center: #ffe4e7;
+  --watch-moon-edge: #d8a6ce;
+  --watch-gate: #130b20;
+}
+:root.light[data-palette="sakura"] .watchtower {
+  --watch-bg: #fff2f6;
+  --watch-text: #422841;
+  --watch-sidebar: #f7e1eb;
+  --watch-panel: #fff9fc;
+  --watch-control: #f0dfed;
+  --watch-muted: #75566f;
+  --watch-faint: #7b5a75;
+  --watch-accent: #9c3765;
+  --watch-highlight: #8c2b58;
+  --watch-vermilion: #a02b64;
+  --watch-cta: #a23370;
+  --watch-cta-text: #fff7fc;
+  --watch-ambient: #e8b2d330;
+  --watch-glow: #cc8fbf26;
+  --watch-star: #a04b7c;
+  --watch-border: #854f7c26;
+  --watch-border-strong: #854f7c45;
+  --watch-accent-border: #a04b7c66;
+  --watch-tint: #a04b7c08;
+  --watch-selected: #c8558f14;
+  --watch-decoration: #a04b7c55;
+  --watch-map-caption: #eddae8;
+  --watch-ridge-back: #d2b3ce;
+  --watch-ridge-front: #ae8cb6;
+  --watch-scroll-thumb: #bba0b7;
+  --watch-scroll-track: #f0dfed;
+  --watch-moon-center: #ffe9ed;
+  --watch-moon-edge: #d8accc;
+  --watch-gate: #9b4774;
+}
+:root[data-palette="bamboo"] .watchtower {
+  --watch-bg: #071d1e;
+  --watch-text: #edf7ed;
+  --watch-sidebar: #061718;
+  --watch-panel: #102c2c;
+  --watch-control: #1a3c38;
+  --watch-muted: #a7c6b6;
+  --watch-faint: #a1beae;
+  --watch-accent: #e7cc8a;
+  --watch-highlight: #f4dda6;
+  --watch-vermilion: #75d0ae;
+  --watch-cta: #236950;
+  --watch-cta-text: #f1fff4;
+  --watch-ambient: #2b8e7526;
+  --watch-glow: #a9d9a326;
+  --watch-star: #e6e6b1;
+  --watch-border: #a7d3ba26;
+  --watch-border-strong: #a7d3ba45;
+  --watch-accent-border: #c9ca8966;
+  --watch-tint: #c9ca890d;
+  --watch-selected: #75d0ae1c;
+  --watch-decoration: #c9ca8955;
+  --watch-map-caption: #15372f;
+  --watch-ridge-back: #2a5b4c;
+  --watch-ridge-front: #153d36;
+  --watch-scroll-thumb: #628e77;
+  --watch-scroll-track: #0e2725;
+  --watch-moon-center: #f3efce;
+  --watch-moon-edge: #a7c9ad;
+  --watch-gate: #061a18;
+}
+:root.light[data-palette="bamboo"] .watchtower {
+  --watch-bg: #eff8f0;
+  --watch-text: #1b4039;
+  --watch-sidebar: #dfeddf;
+  --watch-panel: #f8fcf5;
+  --watch-control: #dceade;
+  --watch-muted: #4c685b;
+  --watch-faint: #526d5d;
+  --watch-accent: #775411;
+  --watch-highlight: #705019;
+  --watch-vermilion: #1b7359;
+  --watch-cta: #17644f;
+  --watch-cta-text: #f1fff4;
+  --watch-ambient: #a7d2b326;
+  --watch-glow: #91ba8c26;
+  --watch-star: #6b792e;
+  --watch-border: #32644b26;
+  --watch-border-strong: #32644b45;
+  --watch-accent-border: #7f773366;
+  --watch-tint: #7f773308;
+  --watch-selected: #32836514;
+  --watch-decoration: #7f773355;
+  --watch-map-caption: #dce9d9;
+  --watch-ridge-back: #a9c5aa;
+  --watch-ridge-front: #7ea18c;
+  --watch-scroll-thumb: #8aa88e;
+  --watch-scroll-track: #dfeddf;
+  --watch-moon-center: #f4efd0;
+  --watch-moon-edge: #bbceaa;
+  --watch-gate: #34705a;
+}
+
+.watch-theme-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.watch-palette-picker {
+  display: inline-flex;
+  min-width: 0;
+}
+.watch-palette-picker select {
+  max-width: 195px;
+  min-height: 36px;
+  padding: 8px;
+  border: 1px solid var(--watch-border-strong);
+  background: var(--watch-control);
+  color: var(--watch-text);
+  border-radius: 2px;
+  font-size: 10px;
+  letter-spacing: normal;
+}
+@media (max-width: 600px) {
+  .watchtower .watch-topbar {
+    height: auto;
+    min-height: 65px;
+    padding: 12px 0;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .watch-topbar-actions {
+    margin-left: auto;
+  }
+  .watch-palette-picker select {
+    max-width: 155px;
+    font-size: 9px;
+  }
+  .event-page .watch-theme-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

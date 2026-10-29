@@ -6,12 +6,16 @@ A Japanese-inspired celestial guide built with Next.js, tRPC, Drizzle, and Postg
 
 - Part 1: database foundation for users, preferences, locations, weather, events, alerts, observations, and honor points.
 - Part 2: Watchtower dashboard with a seeded destination catalog, browser geolocation, radius filtering, an interactive OpenStreetMap view, live nighttime forecasts, and a weather-only Night Honor Score.
-- Part 3 (first slice): Celestial Scroll with USNO moon phases, Launch Library rocket launches, a month calendar, type/day filters, source health, database feed caching, and calendar reminder downloads.
+- Part 3 (first slice): Celestial Scroll with USNO moon phases, Launch Library rocket launches, a month calendar, type/day filters, internal event detail pages, source health, database feed caching, and calendar reminder downloads.
 
 Spirit Lens and the authenticated Dojo are future parts. ISS passes, meteor showers,
 eclipses, daily moon data, and server-delivered alerts remain to be added to the Scroll.
 See [API setup](docs/API_SETUP.md) for providers, signup links, key requirements,
 and which integrations are currently connected.
+
+The header offers Tsukuyomi (indigo), Akatsuki (crimson), Sakura (rose), and
+Bamboo (jade) palettes, each with light and dark modes. Palette and mode choices
+are saved locally. Event cards open full details at `/events/[id]` within the app.
 
 ## Local development
 

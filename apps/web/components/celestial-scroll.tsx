@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ArrowUpRight, CalendarPlus, ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
 import { trpc } from "~/trpc/client";
-import { buildEventCalendar } from "~/lib/event-calendar";
+import { downloadEventCalendar } from "~/lib/event-calendar";
 
 export function CelestialScroll() {
   const [month, setMonth] = useState(() => new Date().toISOString().slice(0, 7));
@@ -27,18 +28,6 @@ export function CelestialScroll() {
     if (Math.abs(next.getUTCFullYear() - currentYear) > 1) return;
     setMonth(next.toISOString().slice(0, 7));
     setDay(null);
-  }
-  function download(event: Parameters<typeof buildEventCalendar>[0]) {
-    const url = URL.createObjectURL(
-      new Blob([buildEventCalendar(event)], { type: "text/calendar;charset=utf-8" }),
-    );
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `tsukuyomi-${event.id}.ics`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return (
     <section id="celestial-scroll" className="celestial-scroll">
@@ -177,7 +166,9 @@ export function CelestialScroll() {
                   {label.toUpperCase()} ·{" "}
                   {event.sourceApi === "USNO" ? "US NAVAL OBSERVATORY" : "THE SPACE DEVS"}
                 </small>
-                <h3>{event.title}</h3>
+                <h3>
+                  <Link href={`/events/${event.id}`}>{event.title}</Link>
+                </h3>
                 <time dateTime={new Date(event.startUtc).toISOString()}>
                   {new Date(event.startUtc).toLocaleString(undefined, {
                     dateStyle: "medium",
@@ -192,15 +183,13 @@ export function CelestialScroll() {
                   </p>
                 )}
                 <div className="scroll-event-actions">
-                  <button onClick={() => download(event)}>
+                  <button onClick={() => downloadEventCalendar(event)}>
                     <CalendarPlus size={14} />
                     Add to calendar
                   </button>
-                  {event.url && (
-                    <a href={event.url} target="_blank" rel="noreferrer">
-                      View source <ArrowUpRight size={13} />
-                    </a>
-                  )}
+                  <Link href={`/events/${event.id}`}>
+                    View details <ArrowUpRight size={13} />
+                  </Link>
                 </div>
               </div>
             </article>

@@ -5,6 +5,19 @@ function escapeText(value: string) {
     .replace(/;/g, "\\;")
     .replace(/,/g, "\\,");
 }
+
+export function downloadEventCalendar(event: Parameters<typeof buildEventCalendar>[0]) {
+  const url = URL.createObjectURL(
+    new Blob([buildEventCalendar(event)], { type: "text/calendar;charset=utf-8" }),
+  );
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `tsukuyomi-${event.id}.ics`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 function stamp(value: Date) {
   return value
     .toISOString()

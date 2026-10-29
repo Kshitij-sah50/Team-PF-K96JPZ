@@ -1,9 +1,21 @@
 import { TRPCError } from "@trpc/server";
-import { listCelestialEvents } from "@repo/services/celestial";
+import { getCelestialEvent, listCelestialEvents } from "@repo/services/celestial";
 import { publicProcedure, router } from "../../trpc";
 import { z } from "../../schema";
 
 export const celestialRouter = router({
+  event: publicProcedure.input(z.object({ id: z.uuid() })).query(async ({ input }) => {
+    let event;
+    try {
+      event = await getCelestialEvent(input.id);
+    } catch {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Event details could not be loaded. Please try again.",
+      });
+    }
+    return event;
+  }),
   events: publicProcedure
     .input(
       z.object({

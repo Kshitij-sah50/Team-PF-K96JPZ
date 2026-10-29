@@ -1,4 +1,4 @@
-import { db, and, asc, eq, gte, lt, inArray } from "@repo/database";
+import { db, and, asc, desc, eq, gte, lt, inArray } from "@repo/database";
 import {
   celestialEventsTable,
   eventTypesTable,
@@ -6,6 +6,24 @@ import {
   eventFeedItemsTable,
 } from "@repo/database/schema";
 import { fetchLaunches, fetchPhases, monthBounds, type NormalizedEvent } from "./providers";
+
+export async function getCelestialEvent(id: string) {
+  const [result] = await db
+    .select({
+      event: celestialEventsTable,
+      type: eventTypesTable.code,
+      label: eventTypesTable.label,
+      syncedAt: eventFeedSyncTable.succeededAt,
+    })
+    .from(celestialEventsTable)
+    .innerJoin(eventTypesTable, eq(eventTypesTable.id, celestialEventsTable.typeId))
+    .leftJoin(eventFeedItemsTable, eq(eventFeedItemsTable.eventId, celestialEventsTable.id))
+    .leftJoin(eventFeedSyncTable, eq(eventFeedSyncTable.key, eventFeedItemsTable.feedKey))
+    .where(eq(celestialEventsTable.id, id))
+    .orderBy(desc(eventFeedSyncTable.succeededAt))
+    .limit(1);
+  return result ?? null;
+}
 
 const providers = [
   {

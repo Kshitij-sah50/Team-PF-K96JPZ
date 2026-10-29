@@ -34,9 +34,9 @@
 .watch-stars > span {
   position: absolute;
   border-radius: 50%;
-  background: #eadab1;
+  background: var(--watch-star);
   opacity: 0.65;
-  box-shadow: 0 0 7px #eadab150;
+  box-shadow: 0 0 7px var(--watch-glow);
   animation: watch-twinkle var(--star-duration) ease-in-out var(--star-delay) infinite alternate;
 }
 .watch-sky::before {
@@ -46,7 +46,7 @@
   height: 270px;
   left: 26%;
   top: -48px;
-  background: radial-gradient(circle, #c4a67418, transparent 67%);
+  background: radial-gradient(circle, var(--watch-glow), transparent 67%);
   border-radius: 50%;
   animation: watch-lunar-glow 8s ease-in-out infinite alternate;
   pointer-events: none;
@@ -78,7 +78,7 @@
   left: 8%;
   width: 100px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #eadab1);
+  background: linear-gradient(90deg, transparent, var(--watch-star));
   opacity: 0;
   transform: rotate(-30deg);
   animation: watch-meteor 18s 3s linear infinite;
@@ -90,7 +90,7 @@
   width: 74px;
   bottom: 12px;
   right: 15%;
-  fill: #0e140e;
+  fill: var(--watch-gate);
   opacity: 0.9;
 }
 .watch-sky > span {
@@ -143,7 +143,7 @@
   top: -5%;
   width: 9px;
   height: 13px;
-  background: #bb687d;
+  background: var(--watch-petal);
   opacity: 0;
   border-radius: 80% 0 80% 35%;
   animation: watch-petal-fall var(--petal-duration) linear var(--petal-delay) infinite;
@@ -152,18 +152,18 @@
   display: block;
 }
 .light .watch-stars > span {
-  background: #99702e;
+  background: var(--watch-star);
   box-shadow: none;
   opacity: 0.4;
 }
 .light .watch-shooting-star {
-  background: linear-gradient(90deg, transparent, #99702e);
+  background: linear-gradient(90deg, transparent, var(--watch-star));
 }
 .light .watch-sky::before {
-  background: radial-gradient(circle, #b08b3620, transparent 67%);
+  background: radial-gradient(circle, var(--watch-glow), transparent 67%);
 }
 .light .watch-torii {
-  fill: #794a34;
+  fill: var(--watch-gate);
 }
 @media (hover: hover) {
   .watchtower button:hover:not(:disabled),

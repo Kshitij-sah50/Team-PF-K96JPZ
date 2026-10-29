@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 @import "./watch-theme.css";
 @import "./watch-motion.css";
+@import "./event-details.css";
+@import "./watch-palettes.css";
 
 html {
   scroll-behavior: smooth;
@@ -10,7 +12,7 @@ html {
   --ink: var(--watch-bg);
   --gold: var(--watch-accent);
   --muted-ink: var(--watch-muted);
-  background: var(--ink);
+  background: radial-gradient(ellipse at 80% 0%, var(--watch-ambient), transparent 45%), var(--ink);
   color: var(--watch-text);
   min-height: 100vh;
   font-family: var(--font-geist-sans), sans-serif;
@@ -373,7 +375,7 @@ html {
   height: 5px;
   width: 5px;
   border-radius: 50%;
-  background: #b8c697;
+  background: var(--watch-vermilion);
   margin-right: 10px;
 }
 .watch-hero {
@@ -401,7 +403,7 @@ html {
   margin-bottom: 20px;
 }
 .watch-hero h1 em {
-  color: var(--watch-highlight);
+  color: var(--watch-vermilion);
   font-weight: normal;
 }
 .watch-hero p:not(.watch-eyebrow) {
@@ -413,15 +415,15 @@ html {
   display: inline-flex;
   align-items: center;
   gap: 24px;
-  background: #a64837;
+  background: var(--watch-cta);
   padding: 12px 18px;
   margin-top: 26px;
   font-size: 11px;
-  color: #fff0db;
+  color: var(--watch-cta-text);
 }
 .watch-sky {
   position: relative;
-  background: radial-gradient(ellipse at 60% 30%, #8b876526, transparent 60%);
+  background: radial-gradient(ellipse at 60% 30%, var(--watch-glow), transparent 60%);
 }
 .watch-moon {
   position: absolute;
@@ -430,8 +432,8 @@ html {
   border-radius: 50%;
   top: 0;
   left: 38%;
-  background: radial-gradient(circle at 38% 40%, #e4dbc1, #aaa58a);
-  box-shadow: 0 0 65px #c9bc8718;
+  background: radial-gradient(circle at 38% 40%, var(--watch-moon-center), var(--watch-moon-edge));
+  box-shadow: 0 0 65px var(--watch-glow);
   opacity: 0.88;
 }
 .watch-sky > span {
