@@ -36,7 +36,7 @@ pnpm exec dotenv -- pnpm --filter @repo/api dev
 pnpm exec dotenv -- pnpm --filter web dev
 ```
 
-Open http://localhost:3000. The API defaults to http://localhost:8000. Next.js proxies `/trpc` to the API, keeping requests on the same origin. Set server-side `API_URL` to change the proxy destination. If configuring `NEXT_PUBLIC_API_URL` instead, it must include the `/trpc` path and the API must allow your origin.
+Open http://localhost:3000. The API defaults to http://localhost:8000. Next.js proxies `/trpc` to the API, keeping browser requests on the same origin. Set server-side `API_URL` to change the proxy destination, then restart the web app. Old `NEXT_PUBLIC_API_URL` values are ignored. Both the web app and API must stay running for data to load.
 
 Google OAuth variables are optional for the Watchtower. Existing OAuth discovery is retained, but sign-in and authenticated user operations are not implemented yet. Do not overwrite an existing `.env` when following setup.
 
