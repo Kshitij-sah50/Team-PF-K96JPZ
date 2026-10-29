@@ -3,6 +3,18 @@
   max-width: 1050px;
   margin: auto;
 }
+.lens-help {
+  font-size: 11px;
+  line-height: 1.9;
+  color: var(--watch-muted);
+  margin: 14px 0;
+}
+.watchtower .celestial-scroll > h2 {
+  font:
+    26px Georgia,
+    serif;
+  margin: 12px 0;
+}
 .bonus-main > h1 {
   font:
     46px/1.15 Georgia,

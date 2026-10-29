@@ -1,71 +1,30 @@
 # API setup for Tsukuyomi Watch
 
-No API key is required for the features connected so far. Keep future secret keys
-in the root `.env`, never in `NEXT_PUBLIC_` variables or Git.
+No paid API account is needed for the connected astronomy features. Server push uses locally generated VAPID credentials; keep private keys and scheduler secrets in the ignored root `.env` or your hosting secret settings.
 
-## Connected in Parts 2 and 3
+| Feature | Source | Setup |
+| --- | --- | --- |
+| Weather and city search | [Open-Meteo](https://open-meteo.com/) | Public endpoints; no key. Review usage terms before commercial scaling. |
+| Scroll map | [Leaflet](https://leafletjs.com/) and [Natural Earth](https://www.naturalearthdata.com/) | Local country outlines; no map key. |
+| Moon phases, rise and set | [US Naval Observatory](https://aa.usno.navy.mil/data/api) | No secret required. Location-specific daily data is cached. |
+| Rocket launches | [Launch Library](https://thespacedevs.com/llapi) | Public access is rate-limited; month responses are cached. |
+| Meteor observing windows | [International Meteor Organization](https://www.imo.net/calendar/) | Approximate recurring dates with explicit uncertainty; consult annual forecasts for precise maxima. |
+| Eclipses | [Astronomy Engine](https://github.com/cosinekitty/astronomy) | Computed global maxima; no key. Local visibility and contacts are separate. |
+| ISS passes | [CelesTrak](https://celestrak.org/) and [Satellite.js](https://github.com/shashwatak/satellite-js) | ISS TLEs (25544), one-hour cache, SGP4 visible-segment prediction. No N2YO key required. Stale elements produce an error. |
+| Japanese lunar labels | [himekuri](https://github.com/kenjiyoshidahome2026-bit/himekuri) | MIT-licensed Kyūreki converter, including leap months. |
+| Telescope image import | [NASA SkyView](https://skyview.gsfc.nasa.gov/current/docs/easy.html) | On-demand archival survey JPEGs, not a live camera; no NASA key. |
+| AI restoration | [KAIR DnCNN](https://github.com/cszn/KAIR) | Bundled, verified model runs locally in a browser worker. Optional conventional Richardson–Lucy deblurring; no inference account. |
+| Spectral/time analysis | Local CSV analysis | Import consistent measurements; candidates are not confirmed discoveries. |
+| Background browser push | Web Push / VAPID | Generate keys locally and run the server scheduler every minute. See [completion notes](COMPLETION_NOTES.md). |
 
-| Feature                                              | Provider and documentation                                                                                                       | Key / setup                                                                                                                                      |
-| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Cloud cover, humidity, visibility, temperature, wind | [Open-Meteo Forecast API](https://open-meteo.com/en/docs)                                                                        | Public endpoint for prototyping; no key in the current integration. Review their usage terms before commercial deployment.                       |
-| Interactive scroll map                               | [Leaflet](https://leafletjs.com/) and [Natural Earth](https://www.naturalearthdata.com/)                                         | No key. Local country outlines are shipped with the app; no external map tiles are required.                                                     |
-| Primary moon phases                                  | [US Naval Observatory API](https://aa.usno.navy.mil/data/api)                                                                    | No credential required by the endpoint. The optional `ID` is an application identifier, not a secret API key.                                    |
-| Rocket launches                                      | [The Space Devs / Launch Library 2](https://thespacedevs.com/llapi), [API endpoint](https://ll.thespacedevs.com/2.3.0/launches/) | Public access allows 15 unauthenticated requests per hour according to the provider. Higher quotas require arranging access with The Space Devs. |
+## Local push setup
 
-Additional connected APIs:
+Run `node packages/services/alerts/generate-keys.cjs` once, then restart the API. The script refuses to replace existing keys. Local keys have been generated during implementation. Run `pnpm exec dotenv -- node ops/push-cron.mjs --watch` with `API_URL=http://localhost:8000` for local continuous scheduling.
 
-- City search: [Open-Meteo Geocoding / GeoNames](https://open-meteo.com/en/docs/geocoding-api), no key. Catalog destinations are also searched in PostgreSQL.
-- Moonrise, moonset, and daily illumination: [USNO Complete Sun and Moon Data](https://aa.usno.navy.mil/data/api), no key. The service caches three adjacent UTC dates per location for one hour.
+For production, set `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, and `CRON_SECRET` on the API. Schedule `node ops/push-cron.mjs` once per minute with `API_URL` and the same `CRON_SECRET`. Apply database migrations first. None of the private settings belongs in `NEXT_PUBLIC_` variables. Browser permission and supported browser push services are required. No real push receipt has been verified on a physical device yet.
 
-Endpoint examples used by the application:
+Moonrise toasts still work while the app is open. Calendar exports delegate closed-app reminders to the user's calendar. Background push uses its own persistent subscription and job tables. Email delivery is not connected.
 
-```text
-https://api.open-meteo.com/v1/forecast?latitude=32.779&longitude=78.964&hourly=cloud_cover,relative_humidity_2m,visibility,temperature_2m,wind_speed_10m,is_day&forecast_days=3&timeformat=unixtime&timezone=GMT
-https://aa.usno.navy.mil/api/moon/phases/date?date=2026-10-01&nump=8
-https://ll.thespacedevs.com/2.3.0/launches/?net__gte=2026-10-01T00:00:00Z&net__lt=2026-11-01T00:00:00Z&ordering=net&limit=100&mode=normal
-```
+## Scientific scope
 
-USNO returns the next eight primary phase instants. We retain only those in the
-selected UTC month. This supplies phase dates, not daily lunar illumination or
-a traditional Japanese lunisolar calendar. Launch Library supplies launch schedules,
-not predictions of whether a launch is visible from the user's location.
-
-The event service stores normalized events and per-month feed membership in
-PostgreSQL, reuses successful requests for one hour, and cools down failed
-requests for ten minutes. Upserts prevent duplicate events and update launch
-times. Feed membership is replaced only on successful refresh, so removed events
-stop appearing without deleting their historical records. Failed feeds retain
-their saved snapshot and display an unavailable/stale status. Each launch fetch
-is capped at 100 results, with a visible truncation warning. Browsing many months
-can still exhaust the free launch quota; cache requests and arrange higher limits
-before scaling to many users. In-process request deduplication is not a
-distributed rate limiter.
-
-## APIs and sources for future parts
-
-| Feature                              | Where to get it                                                                                                                           | What you need                                                                                                                                                                                                                        |
-| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ISS visible passes                   | [N2YO REST API](https://www.n2yo.com/api/)                                                                                                | Register at N2YO, sign in, open your profile, and generate a REST API key. The ISS catalog ID is `25544`; `visualpasses` needs observer latitude, longitude, altitude, and prediction days. This key is not consumed by the app yet. |
-| Meteor showers                       | [International Meteor Organization 2026 calendar](https://www.imo.net/files/meteor-shower/cal2026.pdf)                                    | A published calendar, not a JSON API. Curate annual records with source attribution and uncertainty; do not assume identical peak instants every year. Not imported yet.                                                             |
-| Eclipses                             | [NASA eclipse catalogs](https://eclipse.gsfc.nasa.gov/eclipse.html)                                                                       | Published tables/maps, not a general events JSON API. Curate dates and geographic visibility, or implement astronomical calculations. Not imported yet.                                                                              |
-| NASA imagery and optional APOD/NeoWs | [NASA API portal](https://api.nasa.gov/)                                                                                                  | Generate a NASA API key on that portal for APIs that require one. It is not a universal celestial-events key and is not needed by the current app.                                                                                   |
-| AI image restoration                 | Your own inference worker, optionally hosted on [Hugging Face Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) | Select and evaluate an appropriate denoising/deblurring model, then deploy an inference endpoint or custom container. Hosting alone does not provide a validated astronomy restoration model. No restoration API is connected yet.   |
-
-For Spirit Lens, prefer a conservative, non-generative restoration pipeline and
-validate its effect on source positions and photometry. PSNR/SSIM against the
-noisy input can measure similarity but do not prove that no details were
-invented or that scientific accuracy improved. Object detection can run in the
-same worker; it does not require an unrelated commercial API.
-
-## What to obtain now
-
-Nothing is needed to try the Watchtower, moon phases, and launch calendar after
-database setup. For the next ISS integration, obtain an N2YO REST key and keep it
-locally until the integration is added. A NASA key is optional for future NASA
-features. No paid model endpoint is needed at this stage.
-
-Calendar downloads contain a local calendar reminder 30 minutes before the event.
-Delivery depends on the user's calendar application. Server-side email alerts,
-background scheduling, and authenticated alert preferences are not implemented.
-
-Moonrise reminders are saved on the current device. In-app delivery requires the app to remain open; calendar export is available for delivery through a calendar application. These alerts do not use the authenticated event_alerts table yet. The display explicitly distinguishes daytime, nighttime, and future-date moonrise messages.
+Restoration uses display previews, not calibrated FITS photometry. Source morphology supports star/galaxy candidates with brightness and size estimates; catalogue identities are not asserted. Similarity with a noisy input cannot prove scientific accuracy. The Night Honor Score currently excludes light pollution and moonlight, and the curated location catalog is intentionally small.

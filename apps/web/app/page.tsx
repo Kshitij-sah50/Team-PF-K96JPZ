@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { trpc } from "~/trpc/client";
 import { CelestialScroll } from "~/components/celestial-scroll";
+import { IssPasses } from "~/components/iss-passes";
+import { BackgroundAlerts } from "~/components/background-alerts";
 import { ThemeToggle } from "~/components/theme-toggle";
 import { SkyAtmosphere, DriftingPetals } from "~/components/sky-atmosphere";
 import { ScrollMap } from "~/components/scroll-map";
@@ -422,6 +424,8 @@ export default function Home() {
           </section>
         )}
         <CelestialScroll />
+        <IssPasses locationId={selected?.id} />
+        <BackgroundAlerts locationId={selected?.id} />
         <section className="watch-note">
           <span>✧</span>
           <div>

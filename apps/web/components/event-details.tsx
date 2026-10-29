@@ -17,6 +17,8 @@ import { downloadEventCalendar } from "~/lib/event-calendar";
 import { z } from "zod";
 import { JapaneseText } from "~/components/japanese-text";
 import { ObservationForm } from "~/components/observation-form";
+import { ThemeLandscape } from "~/components/theme-landscape";
+import { BackgroundAlerts } from "~/components/background-alerts";
 
 export function EventDetails({ id }: { id: string }) {
   const validId = z.uuid().safeParse(id).success;
@@ -47,6 +49,7 @@ export function EventDetails({ id }: { id: string }) {
           <span>/</span>
           <span>Event details</span>
         </nav>
+        <ThemeLandscape />
         {query.isLoading && (
           <p className="watch-message" role="status">
             Opening your celestial scroll…
@@ -98,7 +101,9 @@ export function EventDetails({ id }: { id: string }) {
               <p className="event-lead">
                 {isMoon
                   ? "A moment in the moon’s eternal rhythm."
-                  : "Another journey from Earth to the stars."}
+                  : data.type === "LAUNCH"
+                    ? "Another journey from Earth to the stars."
+                    : "A passing wonder in the celestial scroll."}
               </p>
               <button
                 className="event-calendar-action"
@@ -110,7 +115,12 @@ export function EventDetails({ id }: { id: string }) {
             </section>
             <div className="event-details-grid">
               <article className="event-story">
-                <ObservationForm eventId={event.id} title={event.title} startUtc={new Date(event.startUtc).toISOString()} />
+                <BackgroundAlerts eventId={event.id} />
+                <ObservationForm
+                  eventId={event.id}
+                  title={event.title}
+                  startUtc={new Date(event.startUtc).toISOString()}
+                />
                 <p className="watch-eyebrow">THE STORY BEHIND THE MOMENT</p>
                 <h2>{isMoon ? "Read the moon." : "Follow the mission."}</h2>
                 <p className="event-description">
@@ -124,7 +134,11 @@ export function EventDetails({ id }: { id: string }) {
                     <p>
                       {isMoon
                         ? "This time marks the global phase instant. Moonrise, altitude, weather, and visibility depend on your observing location. Check the Watchtower for your next nighttime forecast."
-                        : "Launch times may change. The site listed is the launch location; it does not predict visibility from where you are. Check the saved schedule again before making plans."}
+                        : data.type === "LAUNCH"
+                          ? "Launch times may change. The site listed is the launch location; it does not predict visibility from where you are. Check the saved schedule again before making plans."
+                          : data.type === "METEOR"
+                            ? "This is an approximate seasonal observing window, not an exact annual peak time. Consult the linked annual forecast and check radiant altitude, moonlight and weather."
+                            : "This is the calculated global eclipse maximum. Check local visibility and contact times before observing; use appropriate certified solar viewing protection for solar eclipses."}
                     </p>
                     <Link href="/#watchtower">
                       Open the Watchtower <ArrowUpRight size={14} />
@@ -157,7 +171,7 @@ export function EventDetails({ id }: { id: string }) {
                 <div>
                   <MapPin size={18} />
                   <dl>
-                    <dt>{isMoon ? "Observation" : "Launch site"}</dt>
+                    <dt>{data.type === "LAUNCH" ? "Launch site" : "Observation / visibility"}</dt>
                     <dd>
                       {event.visibilityRegion ||
                         (isMoon
