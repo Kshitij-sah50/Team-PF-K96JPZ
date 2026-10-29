@@ -4,25 +4,29 @@ import { get } from "node:https";
 
 function download(url: URL): Promise<Uint8Array<ArrayBuffer>> {
   return new Promise((resolve, reject) => {
-    const request = get(url, { family: 4 }, (response) => {
-      if (response.statusCode !== 200) {
-        response.resume();
-        reject(new Error("SkyView is unavailable."));
-        return;
-      }
-      const chunks: Buffer[] = [];
-      let length = 0;
-      response.on("data", (chunk: Buffer) => {
-        length += chunk.length;
-        if (length > 4 * 1024 * 1024) {
-          response.destroy(new Error("Response too large."));
+    const request = get(
+      url,
+      { family: 4, headers: { "User-Agent": "TsukuyomiWatch/1.0", Accept: "image/jpeg" } },
+      (response) => {
+        if (response.statusCode !== 200) {
+          response.resume();
+          reject(new Error(`SkyView returned HTTP ${response.statusCode}.`));
           return;
         }
-        chunks.push(chunk);
-      });
-      response.on("error", reject);
-      response.on("end", () => resolve(new Uint8Array(Buffer.concat(chunks))));
-    });
+        const chunks: Buffer[] = [];
+        let length = 0;
+        response.on("data", (chunk: Buffer) => {
+          length += chunk.length;
+          if (length > 4 * 1024 * 1024) {
+            response.destroy(new Error("Response too large."));
+            return;
+          }
+          chunks.push(chunk);
+        });
+        response.on("error", reject);
+        response.on("end", () => resolve(new Uint8Array(Buffer.concat(chunks))));
+      },
+    );
     const timer = setTimeout(() => request.destroy(new Error("SkyView timed out.")), 45000);
     request.on("error", reject);
     request.on("close", () => clearTimeout(timer));
@@ -92,7 +96,12 @@ export async function GET(request: NextRequest) {
         "X-Content-Type-Options": "nosniff",
       },
     });
-  } catch {
+  } catch (error) {
+    // Fixed public NASA endpoint only; log error codes, never environment values.
+    console.warn("SkyView upstream request failed", {
+      code: (error as { code?: string }).code ?? "UPSTREAM_ERROR",
+      reason: error instanceof Error ? error.message : "Unknown upstream failure",
+    });
     return Response.json(
       {
         error:
