@@ -1,4 +1,5 @@
 import * as ort from "onnxruntime-web/wasm";
+import { deconvolve } from "./deblur";
 import { compareMetrics, conservativeBlend, detectObjects, luminance, reflect } from "./analysis";
 import {
   LENS_MODEL,
@@ -100,7 +101,21 @@ worker.onmessage = async ({ data }) => {
       }
     }
     progress("Preserving source regions and measuring changes…", 94);
-    const pixels = conservativeBlend(original, output, width, height, strength, objects);
+    const corrected = data.deblur
+      ? deconvolve(output, width, height, data.blurRadius ?? 1.1)
+      : output;
+    // In deblur mode preserve source cores while allowing bounded wing corrections.
+    const protectedObjects = data.deblur
+      ? objects.map((object) => ({ ...object, radius: Math.min(2, object.radius) }))
+      : objects;
+    const pixels = conservativeBlend(
+      original,
+      corrected,
+      width,
+      height,
+      strength,
+      protectedObjects,
+    );
     const metrics = compareMetrics(original, pixels, width, height);
     worker.postMessage(
       {

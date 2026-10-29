@@ -36,9 +36,12 @@ import {
 } from "~/lib/spirit-lens/model";
 import "~/app/spirit-lens.css";
 import { SkyViewImport, type SkyViewSource } from "./skyview-import";
+import { ThemeLandscape } from "../theme-landscape";
 import "~/app/bonuses.css";
 
 type LensResult = {
+  deblur: boolean;
+  blurRadius: number;
   blob: Blob;
   objects: LensObject[];
   metrics: LensMetrics;
@@ -65,6 +68,8 @@ export function SpiritLens() {
   const [skySource, setSkySource] = useState<SkyViewSource | null>(null);
   const [result, setResult] = useState<LensResult | null>(null);
   const [strength, setStrength] = useState<LensStrength>("gentle");
+  const [deblur, setDeblur] = useState(false);
+  const [blurRadius, setBlurRadius] = useState(1.1);
   const [selected, setSelected] = useState<number | null>(null);
   const [status, setStatus] = useState("Choose an image to begin.");
   const [progress, setProgress] = useState(0);
@@ -168,6 +173,8 @@ export function SpiritLens() {
             );
             if (generation.current !== version) return;
             setResult({
+              deblur,
+              blurRadius,
               blob,
               objects: data.objects,
               metrics: data.metrics,
@@ -189,6 +196,8 @@ export function SpiritLens() {
       engine.postMessage(
         {
           origin: window.location.origin,
+          deblur,
+          blurRadius,
           pixels,
           width: input.width,
           height: input.height,
@@ -215,6 +224,14 @@ export function SpiritLens() {
     const report = {
       schemaVersion: 1,
       skyViewSource: skySource,
+      deblurring: result.deblur
+        ? {
+            method: "Richardson-Lucy",
+            iterations: 6,
+            gaussianSigmaPx: result.blurRadius,
+            sourceCoresProtected: true,
+          }
+        : null,
       createdAt: new Date().toISOString(),
       source: {
         name: input.name,
@@ -230,7 +247,8 @@ export function SpiritLens() {
         strength: result.strength,
         ...STRENGTHS[result.strength],
         luminanceOnly: true,
-        protectedCandidateRegions: true,
+        protectedCandidateRegions: !result.deblur,
+        protectedCandidateCores: result.deblur,
       },
       elapsedMs: result.elapsedMs,
       metrics: result.metrics,
@@ -267,6 +285,7 @@ export function SpiritLens() {
           <span>/</span>
           <span>Spirit Lens</span>
         </nav>
+        <ThemeLandscape />
         <section className="lens-hero">
           <div>
             <p className="watch-eyebrow">
@@ -381,6 +400,36 @@ export function SpiritLens() {
               </p>
             )}
             <div className="lens-settings">
+              <label className="lens-help">
+                <input
+                  type="checkbox"
+                  checked={deblur}
+                  disabled={locked}
+                  onChange={(event) => setDeblur(event.target.checked)}
+                />{" "}
+                Reduce blur after AI denoising
+              </label>
+              {deblur && (
+                <label className="lens-help">
+                  Estimated blur radius: {blurRadius.toFixed(1)} px{" "}
+                  <input
+                    type="range"
+                    min="0.5"
+                    max="2"
+                    step="0.1"
+                    value={blurRadius}
+                    disabled={locked}
+                    onChange={(event) => setBlurRadius(Number(event.target.value))}
+                  />
+                </label>
+              )}
+              {deblur && (
+                <p className="lens-help">
+                  Uses six Richardson–Lucy iterations with an assumed Gaussian blur kernel. Start
+                  with a small radius and compare for ringing; source cores and bounded changes
+                  remain protected.
+                </p>
+              )}
               <p className="watch-eyebrow">02 / RESTORATION</p>
               <h2>A careful touch.</h2>
               <fieldset disabled={locked}>
@@ -545,7 +594,11 @@ export function SpiritLens() {
                             onClick={() => setSelected(item.id)}
                           >
                             <span>{String(item.id).padStart(2, "0")}</span>{" "}
-                            {item.kind === "star candidate" ? "Star candidate" : "Extended source"}
+                            {item.kind === "star candidate"
+                              ? "Star candidate"
+                              : item.kind === "galaxy candidate"
+                                ? "Galaxy candidate"
+                                : "Extended source"}
                           </button>
                         ))}
                       </div>
@@ -595,6 +648,12 @@ export function SpiritLens() {
                     Positions and sizes use preview pixels. Brightness is uncalibrated display
                     luminance, not an astronomical magnitude.
                   </p>
+                  <p className="lens-help">
+                    Galaxy candidates are resolved sources with at least 55 detected pixels,
+                    ellipticity ≥0.25, and peak/noise ≥8. This shape heuristic can confuse nebulae
+                    or blended stars with galaxies; it is not a learned classifier or a catalogue
+                    match.
+                  </p>
                 </section>
               </>
             )}
@@ -605,15 +664,16 @@ export function SpiritLens() {
           <div>
             <p>
               DnCNN estimates noise in luminance. Spirit Lens applies a bounded portion of that
-              correction, preserves RGB channel differences, and leaves detected source regions
-              unchanged. The same-size result uses no generative filling or upscaling. Faint
+              correction and preserves RGB channel differences. Denoising protects detected source
+              regions; optional deblurring protects their cores while allowing bounded wing
+              corrections. The same-size result uses no generative filling or upscaling. Faint
               features can still be affected, so compare with your input.
             </p>
             <p>
               This model was trained for Gaussian noise in ordinary photographs. This first version
-              provides visual denoising, not calibrated photometry or deblurring. Detection uses
-              conventional image analysis. PSNR, windowed SSIM, estimated noise, and Laplacian
-              sharpness are included in the report.
+              provides visual denoising and optional conventional deconvolution, not calibrated
+              photometry. Detection uses conventional image analysis. PSNR, windowed SSIM, estimated
+              noise, and Laplacian sharpness are included in the report.
             </p>
             <p>
               Processing runs in a worker on this device. Images and results are kept in this tab;

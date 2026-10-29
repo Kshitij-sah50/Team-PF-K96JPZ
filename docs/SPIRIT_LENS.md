@@ -8,7 +8,7 @@ This first part uses 8-bit display previews with a maximum edge of 768 pixels. T
 
 Detection uses conventional brightness/shape analysis on the original working preview. Stars and extended sources are candidates without catalogue identifications. Extended sources can include galaxies, nebulae, or blended stars. Reported positions, areas, and brightness use preview pixels and uncalibrated display values. PSNR/SSIM compare with the noisy input; noise and sharpness are estimates.
 
-Persistent image history/database storage, full-resolution/FITS/RAW support, deblurring, and validated astronomical classifiers remain later parts.
+Optional bounded Richardson–Lucy deblurring is now available after AI denoising. See [completion notes](COMPLETION_NOTES.md) for the PSF controls and validation. Persistent image history/database storage, full-resolution/FITS/RAW support, and validated astronomical classifiers remain later parts.
 
 Validation:
 

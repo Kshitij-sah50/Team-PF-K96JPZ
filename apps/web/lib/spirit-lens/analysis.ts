@@ -144,7 +144,12 @@ export function detectObjects(values: Float32Array, width: number, height: numbe
     }
     objects.push({
       id: 0,
-      kind: tail >= 55 ? "extended source" : "star candidate",
+      kind:
+        tail >= 55
+          ? 1 - Math.sqrt(minor / major) >= 0.25 && peakSignal / noise >= 8
+            ? "galaxy candidate"
+            : "extended source"
+          : "star candidate",
       x,
       y,
       radius: radius + 2,

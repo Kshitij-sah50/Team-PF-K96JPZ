@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
+import { ThemeLandscape } from "./theme-landscape";
 import "~/app/spirit-lens.css";
 import "~/app/bonuses.css";
 export function BonusShell({ title, children }: { title: string; children: React.ReactNode }) {
@@ -19,6 +20,7 @@ export function BonusShell({ title, children }: { title: string; children: React
           <Link href="/dojo">Honor journal</Link>
         </nav>
         <main className="bonus-main">
+          <ThemeLandscape />
           <p className="watch-eyebrow">THE BONUS SCROLL</p>
           <h1>{title}</h1>
           {children}

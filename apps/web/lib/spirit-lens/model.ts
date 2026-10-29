@@ -26,7 +26,7 @@ export const STRENGTHS = {
 
 export type LensObject = {
   id: number;
-  kind: "star candidate" | "extended source";
+  kind: "star candidate" | "galaxy candidate" | "extended source";
   x: number;
   y: number;
   radius: number;
@@ -49,6 +49,8 @@ export type LensMetrics = {
 };
 
 export type LensRequest = {
+  deblur?: boolean;
+  blurRadius?: number;
   origin: string;
   pixels: ArrayBuffer;
   width: number;

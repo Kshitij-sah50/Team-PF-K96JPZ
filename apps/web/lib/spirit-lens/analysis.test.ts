@@ -65,3 +65,12 @@ test("image validation rejects invalid and oversized decoded dimensions before d
   header[24] = 16;
   assert.throws(() => inspectImage(header), /16-bit/);
 });
+test("elongated extended light is exposed as an unconfirmed galaxy candidate", () => {
+  const n = 96,
+    values = new Float32Array(n * n).fill(20);
+  for (let y = 0; y < n; y++)
+    for (let x = 0; x < n; x++)
+      values[y * n + x]! += 120 * Math.exp(-0.5 * (((x - 48) / 8) ** 2 + ((y - 48) / 3) ** 2));
+  const objects = detectObjects(values, n, n);
+  assert.ok(objects.some((object) => object.kind === "galaxy candidate"));
+});

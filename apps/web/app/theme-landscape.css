@@ -1,0 +1,80 @@
+.theme-landscape {
+  height: 150px;
+  position: relative;
+  overflow: clip;
+  border: 1px solid var(--watch-border);
+  background: linear-gradient(160deg, var(--watch-panel), var(--watch-bg));
+  margin: 10px 0 25px;
+  isolation: isolate;
+  pointer-events: none;
+}
+.theme-landscape .watch-stars {
+  opacity: 0.5;
+}
+.theme-landscape .watch-ink-wash {
+  left: 0;
+  bottom: -20px;
+  width: 65%;
+  height: 180px;
+  opacity: 0.8;
+}
+.theme-landscape .watch-torii {
+  left: auto;
+  right: 12%;
+  bottom: 0;
+  top: auto;
+  width: 115px;
+  height: 130px;
+  opacity: 0.9;
+}
+.theme-landscape .watch-sakura-branch {
+  left: auto;
+  right: 0;
+  top: 0;
+  width: 300px;
+  height: 150px;
+}
+.theme-landscape .watch-katana-motif {
+  top: 5px;
+  right: 12%;
+  height: 150px;
+  width: 90px;
+}
+.theme-landscape-moon {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  left: 15%;
+  top: 25px;
+  background: radial-gradient(circle at 35% 30%, var(--watch-moon-center), var(--watch-moon-edge));
+  box-shadow: 0 0 45px var(--watch-glow);
+}
+.theme-landscape .watch-constellation {
+  right: 35%;
+  top: 10px;
+  height: 110px;
+}
+.theme-landscape .watch-shooting-star {
+  display: none;
+}
+@media (max-width: 600px) {
+  .theme-landscape {
+    height: 110px;
+  }
+  .theme-landscape-moon {
+    height: 55px;
+    width: 55px;
+  }
+  .theme-landscape .watch-torii {
+    width: 80px;
+    height: 95px;
+  }
+  .theme-landscape .watch-katana-motif {
+    height: 110px;
+  }
+  .theme-landscape .watch-sakura-branch {
+    width: 220px;
+    height: 110px;
+  }
+}
