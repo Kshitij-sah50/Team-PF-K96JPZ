@@ -1,6 +1,16 @@
 import { NextRequest } from "next/server";
 import { z } from "zod";
 import { get } from "node:https";
+class SkyViewBusy extends Error {}
+let busyUntil = 0;
+const busyResponse = () =>
+  Response.json(
+    {
+      error:
+        "NASA SkyView is temporarily overloaded. Please try again in a minute, or upload an image from your device.",
+    },
+    { status: 503, headers: { "Retry-After": "60" } },
+  );
 
 function download(url: URL): Promise<Uint8Array<ArrayBuffer>> {
   return new Promise((resolve, reject) => {
@@ -68,6 +78,7 @@ export async function GET(request: NextRequest) {
   try {
     let bytes = cache.get(key);
     if (!bytes || bytes.expires < Date.now()) {
+      if (Date.now() < busyUntil) return busyResponse();
       let job = pending.get(key);
       if (!job) {
         if (pending.size >= 3)
@@ -77,6 +88,13 @@ export async function GET(request: NextRequest) {
           );
         job = (async () => {
           const result = await download(url);
+          if (
+            (result[0] !== 255 || result[1] !== 216) &&
+            /Too Many Processes|system is overloaded/i.test(
+              new TextDecoder().decode(result.subarray(0, 4096)),
+            )
+          )
+            throw new SkyViewBusy("NASA SkyView is temporarily overloaded.");
           if (result[0] !== 255 || result[1] !== 216)
             throw new Error("No image was returned for this target and survey.");
           if (cache.size >= 20) cache.delete(cache.keys().next().value!);
@@ -97,6 +115,10 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
+    if (error instanceof SkyViewBusy) {
+      busyUntil = Date.now() + 60000;
+      return busyResponse();
+    }
     // Fixed public NASA endpoint only; log error codes, never environment values.
     console.warn("SkyView upstream request failed", {
       code: (error as { code?: string }).code ?? "UPSTREAM_ERROR",
