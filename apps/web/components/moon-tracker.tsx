@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Bell, CalendarPlus, Moon, X } from "lucide-react";
 import { trpc } from "~/trpc/client";
 import { downloadEventCalendar } from "~/lib/event-calendar";
+import { JapaneseText } from "~/components/japanese-text";
 import {
   moonriseMessage,
   readReminders,
@@ -130,7 +131,9 @@ export function MoonTracker({
     <section className="moon-tracker" aria-label="Moon phase tracker and alerts">
       <div className="moon-tracker-heading">
         <div>
-          <p className="watch-eyebrow">THE MOON’S WATCH · 月の便り</p>
+          <p className="watch-eyebrow">
+            THE MOON’S WATCH · <JapaneseText meaning="Tidings from the moon">月の便り</JapaneseText>
+          </p>
           <h2>Your next moment with the moon.</h2>
           <p>
             {locationName} · Times shown in {timeZone}

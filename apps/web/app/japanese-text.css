@@ -1,0 +1,40 @@
+.japanese-text {
+  cursor: help;
+}
+.watch-sky > .japanese-text {
+  z-index: 4;
+}
+.japanese-text:focus-visible {
+  outline: 1px solid var(--watch-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.japanese-translation {
+  z-index: 3000;
+  max-width: min(280px, calc(100vw - 32px));
+  padding: 9px 12px;
+  border: 1px solid #cfb27770;
+  border-radius: 4px;
+  background: #211724;
+  color: #fff1d7;
+  box-shadow: 0 4px 16px #100a1426;
+  font:
+    12px/1.6 var(--font-geist-sans),
+    sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
+  writing-mode: horizontal-tb;
+  text-align: left;
+  white-space: normal;
+}
+.light .japanese-translation {
+  background: #fff7eb;
+  color: #372335;
+  border-color: #9e714966;
+}
+@media (prefers-reduced-motion: reduce) {
+  .japanese-translation {
+    animation: none;
+    transition: none;
+  }
+}

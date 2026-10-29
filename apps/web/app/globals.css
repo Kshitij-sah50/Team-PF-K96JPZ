@@ -388,7 +388,7 @@ html {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 48px 0 38px;
-  overflow: hidden;
+  overflow: clip;
 }
 .watch-hero > div:first-child {
   z-index: 2;

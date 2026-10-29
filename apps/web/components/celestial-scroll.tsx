@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, CalendarPlus, ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
 import { trpc } from "~/trpc/client";
 import { downloadEventCalendar } from "~/lib/event-calendar";
+import { JapaneseText } from "~/components/japanese-text";
 
 export function CelestialScroll() {
   const [month, setMonth] = useState(() => new Date().toISOString().slice(0, 7));
@@ -33,7 +34,10 @@ export function CelestialScroll() {
     <section id="celestial-scroll" className="celestial-scroll">
       <div className="watch-section-title">
         <div>
-          <p className="watch-eyebrow">THE CELESTIAL SCROLL · 天の巻物</p>
+          <p className="watch-eyebrow">
+            THE CELESTIAL SCROLL ·{" "}
+            <JapaneseText meaning="Scroll of the heavens">天の巻物</JapaneseText>
+          </p>
           <h2>Keep time with the heavens.</h2>
         </div>
         <span>02 / DISCOVER</span>
@@ -158,9 +162,11 @@ export function CelestialScroll() {
           )}
           {visible.map(({ event, label, type: eventType }) => (
             <article className="scroll-event" key={event.id}>
-              <div className="scroll-event-symbol" aria-hidden="true">
-                {eventType === "MOON_PHASE" ? "月" : "天"}
-              </div>
+              <JapaneseText meaning={eventType === "MOON_PHASE" ? "Moon" : "Sky; heavens"} asChild>
+                <div className="scroll-event-symbol" tabIndex={0}>
+                  {eventType === "MOON_PHASE" ? "月" : "天"}
+                </div>
+              </JapaneseText>
               <div className="scroll-event-content">
                 <small>
                   {label.toUpperCase()} ·{" "}

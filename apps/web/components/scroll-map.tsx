@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type * as Leaflet from "leaflet";
 import { Maximize2, MapPin } from "lucide-react";
+import { JapaneseText } from "~/components/japanese-text";
 
 type Spot = {
   id: string;
@@ -190,8 +191,12 @@ export function ScrollMap({ spots, selectedId, origin, onSelect, onSearch }: Pro
   return (
     <div className="scroll-map-shell">
       <div className="scroll-map-ribbon">
-        <span>星見の地図 · THE STARGAZER’S SCROLL</span>
-        <span>北 N ↑</span>
+        <span>
+          <JapaneseText meaning="Stargazing map">星見の地図</JapaneseText> · THE STARGAZER’S SCROLL
+        </span>
+        <span>
+          <JapaneseText meaning="North">北</JapaneseText> N ↑
+        </span>
       </div>
       <div
         className="scroll-map-canvas"

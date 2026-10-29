@@ -1,12 +1,21 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { JapaneseText } from "~/components/japanese-text";
 
 export const palettes = [
-  { id: "tsukuyomi", label: "墨 Ink Wash · Indigo" },
-  { id: "akatsuki", label: "鳥居 Torii · Crimson" },
-  { id: "sakura", label: "桜 Sakura · Rose" },
-  { id: "katana", label: "刀 Katana · Black & Gold" },
+  {
+    id: "tsukuyomi",
+    label: "墨 Ink Wash · Indigo",
+    meaning: "墨 — Ink, used in traditional ink-wash painting",
+  },
+  {
+    id: "akatsuki",
+    label: "鳥居 Torii · Crimson",
+    meaning: "鳥居 — Torii, a traditional Japanese shrine gate",
+  },
+  { id: "sakura", label: "桜 Sakura · Rose", meaning: "桜 — Sakura, cherry blossom" },
+  { id: "katana", label: "刀 Katana · Black & Gold", meaning: "刀 — Katana, a Japanese sword" },
 ] as const;
 type Palette = (typeof palettes)[number]["id"];
 const isPalette = (value: string | null): value is Palette =>
@@ -51,20 +60,26 @@ export function PalettePicker() {
   return (
     <label className="watch-palette-picker">
       <span className="sr-only">Color palette</span>
-      <select
-        aria-label="Color palette"
-        value={palette}
-        disabled={!ready}
-        onChange={(event) => {
-          if (isPalette(event.target.value)) setPalette(event.target.value);
-        }}
+      <JapaneseText
+        meaning={palettes.find((option) => option.id === palette)!.meaning}
+        asChild
+        touchToggle={false}
       >
-        {palettes.map((option) => (
-          <option key={option.id} value={option.id}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+        <select
+          aria-label="Color palette"
+          value={palette}
+          disabled={!ready}
+          onChange={(event) => {
+            if (isPalette(event.target.value)) setPalette(event.target.value);
+          }}
+        >
+          {palettes.map((option) => (
+            <option key={option.id} value={option.id} title={option.meaning}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </JapaneseText>
     </label>
   );
 }

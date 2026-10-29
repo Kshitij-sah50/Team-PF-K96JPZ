@@ -22,6 +22,7 @@ import { SkyAtmosphere, DriftingPetals } from "~/components/sky-atmosphere";
 import { ScrollMap } from "~/components/scroll-map";
 import { MoonTracker } from "~/components/moon-tracker";
 import { LocationSearch } from "~/components/location-search";
+import { JapaneseText } from "~/components/japanese-text";
 
 const formatTime = (date: string | Date) =>
   new Date(date).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
@@ -98,12 +99,18 @@ export default function Home() {
     >
       <DriftingPetals />
       <aside className="watch-sidebar">
-        <a href="/" className="watch-brand">
-          <span>月</span>
-          <div>
-            TSUKUYOMI<small>WATCH · 月読</small>
-          </div>
-        </a>
+        <JapaneseText
+          meaning="Moon · Tsukuyomi, the Japanese moon deity"
+          asChild
+          touchToggle={false}
+        >
+          <a href="/" className="watch-brand">
+            <span>月</span>
+            <div>
+              TSUKUYOMI<small>WATCH · 月読</small>
+            </div>
+          </a>
+        </JapaneseText>
         <p className="watch-nav-label">YOUR CELESTIAL GUIDE</p>
         <nav aria-label="Main navigation">
           <a href="#watchtower" aria-current="page">
@@ -120,7 +127,9 @@ export default function Home() {
           </span>
         </nav>
         <div className="watch-proverb">
-          <span>静寂の中に、星を見つける。</span>
+          <JapaneseText meaning="In stillness, find the stars.">
+            静寂の中に、星を見つける。
+          </JapaneseText>
           <p>
             In stillness,
             <br />
@@ -129,7 +138,7 @@ export default function Home() {
           <small>THE WAY OF THE SKY</small>
         </div>
         <div className="watch-observer">
-          <span>旅</span>
+          <JapaneseText meaning="Journey; travel">旅</JapaneseText>
           <div>
             Wandering observer<small>Your journey starts here</small>
           </div>
@@ -174,10 +183,10 @@ export default function Home() {
               Explore the night <ArrowUpRight size={17} />
             </a>
           </div>
-          <div className="watch-sky" aria-hidden="true">
+          <div className="watch-sky">
             <SkyAtmosphere />
             <div className="watch-moon" />
-            <span>星の道を歩む</span>
+            <JapaneseText meaning="Walk the path of the stars">星の道を歩む</JapaneseText>
             <div className="watch-ridge back" />
             <div className="watch-ridge front" />
             <small>BENEATH ONE MOON, A THOUSAND POSSIBILITIES</small>
@@ -186,7 +195,10 @@ export default function Home() {
         <section id="destinations" className="watch-destinations">
           <div className="watch-section-title">
             <div>
-              <p className="watch-eyebrow">THE WATCHTOWER · 望楼</p>
+              <p className="watch-eyebrow">
+                THE WATCHTOWER ·{" "}
+                <JapaneseText meaning="Watchtower; lookout tower">望楼</JapaneseText>
+              </p>
               <h2>Find your place beneath the stars.</h2>
             </div>
             <span>01 / EXPLORE</span>
@@ -413,12 +425,12 @@ export default function Home() {
             <p className="watch-eyebrow">A NOTE FOR THE JOURNEY</p>
             <p>Give your eyes time to adjust. The quietest wonders reveal themselves slowly.</p>
           </div>
-          <span aria-hidden="true">道</span>
+          <JapaneseText meaning="The way; a path">道</JapaneseText>
         </section>
         <footer className="watch-footer">
           <span>TSUKUYOMI WATCH</span>
           <span>Look up. There is a whole universe waiting.</span>
-          <span>月と共に</span>
+          <JapaneseText meaning="Together with the moon">月と共に</JapaneseText>
         </footer>
       </main>
     </div>

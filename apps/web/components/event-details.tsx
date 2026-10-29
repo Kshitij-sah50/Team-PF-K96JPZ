@@ -15,6 +15,7 @@ import { trpc } from "~/trpc/client";
 import { ThemeToggle } from "~/components/theme-toggle";
 import { downloadEventCalendar } from "~/lib/event-calendar";
 import { z } from "zod";
+import { JapaneseText } from "~/components/japanese-text";
 
 export function EventDetails({ id }: { id: string }) {
   const validId = z.uuid().safeParse(id).success;
@@ -30,9 +31,11 @@ export function EventDetails({ id }: { id: string }) {
     <div className="watchtower event-page">
       <div className="event-shell">
         <header className="watch-topbar">
-          <Link href="/" className="brand event-brand">
-            <span>月</span> TSUKUYOMI WATCH
-          </Link>
+          <JapaneseText meaning="Moon" asChild touchToggle={false}>
+            <Link href="/" className="brand event-brand">
+              <span>月</span> TSUKUYOMI WATCH
+            </Link>
+          </JapaneseText>
           <ThemeToggle />
         </header>
         <nav className="event-breadcrumb" aria-label="Breadcrumb">
@@ -84,9 +87,11 @@ export function EventDetails({ id }: { id: string }) {
         {event && start && (
           <>
             <section className="event-hero">
-              <div className="event-seal" aria-hidden="true">
-                {isMoon ? "月" : "天"}
-              </div>
+              <JapaneseText meaning={isMoon ? "Moon" : "Sky; heavens"} asChild>
+                <div className="event-seal" tabIndex={0}>
+                  {isMoon ? "月" : "天"}
+                </div>
+              </JapaneseText>
               <p className="watch-eyebrow">{data.label.toUpperCase()} · THE CELESTIAL SCROLL</p>
               <h1>{event.title}</h1>
               <p className="event-lead">
@@ -203,7 +208,7 @@ export function EventDetails({ id }: { id: string }) {
         <footer className="watch-footer">
           <span>TSUKUYOMI WATCH</span>
           <span>One sky. A thousand stories.</span>
-          <span>月と共に</span>
+          <JapaneseText meaning="Together with the moon">月と共に</JapaneseText>
         </footer>
       </div>
     </div>
