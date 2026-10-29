@@ -1,136 +1,72 @@
-# Turborepo starter
+# Tsukuyomi Watch
 
-This Turborepo starter is maintained by the Turborepo core team.
+A Japanese-inspired celestial guide built with Next.js, tRPC, Drizzle, and PostgreSQL.
 
-## Using this example
+## Implemented
 
-Run the following command:
+- Part 1: database foundation for users, preferences, locations, weather, events, alerts, observations, and honor points.
+- Part 2: Watchtower dashboard with a seeded destination catalog, browser geolocation, radius filtering, an interactive OpenStreetMap view, live nighttime forecasts, and a weather-only Night Honor Score.
 
-```sh
-npx create-turbo@latest
+The Celestial Scroll, Spirit Lens, and authenticated Dojo are future parts. Navigation labels indicate their status.
+
+## Local development
+
+Requires Node.js 20.9 or newer, pnpm 9, and Docker (or PostgreSQL 15).
+
+```powershell
+pnpm install --frozen-lockfile
+# Create .env from .env.example if you do not already have one.
+Copy-Item .env.example .env
+docker compose up -d postgresdb
+pnpm db:migrate
+pnpm --filter @repo/database db:seed
 ```
 
-## What's inside?
+Run the API and web app in separate terminals, from the repository root:
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+```powershell
+pnpm exec dotenv -- pnpm --filter @repo/api dev
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+```powershell
+pnpm exec dotenv -- pnpm --filter web dev
 ```
 
-### Develop
+Open http://localhost:3000. The API defaults to http://localhost:8000. Next.js proxies `/trpc` to the API, keeping requests on the same origin. Set server-side `API_URL` to change the proxy destination. If configuring `NEXT_PUBLIC_API_URL` instead, it must include the `/trpc` path and the API must allow your origin.
 
-To develop all apps and packages, run the following command:
+Google OAuth variables are optional for the Watchtower. Existing OAuth discovery is retained, but sign-in and authenticated user operations are not implemented yet. Do not overwrite an existing `.env` when following setup.
 
-```
-cd my-turborepo
+## Weather and scoring
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+The service requests hourly forecasts from [Open-Meteo](https://open-meteo.com/en/docs) with Unix timestamps, cloud cover, relative humidity, visibility, temperature, wind, and the day/night indicator. It selects the next future nighttime hour. Missing data or provider failures produce an error instead of synthetic conditions.
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+Weather snapshots and score components are written together in a database transaction. Cached responses remain valid for 30 minutes, provided the forecast hour has not passed. Concurrent requests for the same location share one fetch within an API process.
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+The initial score uses the project document's clear-sky, visibility, and dry-air weights: 40, 20, and 15 points. Visibility receives full credit at 20 km. Their sum is divided by 75 and scaled to 100. **Moonlight and light pollution are excluded**, and this is explicitly labelled in the dashboard. The score is a planning estimate, not a visibility guarantee. Provider night means sunset-to-sunrise, not astronomical darkness.
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+The four seeded destinations use approximate coordinates and no unverified Bortle ratings. Nearby filtering uses Haversine distance over a bounded catalog of up to 500 locations. PostGIS and a larger geographic catalog remain future work. The seed is idempotent and preserves existing records.
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+## Checks
+
+```powershell
+pnpm --filter web check-types
+pnpm --filter web build
+pnpm --filter @repo/api build
+pnpm --filter @repo/database exec tsx --test ../services/watchtower/weather.test.ts
+pnpm exec tsc --noEmit -p packages/services
+pnpm exec tsc --noEmit -p packages/trpc
+pnpm exec tsc --noEmit -p packages/database
 ```
 
-### Remote Caching
+Tests cover score boundaries, weights, visibility caps, malformed/missing forecast data, nighttime selection, unit conversion, and geographic distance.
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+The local implementation was also checked against PostgreSQL: migrations, idempotent seed, nearby filtering, a live weather request, and a subsequent cache hit.
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## Next parts
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+3. Celestial Scroll: event feeds, date/type filters, moon display, alerts.
+4. Spirit Lens: image storage, restoration worker, detection, comparison view.
+5. Dojo: authenticated saved places, observations, transactional honor awards.
+6. Optional NASA SkyView and transient analysis.
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
-# Team-PF-K96JPZ
+See [database implementation notes](packages/database/IMPLEMENTATION.md) for schema decisions.

@@ -47,4 +47,5 @@ Do not run the migration against a shared database without reviewing the SQL.
 5. Authenticated saved places, observation awards, and Dojo dashboard.
 6. Optional SkyView and transient-analysis features.
 
-This part adds schema and migration only; the starter UI is unchanged.
+Part 1 added schema and migration. Part 2 now implements the Watchtower UI and
+weather service; see the repository README for startup and verification.

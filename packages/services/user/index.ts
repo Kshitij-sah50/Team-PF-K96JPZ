@@ -10,7 +10,11 @@ class UserService {
   > {
     const supportedAuthenticationProviders: GetAuthenticationMethodOutputSchema[] = [];
 
-    const isGoogleConfigured = !!(env.GOOGLE_OAUTH_CLIENT_ID && env.GOOGLE_OAUTH_CLIENT_SECRET);
+    const isGoogleConfigured = !!(
+      env.GOOGLE_OAUTH_CLIENT_ID &&
+      env.GOOGLE_OAUTH_CLIENT_SECRET &&
+      env.GOOGLE_OAUTH_REDIRECT_URI
+    );
 
     if (isGoogleConfigured) {
       const url = googleOAuth2Client.generateAuthUrl();

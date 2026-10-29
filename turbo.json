@@ -1,6 +1,18 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
+  "globalEnv": [
+    "DATABASE_URL",
+    "PORT",
+    "BASE_URL",
+    "NODE_ENV",
+    "LOGGER_LEVEL",
+    "API_URL",
+    "NEXT_PUBLIC_API_URL",
+    "GOOGLE_OAUTH_CLIENT_ID",
+    "GOOGLE_OAUTH_CLIENT_SECRET",
+    "GOOGLE_OAUTH_REDIRECT_URI"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

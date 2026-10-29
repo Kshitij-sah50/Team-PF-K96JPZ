@@ -13,8 +13,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Streamyst",
-  description: "Media Forwarding",
+  title: "Tsukuyomi Watch — The Watchtower",
+  description: "Find a place beneath the stars with your samurai's celestial guide.",
 };
 
 export default function RootLayout({
