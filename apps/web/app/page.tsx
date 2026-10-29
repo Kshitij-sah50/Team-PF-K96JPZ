@@ -8,7 +8,6 @@ import {
   Eye,
   LocateFixed,
   MapPin,
-  Moon,
   Mountain,
   RefreshCw,
   ScrollText,
@@ -16,6 +15,7 @@ import {
 } from "lucide-react";
 import { trpc } from "~/trpc/client";
 import { CelestialScroll } from "~/components/celestial-scroll";
+import { ThemeToggle } from "~/components/theme-toggle";
 
 const formatTime = (date: string | Date) =>
   new Date(date).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
@@ -103,7 +103,7 @@ export default function Home() {
           <span>
             <i /> THE NIGHT IS YOURS TO EXPLORE
           </span>
-          <Moon size={18} />
+          <ThemeToggle />
         </header>
         <section className="watch-hero">
           <div>
