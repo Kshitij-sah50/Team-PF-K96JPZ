@@ -6,6 +6,8 @@ import {
   eventFeedItemsTable,
 } from "@repo/database/schema";
 import { fetchLaunches, fetchPhases, monthBounds, type NormalizedEvent } from "./providers";
+import { fetchEclipses, fetchMeteors } from "./calculated";
+import { 旧暦計算 as kyureki } from "himekuri/旧暦.js";
 
 export async function getCelestialEvent(id: string) {
   const [result] = await db
@@ -26,6 +28,20 @@ export async function getCelestialEvent(id: string) {
 }
 
 const providers = [
+  {
+    source: "ASTRONOMY_ENGINE",
+    code: "ECLIPSE" as const,
+    label: "Eclipse",
+    icon: "eclipse",
+    fetch: fetchEclipses,
+  },
+  {
+    source: "IMO_SEASONAL",
+    code: "METEOR" as const,
+    label: "Meteor shower",
+    icon: "sparkles",
+    fetch: fetchMeteors,
+  },
   {
     source: "USNO",
     code: "MOON_PHASE" as const,
@@ -119,7 +135,10 @@ async function syncFeed(provider: (typeof providers)[number], month: string) {
   }
 }
 
-export async function listCelestialEvents(month: string, type?: "MOON_PHASE" | "LAUNCH") {
+export async function listCelestialEvents(
+  month: string,
+  type?: "MOON_PHASE" | "LAUNCH" | "ECLIPSE" | "METEOR",
+) {
   const { start, end } = monthBounds(month);
   await Promise.all(providers.map((provider) => syncFeed(provider, month)));
   const events = await db
@@ -160,5 +179,84 @@ export async function listCelestialEvents(month: string, type?: "MOON_PHASE" | "
       };
     }),
   );
-  return { events, feeds };
+  const dayCount = new Date(end.getTime() - 86400000).getUTCDate();
+  const lunarDays = Array.from({ length: dayCount }, (_, index) => {
+    const date = kyureki([start.getUTCFullYear(), start.getUTCMonth() + 1, index + 1]);
+    return { day: index + 1, year: date.年, month: date.月, lunarDay: date.日, leap: date.閏 };
+  });
+  return {
+    events,
+    feeds,
+    lunarDays,
+    calendar: null as null | {
+      start: string;
+      end: string;
+      count: number;
+      year: number;
+      month: number;
+      leap: boolean;
+      previous: string;
+    },
+  };
+}
+
+export async function listLunarEvents(
+  anchor: string,
+  type?: "MOON_PHASE" | "LAUNCH" | "ECLIPSE" | "METEOR",
+) {
+  const date = new Date(`${anchor}T00:00:00Z`);
+  if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== anchor)
+    throw new Error("Invalid lunar calendar anchor.");
+  const lunar = kyureki([date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate()]);
+  const start = new Date(date.getTime() - (lunar.日 - 1) * 86400000);
+  let count = 29;
+  for (; count <= 30; count++) {
+    const next = new Date(start.getTime() + count * 86400000),
+      value = kyureki([next.getUTCFullYear(), next.getUTCMonth() + 1, next.getUTCDate()]);
+    if (value.日 === 1) break;
+  }
+  if (count > 30) throw new Error("Unsupported lunar month.");
+  const end = new Date(start.getTime() + count * 86400000);
+  const months = Array.from(
+    new Set([
+      start.toISOString().slice(0, 7),
+      new Date(end.getTime() - 86400000).toISOString().slice(0, 7),
+    ]),
+  );
+  const results = await Promise.all(months.map((month) => listCelestialEvents(month, type)));
+  const events = Array.from(
+    new Map(
+      results
+        .flatMap((result) => result.events)
+        .filter(({ event }) => event.startUtc >= start && event.startUtc < end)
+        .map((event) => [event.event.id, event]),
+    ).values(),
+  ).sort((a, b) => a.event.startUtc.getTime() - b.event.startUtc.getTime());
+  const feeds = results[0]!.feeds.map((feed) => ({
+    ...feed,
+    failed: results.some(
+      (result) => result.feeds.find((item) => item.source === feed.source)?.failed,
+    ),
+  }));
+  const lunarDays = Array.from({ length: count }, (_, index) => ({
+    day: index + 1,
+    year: lunar.年,
+    month: lunar.月,
+    lunarDay: index + 1,
+    leap: lunar.閏,
+  }));
+  return {
+    events,
+    feeds,
+    lunarDays,
+    calendar: {
+      start: start.toISOString().slice(0, 10),
+      end: end.toISOString().slice(0, 10),
+      count,
+      year: lunar.年,
+      month: lunar.月,
+      leap: lunar.閏,
+      previous: new Date(start.getTime() - 86400000).toISOString().slice(0, 10),
+    },
+  };
 }

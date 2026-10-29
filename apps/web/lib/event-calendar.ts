@@ -41,7 +41,13 @@ function fold(line: string) {
   return [...lines, part].join("\r\n");
 }
 export function buildEventCalendar(
-  event: { id: string; title: string; description: string | null; startUtc: string | Date },
+  event: {
+    id: string;
+    title: string;
+    description: string | null;
+    startUtc: string | Date;
+    endUtc?: string | Date | null;
+  },
   now = new Date(),
 ) {
   const start = new Date(event.startUtc);
@@ -55,7 +61,7 @@ export function buildEventCalendar(
     `UID:${escapeText(event.id)}@tsukuyomi-watch`,
     `DTSTAMP:${stamp(now)}`,
     `DTSTART:${stamp(start)}`,
-    "DURATION:PT30M",
+    event.endUtc ? `DTEND:${stamp(new Date(event.endUtc))}` : "DURATION:PT30M",
     `SUMMARY:${escapeText(event.title)}`,
     `DESCRIPTION:${escapeText(event.description ?? "")}`,
     "BEGIN:VALARM",

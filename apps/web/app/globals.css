@@ -143,6 +143,11 @@ html {
   padding: 16px;
   background: var(--watch-panel);
 }
+.scroll-days .scroll-lunar-date {
+  font-size: 8px;
+  line-height: 1;
+  color: var(--watch-accent);
+}
 .scroll-month {
   display: grid;
   grid-template-columns: 30px minmax(0, 1fr) 30px;

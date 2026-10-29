@@ -9,21 +9,42 @@ import { JapaneseText } from "~/components/japanese-text";
 
 export function CelestialScroll() {
   const [month, setMonth] = useState(() => new Date().toISOString().slice(0, 7));
-  const [type, setType] = useState<"ALL" | "MOON_PHASE" | "LAUNCH">("ALL");
+  const [type, setType] = useState<"ALL" | "MOON_PHASE" | "LAUNCH" | "ECLIPSE" | "METEOR">("ALL");
   const [day, setDay] = useState<number | null>(null);
+  const [lunarDisplay, setLunarDisplay] = useState(true);
+  const [lunarAnchor, setLunarAnchor] = useState(() => new Date().toISOString().slice(0, 10));
   const query = trpc.celestial.events.useQuery(
-    { month, type: type === "ALL" ? undefined : type },
+    {
+      month,
+      type: type === "ALL" ? undefined : type,
+      lunarAnchor: lunarDisplay ? lunarAnchor : undefined,
+    },
     { staleTime: 300000, retry: 1 },
   );
-  const start = new Date(`${month}-01T00:00:00Z`);
+  const start = new Date(
+    `${lunarDisplay && query.data?.calendar ? query.data.calendar.start : `${month}-01`}T00:00:00Z`,
+  );
   const year = start.getUTCFullYear();
-  const totalDays = new Date(Date.UTC(year, start.getUTCMonth() + 1, 0)).getUTCDate();
+  const totalDays =
+    lunarDisplay && query.data?.calendar
+      ? query.data.calendar.count
+      : new Date(Date.UTC(year, start.getUTCMonth() + 1, 0)).getUTCDate();
   const currentYear = new Date().getUTCFullYear();
   const events = query.data?.events ?? [];
   const visible = events.filter(
-    ({ event }) => day === null || new Date(event.startUtc).getUTCDate() === day,
+    ({ event }) =>
+      day === null ||
+      new Date(event.startUtc).toISOString().slice(0, 10) ===
+        new Date(start.getTime() + (day - 1) * 86400000).toISOString().slice(0, 10),
   );
   function changeMonth(offset: number) {
+    if (lunarDisplay && query.data?.calendar) {
+      const anchor = offset > 0 ? query.data.calendar.end : query.data.calendar.previous;
+      setLunarAnchor(anchor);
+      setMonth(anchor.slice(0, 7));
+      setDay(null);
+      return;
+    }
     const next = new Date(start);
     next.setUTCMonth(next.getUTCMonth() + offset);
     if (Math.abs(next.getUTCFullYear() - currentYear) > 1) return;
@@ -43,18 +64,29 @@ export function CelestialScroll() {
         <span>02 / DISCOVER</span>
       </div>
       <div className="watch-toolbar">
-        <p>Primary moon phases and rocket launches. Every moment has a story.</p>
+        <p>Moon phases, meteor observing windows, eclipses, and rocket launches.</p>
         <button onClick={() => void query.refetch()} disabled={query.isFetching}>
           <RefreshCw size={14} className={query.isFetching ? "watch-spin" : ""} />
           Refresh
         </button>
       </div>
       <div className="scroll-filters" aria-label="Event type">
+        <button
+          aria-pressed={lunarDisplay}
+          onClick={() => {
+            setLunarDisplay((value) => !value);
+            setDay(null);
+          }}
+        >
+          {lunarDisplay ? "Lunar month · Kyūreki" : "Gregorian month"}
+        </button>
         {(
           [
             { value: "ALL", label: "All events" },
             { value: "MOON_PHASE", label: "Moon phases" },
             { value: "LAUNCH", label: "Rocket launches" },
+            { value: "METEOR", label: "Meteor showers" },
+            { value: "ECLIPSE", label: "Eclipses" },
           ] as const
         ).map((option) => (
           <button
@@ -74,21 +106,25 @@ export function CelestialScroll() {
           <div className="scroll-month">
             <button
               aria-label="Previous month"
-              disabled={year === currentYear - 1 && start.getUTCMonth() === 0}
+              disabled={query.isFetching || (year === currentYear - 1 && start.getUTCMonth() === 0)}
               onClick={() => changeMonth(-1)}
             >
               <ChevronLeft size={16} />
             </button>
             <h3>
-              {start.toLocaleDateString(undefined, {
-                month: "long",
-                year: "numeric",
-                timeZone: "UTC",
-              })}
+              {lunarDisplay && query.data?.calendar
+                ? `Kyūreki ${query.data.calendar.year} / ${query.data.calendar.leap ? "Leap " : ""}${query.data.calendar.month}`
+                : start.toLocaleDateString(undefined, {
+                    month: "long",
+                    year: "numeric",
+                    timeZone: "UTC",
+                  })}
             </h3>
             <button
               aria-label="Next month"
-              disabled={year === currentYear + 1 && start.getUTCMonth() === 11}
+              disabled={
+                query.isFetching || (year === currentYear + 1 && start.getUTCMonth() === 11)
+              }
               onClick={() => changeMonth(1)}
             >
               <ChevronRight size={16} />
@@ -105,8 +141,10 @@ export function CelestialScroll() {
             ))}
             {Array.from({ length: totalDays }, (_, index) => {
               const date = index + 1;
+              const civil = new Date(start.getTime() + index * 86400000);
+              const civilKey = civil.toISOString().slice(0, 10);
               const daily = events.filter(
-                ({ event }) => new Date(event.startUtc).getUTCDate() === date,
+                ({ event }) => new Date(event.startUtc).toISOString().slice(0, 10) === civilKey,
               );
               const phase = daily.find((item) => item.type === "MOON_PHASE")?.event.title;
               const symbol =
@@ -122,19 +160,32 @@ export function CelestialScroll() {
               return (
                 <button
                   key={date}
-                  aria-label={`${month}-${String(date).padStart(2, "0")}, ${daily.length} events${phase ? `, ${phase}` : ""}`}
+                  aria-label={`${civilKey}${lunarDisplay ? `, lunar day ${date}` : ""}, ${daily.length} events${phase ? `, ${phase}` : ""}`}
                   aria-pressed={day === date}
                   className={daily.length ? "has-events" : ""}
                   onClick={() => setDay((previous) => (previous === date ? null : date))}
                 >
                   <span>{date}</span>
+                  {query.data?.lunarDays[date - 1] && (
+                    <span
+                      className="scroll-lunar-date"
+                      title={lunarDisplay ? "Gregorian month/day" : "Japanese lunisolar month/day"}
+                    >
+                      {lunarDisplay
+                        ? `${civil.getUTCMonth() + 1}/${civil.getUTCDate()}`
+                        : `${query.data.lunarDays[date - 1]!.leap ? "L " : ""}${query.data.lunarDays[date - 1]!.month}/${query.data.lunarDays[date - 1]!.lunarDay}`}
+                    </span>
+                  )}
                   <small aria-hidden="true">{daily.length ? symbol : ""}</small>
                 </button>
               );
             })}
           </div>
           <p>
-            Calendar dates use UTC.
+            {lunarDisplay
+              ? "Japanese Kyūreki lunar month. Large numbers are lunar days; small numbers are Gregorian month/day. Leap months are labelled in the heading."
+              : "Gregorian month. Small dates show Japanese Kyūreki month/day; L indicates a leap month."}{" "}
+            Event filtering uses UTC civil dates.
             <br />
             Event times below use your local timezone.
           </p>
@@ -169,8 +220,7 @@ export function CelestialScroll() {
               </JapaneseText>
               <div className="scroll-event-content">
                 <small>
-                  {label.toUpperCase()} ·{" "}
-                  {event.sourceApi === "USNO" ? "US NAVAL OBSERVATORY" : "THE SPACE DEVS"}
+                  {label.toUpperCase()} · {event.sourceApi.replaceAll("_", " ")}
                 </small>
                 <h3>
                   <Link href={`/events/${event.id}`}>{event.title}</Link>
@@ -184,8 +234,8 @@ export function CelestialScroll() {
                 <p>{event.description}</p>
                 {event.visibilityRegion && (
                   <p>
-                    Launch site: {event.visibilityRegion}. Visibility from your location is not
-                    predicted.
+                    {eventType === "LAUNCH" ? "Launch site: " : "Visibility: "}
+                    {event.visibilityRegion}
                   </p>
                 )}
                 <div className="scroll-event-actions">
@@ -205,7 +255,7 @@ export function CelestialScroll() {
       <div className="scroll-feed-status">
         {query.data?.feeds.map((feed) => (
           <p key={feed.source}>
-            <strong>{feed.source === "USNO" ? "USNO moon phases" : "Launch Library"}:</strong>{" "}
+            <strong>{feed.label}:</strong>{" "}
             {feed.failed
               ? feed.succeededAt
                 ? "Source unavailable; showing saved events."
@@ -218,11 +268,11 @@ export function CelestialScroll() {
         <p>
           Feeds refresh at most hourly; failed requests retry after 10 minutes. Imported calendar
           events include a 30-minute reminder, subject to your calendar app’s settings. Launch
-          schedules can change. No email or background alerts are sent yet.
+          schedules can change. Opt in to configured background browser push below, or use calendar
+          reminders.
         </p>
         <p>
-          Meteor showers, eclipses, and location-specific ISS passes are planned next. This is a
-          Gregorian calendar with lunar phase markers.
+          Meteor dates are approximate seasonal windows; eclipse times are calculated global maxima.
         </p>
       </div>
     </section>
