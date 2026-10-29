@@ -1,0 +1,1231 @@
+
+Qualcomm AI Hub Workbenchaihub-2026.09.11.0:©¯
+ë
+image
+model.model.0.weight
+model.model.0.biasconv2dnode_conv2d"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†JÑ
+	namespaceˆ: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.0: torch.nn.modules.conv.Conv2d/conv2d: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']J∆
+pkg.torch.onnx.fx_node´%conv2d : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%image, %p_model_model_0_weight, %p_model_model_0_bias, [1, 1], [1, 1]), kwargs = {})JU
+pkg.torch.onnx.name_scopes7['', 'model', 'model.model', 'model.model.0', 'conv2d']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+ª
+conv2drelu	node_relu"ReluJÑ
+	namespaceˆ: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.1: torch.nn.modules.activation.ReLU/relu: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']JÉ
+pkg.torch.onnx.fx_nodei%relu : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d,), kwargs = {})JS
+pkg.torch.onnx.name_scopes5['', 'model', 'model.model', 'model.model.1', 'relu']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+ô
+relu
+model.model.2.weight
+model.model.2.biasconv2d_1node_conv2d_1"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†JÜ
+	namespace¯: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.2: torch.nn.modules.conv.Conv2d/conv2d_1: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']J«
+pkg.torch.onnx.fx_node¨%conv2d_1 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu, %p_model_model_2_weight, %p_model_model_2_bias, [1, 1], [1, 1]), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.2', 'conv2d_1']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+…
+conv2d_1relu_1node_relu_1"ReluJÜ
+	namespace¯: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.3: torch.nn.modules.activation.ReLU/relu_1: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Já
+pkg.torch.onnx.fx_nodem%relu_1 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_1,), kwargs = {})JU
+pkg.torch.onnx.name_scopes7['', 'model', 'model.model', 'model.model.3', 'relu_1']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+ù
+relu_1
+model.model.4.weight
+model.model.4.biasconv2d_2node_conv2d_2"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†JÜ
+	namespace¯: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.4: torch.nn.modules.conv.Conv2d/conv2d_2: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']J…
+pkg.torch.onnx.fx_nodeÆ%conv2d_2 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_1, %p_model_model_4_weight, %p_model_model_4_bias, [1, 1], [1, 1]), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.4', 'conv2d_2']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+…
+conv2d_2relu_2node_relu_2"ReluJÜ
+	namespace¯: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.5: torch.nn.modules.activation.ReLU/relu_2: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Já
+pkg.torch.onnx.fx_nodem%relu_2 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_2,), kwargs = {})JU
+pkg.torch.onnx.name_scopes7['', 'model', 'model.model', 'model.model.5', 'relu_2']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+ù
+relu_2
+model.model.6.weight
+model.model.6.biasconv2d_3node_conv2d_3"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†JÜ
+	namespace¯: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.6: torch.nn.modules.conv.Conv2d/conv2d_3: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']J…
+pkg.torch.onnx.fx_nodeÆ%conv2d_3 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_2, %p_model_model_6_weight, %p_model_model_6_bias, [1, 1], [1, 1]), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.6', 'conv2d_3']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+…
+conv2d_3relu_3node_relu_3"ReluJÜ
+	namespace¯: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.7: torch.nn.modules.activation.ReLU/relu_3: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Já
+pkg.torch.onnx.fx_nodem%relu_3 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_3,), kwargs = {})JU
+pkg.torch.onnx.name_scopes7['', 'model', 'model.model', 'model.model.7', 'relu_3']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+ù
+relu_3
+model.model.8.weight
+model.model.8.biasconv2d_4node_conv2d_4"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†JÜ
+	namespace¯: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.8: torch.nn.modules.conv.Conv2d/conv2d_4: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']J…
+pkg.torch.onnx.fx_nodeÆ%conv2d_4 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_3, %p_model_model_8_weight, %p_model_model_8_bias, [1, 1], [1, 1]), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.8', 'conv2d_4']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+…
+conv2d_4relu_4node_relu_4"ReluJÜ
+	namespace¯: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.9: torch.nn.modules.activation.ReLU/relu_4: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Já
+pkg.torch.onnx.fx_nodem%relu_4 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_4,), kwargs = {})JU
+pkg.torch.onnx.name_scopes7['', 'model', 'model.model', 'model.model.9', 'relu_4']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+£
+relu_4
+model.model.10.weight
+model.model.10.biasconv2d_5node_conv2d_5"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Já
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.10: torch.nn.modules.conv.Conv2d/conv2d_5: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÀ
+pkg.torch.onnx.fx_node∞%conv2d_5 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_4, %p_model_model_10_weight, %p_model_model_10_bias, [1, 1], [1, 1]), kwargs = {})JX
+pkg.torch.onnx.name_scopes:['', 'model', 'model.model', 'model.model.10', 'conv2d_5']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+À
+conv2d_5relu_5node_relu_5"ReluJá
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.11: torch.nn.modules.activation.ReLU/relu_5: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Já
+pkg.torch.onnx.fx_nodem%relu_5 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_5,), kwargs = {})JV
+pkg.torch.onnx.name_scopes8['', 'model', 'model.model', 'model.model.11', 'relu_5']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+£
+relu_5
+model.model.12.weight
+model.model.12.biasconv2d_6node_conv2d_6"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Já
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.12: torch.nn.modules.conv.Conv2d/conv2d_6: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÀ
+pkg.torch.onnx.fx_node∞%conv2d_6 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_5, %p_model_model_12_weight, %p_model_model_12_bias, [1, 1], [1, 1]), kwargs = {})JX
+pkg.torch.onnx.name_scopes:['', 'model', 'model.model', 'model.model.12', 'conv2d_6']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+À
+conv2d_6relu_6node_relu_6"ReluJá
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.13: torch.nn.modules.activation.ReLU/relu_6: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Já
+pkg.torch.onnx.fx_nodem%relu_6 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_6,), kwargs = {})JV
+pkg.torch.onnx.name_scopes8['', 'model', 'model.model', 'model.model.13', 'relu_6']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+£
+relu_6
+model.model.14.weight
+model.model.14.biasconv2d_7node_conv2d_7"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Já
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.14: torch.nn.modules.conv.Conv2d/conv2d_7: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÀ
+pkg.torch.onnx.fx_node∞%conv2d_7 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_6, %p_model_model_14_weight, %p_model_model_14_bias, [1, 1], [1, 1]), kwargs = {})JX
+pkg.torch.onnx.name_scopes:['', 'model', 'model.model', 'model.model.14', 'conv2d_7']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+À
+conv2d_7relu_7node_relu_7"ReluJá
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.15: torch.nn.modules.activation.ReLU/relu_7: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Já
+pkg.torch.onnx.fx_nodem%relu_7 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_7,), kwargs = {})JV
+pkg.torch.onnx.name_scopes8['', 'model', 'model.model', 'model.model.15', 'relu_7']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+£
+relu_7
+model.model.16.weight
+model.model.16.biasconv2d_8node_conv2d_8"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Já
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.16: torch.nn.modules.conv.Conv2d/conv2d_8: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÀ
+pkg.torch.onnx.fx_node∞%conv2d_8 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_7, %p_model_model_16_weight, %p_model_model_16_bias, [1, 1], [1, 1]), kwargs = {})JX
+pkg.torch.onnx.name_scopes:['', 'model', 'model.model', 'model.model.16', 'conv2d_8']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+À
+conv2d_8relu_8node_relu_8"ReluJá
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.17: torch.nn.modules.activation.ReLU/relu_8: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Já
+pkg.torch.onnx.fx_nodem%relu_8 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_8,), kwargs = {})JV
+pkg.torch.onnx.name_scopes8['', 'model', 'model.model', 'model.model.17', 'relu_8']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+£
+relu_8
+model.model.18.weight
+model.model.18.biasconv2d_9node_conv2d_9"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Já
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.18: torch.nn.modules.conv.Conv2d/conv2d_9: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÀ
+pkg.torch.onnx.fx_node∞%conv2d_9 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_8, %p_model_model_18_weight, %p_model_model_18_bias, [1, 1], [1, 1]), kwargs = {})JX
+pkg.torch.onnx.name_scopes:['', 'model', 'model.model', 'model.model.18', 'conv2d_9']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+À
+conv2d_9relu_9node_relu_9"ReluJá
+	namespace˘: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.19: torch.nn.modules.activation.ReLU/relu_9: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Já
+pkg.torch.onnx.fx_nodem%relu_9 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_9,), kwargs = {})JV
+pkg.torch.onnx.name_scopes8['', 'model', 'model.model', 'model.model.19', 'relu_9']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+®
+relu_9
+model.model.20.weight
+model.model.20.bias	conv2d_10node_conv2d_10"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Jà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.20: torch.nn.modules.conv.Conv2d/conv2d_10: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÃ
+pkg.torch.onnx.fx_node±%conv2d_10 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_9, %p_model_model_20_weight, %p_model_model_20_bias, [1, 1], [1, 1]), kwargs = {})JY
+pkg.torch.onnx.name_scopes;['', 'model', 'model.model', 'model.model.20', 'conv2d_10']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+“
+	conv2d_10relu_10node_relu_10"ReluJà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.21: torch.nn.modules.activation.ReLU/relu_10: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Jâ
+pkg.torch.onnx.fx_nodeo%relu_10 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_10,), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.21', 'relu_10']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+™
+relu_10
+model.model.22.weight
+model.model.22.bias	conv2d_11node_conv2d_11"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Jà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.22: torch.nn.modules.conv.Conv2d/conv2d_11: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÕ
+pkg.torch.onnx.fx_node≤%conv2d_11 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_10, %p_model_model_22_weight, %p_model_model_22_bias, [1, 1], [1, 1]), kwargs = {})JY
+pkg.torch.onnx.name_scopes;['', 'model', 'model.model', 'model.model.22', 'conv2d_11']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+“
+	conv2d_11relu_11node_relu_11"ReluJà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.23: torch.nn.modules.activation.ReLU/relu_11: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Jâ
+pkg.torch.onnx.fx_nodeo%relu_11 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_11,), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.23', 'relu_11']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+™
+relu_11
+model.model.24.weight
+model.model.24.bias	conv2d_12node_conv2d_12"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Jà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.24: torch.nn.modules.conv.Conv2d/conv2d_12: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÕ
+pkg.torch.onnx.fx_node≤%conv2d_12 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_11, %p_model_model_24_weight, %p_model_model_24_bias, [1, 1], [1, 1]), kwargs = {})JY
+pkg.torch.onnx.name_scopes;['', 'model', 'model.model', 'model.model.24', 'conv2d_12']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+“
+	conv2d_12relu_12node_relu_12"ReluJà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.25: torch.nn.modules.activation.ReLU/relu_12: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Jâ
+pkg.torch.onnx.fx_nodeo%relu_12 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_12,), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.25', 'relu_12']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+™
+relu_12
+model.model.26.weight
+model.model.26.bias	conv2d_13node_conv2d_13"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Jà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.26: torch.nn.modules.conv.Conv2d/conv2d_13: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÕ
+pkg.torch.onnx.fx_node≤%conv2d_13 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_12, %p_model_model_26_weight, %p_model_model_26_bias, [1, 1], [1, 1]), kwargs = {})JY
+pkg.torch.onnx.name_scopes;['', 'model', 'model.model', 'model.model.26', 'conv2d_13']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+“
+	conv2d_13relu_13node_relu_13"ReluJà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.27: torch.nn.modules.activation.ReLU/relu_13: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Jâ
+pkg.torch.onnx.fx_nodeo%relu_13 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_13,), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.27', 'relu_13']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+™
+relu_13
+model.model.28.weight
+model.model.28.bias	conv2d_14node_conv2d_14"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Jà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.28: torch.nn.modules.conv.Conv2d/conv2d_14: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÕ
+pkg.torch.onnx.fx_node≤%conv2d_14 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_13, %p_model_model_28_weight, %p_model_model_28_bias, [1, 1], [1, 1]), kwargs = {})JY
+pkg.torch.onnx.name_scopes;['', 'model', 'model.model', 'model.model.28', 'conv2d_14']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+“
+	conv2d_14relu_14node_relu_14"ReluJà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.29: torch.nn.modules.activation.ReLU/relu_14: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Jâ
+pkg.torch.onnx.fx_nodeo%relu_14 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_14,), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.29', 'relu_14']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+™
+relu_14
+model.model.30.weight
+model.model.30.bias	conv2d_15node_conv2d_15"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Jà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.30: torch.nn.modules.conv.Conv2d/conv2d_15: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÕ
+pkg.torch.onnx.fx_node≤%conv2d_15 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_14, %p_model_model_30_weight, %p_model_model_30_bias, [1, 1], [1, 1]), kwargs = {})JY
+pkg.torch.onnx.name_scopes;['', 'model', 'model.model', 'model.model.30', 'conv2d_15']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+“
+	conv2d_15relu_15node_relu_15"ReluJà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.31: torch.nn.modules.activation.ReLU/relu_15: aten.relu.defaultJ˛
+pkg.torch.onnx.class_hierarchy€['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.activation.ReLU', 'aten.relu.default']Jâ
+pkg.torch.onnx.fx_nodeo%relu_15 : [num_users=1] = call_function[target=torch.ops.aten.relu.default](args = (%conv2d_15,), kwargs = {})JW
+pkg.torch.onnx.name_scopes9['', 'model', 'model.model', 'model.model.31', 'relu_15']J∂
+pkg.torch.onnx.stack_traceóFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 143, in forward
+    return F.relu(input, inplace=self.inplace)
+™
+relu_15
+model.model.32.weight
+model.model.32.bias	conv2d_16node_conv2d_16"Conv*
+group†*
+pads@@@@†*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†Jà
+	namespace˙: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/model.model: torch.nn.modules.container.Sequential/model.model.32: torch.nn.modules.conv.Conv2d/conv2d_16: aten.conv2d.defaultJ¸
+pkg.torch.onnx.class_hierarchyŸ['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'torch.nn.modules.container.Sequential', 'torch.nn.modules.conv.Conv2d', 'aten.conv2d.default']JÕ
+pkg.torch.onnx.fx_node≤%conv2d_16 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%relu_15, %p_model_model_32_weight, %p_model_model_32_bias, [1, 1], [1, 1]), kwargs = {})JY
+pkg.torch.onnx.name_scopes;['', 'model', 'model.model', 'model.model.32', 'conv2d_16']Jæ
+pkg.torch.onnx.stack_traceüFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 71, in forward
+    n = self.model(x)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/build/ci-envs/qaihm-build/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+˙
+image
+	conv2d_16subnode_sub"SubJû
+	namespaceê: qai_hub_models.models.dncnn.model.DnCNN/model: qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN/sub: aten.sub.TensorJØ
+pkg.torch.onnx.class_hierarchyå['qai_hub_models.models.dncnn.model.DnCNN', 'qai_hub_models.models.dncnn.external_repos.kair.models.network_dncnn.DnCNN', 'aten.sub.Tensor']Jä
+pkg.torch.onnx.fx_nodep%sub : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%image, %conv2d_16), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'model', 'sub']JΩ
+pkg.torch.onnx.stack_traceûFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 85, in forward
+    denoised = self.model(image)
+  File "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/external_repos/kair/models/network_dncnn.py", line 72, in forward
+    return x-n
+ò
+sub
+val_1
+val_3denoised_image
+node_clamp"ClipJP
+	namespaceC: qai_hub_models.models.dncnn.model.DnCNN/clamp: aten.clamp.defaultJc
+pkg.torch.onnx.class_hierarchyA['qai_hub_models.models.dncnn.model.DnCNN', 'aten.clamp.default']Jã
+pkg.torch.onnx.fx_nodeq%clamp : [num_users=1] = call_function[target=torch.ops.aten.clamp.default](args = (%sub, 0.0, 1.0), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'clamp']JÓ
+pkg.torch.onnx.stack_traceœFile "/local/mnt/workspace/tetraservice-gh-runner/_work/ai-hub-models-internal/ai-hub-models-internal/src/qai_hub_models/models/dncnn/model.py", line 86, in forward
+    return torch.clamp(denoised, 0.0, 1.0)
+main_graph*W@Bmodel.model.0.weightj
+location
+dncnn.dataj
+offset0j
+length2304p*õ@Bmodel.model.0.biasJÄóC.=Uw¥Ω¨Èà=¯¶*ΩiÓ>ıWÎΩ»ØÎ=:@=À}Z>àû=Ïú®>lW,>Ú±+<Ø‚ˆΩÔôM>Æ ≥Ω‚Gd>cãœ=1™§Ω·â>ùv≈=M+=‹”èΩ‹ÜæÙ^ ΩK…P=~⁄˙Ω}≤f= =Gæ†’=
+ï>Ìt>Îï÷>Y∆B>ªLJΩjNæé=»¬Wæœˆ‚Ω&û-æ≥V∏ºí^¸=s&&=V~(=Ú·\Ω˘+É=[Ë¢=Ne>N±ΩO‚Æ=Á{ü>?VÈ=üæèò>™{‚=Á<8◊p>}äΩ¢~> ÅΩ©¢Ω‚—wΩÖ>*õ@Bmodel.model.2.biasJÄ%»3?‡™>à˝ÏærÑ[>ÚÅø¢“√>Ò_Ø>‡–äº"ÿ¨øL2?ª'í>Ô»Í=Ü> uß>6i]=è&><D«=Q!∞øz‰ÿ>Båê>ûE>_&ä>h™ÚΩû-M<ŒóÌæbÛ®ø/à≤>Ï—˚>≈^C>¥∑H? ‘„æ˛´Öøñi„>V¡<#¿˚ö>Øï>ÀJºÅâÈ>µ>yOmæ TxøÔÿ?JÉÀ>˚ê´>”Ÿ='´>¯I‘øÎç>„t¿{Ú>zÔé>n8Ê=í¡m=–-ö>ß^>J∫>Ω·£>î˘=ö.¢Ω	PJΩçﬁá>
+5ÏΩ´u¢æ*õ@Bmodel.model.4.biasJÄ7ΩV´¯ΩÆ¸>^¨>–Ìæ+mR>Y≥B>‘ÒÓ=Î»’º7^æiß<æBSAæ∆I=`0ΩÙqè>'≈>ç9µ^ê>	™·9‡¡ú>}·.>S∑∏<üú’=å∑ﬁΩÀ9¥>t@ï>±à>ø¡øÉº∏”Ø>©ä√Ωè(>v˘∆=.=¥ñ>üªµ>Òk>˘7Rø<òª˛Aõ>´È>aæ≠“Ç>0‹n?ø?W?/1Ê=íãåæÇ¥‡=KÍ˜=ä®GΩVåaøŒ«åæw{>ﬁÜ—>ﬁuÀ=ﬂÅ?†I¡>ôuúªÑˇ>∏í>†Ä>∞É›>ò¸k>—6Ô>*õ@Bmodel.model.6.biasJÄ¶ >ö£K>ƒà⁄>b’‰ºI"+Ωﬂ◊p>∆ª>¯ÁæJˆ"?z°æ…ú?6rËæA)?©·÷>§Ø øÀ◊n>3Ã>UÙ	?ä∂>H÷‘=|‰¶ΩvôΩ>[¯æÄLö>Â˝*?Jx?9MXæ~´Ñ>Œ—Ù>D4Ü>T&–æäXé>˜úÄ>Ù+øVÉú>à„æêàúæoTv>ücv>´=<ªªØΩ¶C>1ﬂº>¬>Ñ≥=R&ê>:õ>•FN>¯Ò>>ﬂqΩÿø¬æXé∑>T;Á>.—«>Zb÷>OﬂÇæ…?Y>òB©>ˆ	]>ﬁ@ë>œá)?Q—?1C<=*õ@Bmodel.model.8.biasJÄ†[æ”L;>íy>Î¿+?2ùÖ>f¶Ï>ˇ>n>OŸa>(\–=˘3Ω@>Hqì>IÍXΩ˙Î=èV\æıÍ±º˜æêæ¿fò>*öÄ>Éá>Ç◊?>ÊŒ=Í*Æ>_r5?Oh/æfm$>Â•ï>æ}Õ=î˘µ>¢ >îƒÿ>êù>ı-¿æDêé=ﬁö°>HÕ∆>F˚Ü>˝'ÍΩf«”=^Z?¯“Ω  ¯æZj–>ıÄ¬ΩúËâ>˜7Ω/á6? mí>dè}>D¥√>Â˛?◊oïæL~ﬁ>Fµ~æŒYÉ>fnåª=òå==å<ƒ_&=ËM?—<&>‡√è>ß@åΩ©ç›=*ú@Bmodel.model.10.biasJÄÿë>Í0é=Ì∞Û=/?◊ÿ|>◊GnΩ÷	?MıÔΩﬂzkæ>™™Ωrô=âÖñ=°I¶=Ωú? 8>õ8Å=wQ¡>3º)æMks>9ƒ><2>!T?◊ßK>zÌ>∆ë>Ê•>4â∆>!∞ΩxΩ>Œœì>îÑXæ˛ÿ?kÓî=Wìó>ÊµøÆ?VÃPΩ)ã∆<ëäø≠gª>s'ÂæP¿º†æXÕèΩØª>Æ^h?gò„>›≠w>mØÏΩÒ1>/:áΩ:Kéæ‡⁄ﬁ>&Æ¯Ωê A>»π#øG+◊>–‚æsZÇΩèBò>ï&?«£ºgIÂ>Gâz=*ú@Bmodel.model.12.biasJÄ˘>Çô>è[ç>eê~=Ÿ>';NøË-ªæ†V‚>®è=Öêä?	'>À!æâJ·=Ÿ˘L>€D∫=› bº‘p?ªn±>§É.>ë,??TI=∏\>¶Er>=ﬂ∂>?‰Ó?√6S>ji>⁄Py=¯ÊÏ>€_}>Ì‹Iæ.ú©=4“∏æ°!>´.î>¨/>ØŸ-?∏ÿ=
+Å?x„?òß?◊≤qø¢`£>‡át>dÂ≤>;∑£?
+å|>_#æ#:ÔºÂN¸<µê->’>S ?Wã>v~>7k¡æá$Ω|‘s=\VægÚ>ë˚ú>/åñæ^¬>*ú@Bmodel.model.14.biasJÄ6væ©Ë&>≠¨>h$?à9d>≠/n>˙ÚÒ>‘@≤= …º>_ë√>æì?∞
+pæöÒ>cñæ˛˝Ñ>‚.ø£Ù?Ç¸Ú>‹ÍÛ>æ8ı>úNøôïæ≠>;0 @;ÓW>§¸Ω hk=BX®> ‡>≥ˇ?bÙû>∏R"æ~∏?ñ4∑>e=Oæ2à>Ó‹†>Q3J>Îmñæ…€Ï<ßÙô>⁄L<æc…‹>Ñ»?ΩÓâ<¡*Ï=U:?*ˇî>ƒZædâÀæükÍ>·è>S¶æt-‰=‘X?áLàΩ]ì‚>5ó.>Øü2>e^>◊	S?u¥>‚#)?0ÜÕΩ*ú@Bmodel.model.16.biasJÄáñXΩ/äà>'ï]> “Ê>ëò±ΩÇú›>Ñ4æªãÈ=ÔMÊΩËS¥>f]aΩ˜? ”æ´™π>Yºú>9ÂöæPÆ=©€âæ[9
+æ =˛= Ë:∏õ£>QUv=DSÍΩ1ÎN>œ†v>0Y•>∑
+ø÷ıä>Ìß∆=YÜ=û£h=‹å=7=uvÇ?∑îø√2ÏªyES=‰LHæyÌ!>∆?¿Ùè>:≤Ø=TŒ˜<∂i©Ωˆü>uß9>[@öΩ‹Ê>¯≤>m(“ΩÜâ⁄=‰:Åy
+æ9â/Ω0úªgø> BúΩíE\=;PM>vË=*E>>	⁄>‡p√>*ú@Bmodel.model.18.biasJÄkT‹æ˘€Õ>O>*‡¡æj¶-?ç>W?}î:=òì;?f’æ°m°<z Ω!ˆ$ænêìΩtiæu!?“ã—Ω™c$?-†Læ¡@°º¨?t>çºsΩ3Õÿ>,€øeMÁ>£Øt>K»§<{î∑;G#=…sï>™BΩ√º#?rs
+?ƒ®æ<∂*ú>öÂDΩåŸáΩ ›„=‡È>J∑¡>™è≥>3†Q=a›>ùÒûæ≥0?5jæØeá>ZÛ_>
+lX=ã√M?/G>[ÍD>ô‘‡=ïÂ£æH∞◊>-tøD´â>•\Õæ”ö£>≠OΩÚ∫Ò$ƒæmÊﬁ>ll‚>Fó⁄º*ú@Bmodel.model.20.biasJÄﬁDj=Ã†c? ?êò>vŸÊ>πpº<≠º<QF>Ωã≤>nÚΩH è>úå◊ºôu`>£c)>§√>ôˆB>“,©>*◊k>"q'Ω£«?æÈ>ﬂ≈`=<…ÉΩÁ'©>JÏ>≈ÒB>/G™>˛æ*l?hÆòΩfÙ9æÇ>z∞ÀΩØ9#>óÊ>à?"o)>∂Ω›>ˇËºöËƒ>€‘>Or∂æ\`:æs§<Î\Q>u>íÏw?#ø‰>)5Ã>¯Ùõ>%]öæë>>@(=);á>VQŸ>£ﬁ\>ää+ºìPà>9è≠>eÀ>s@w>kŒ©Ωj∏°<Ã,>*ú@Bmodel.model.22.biasJÄl1¬>wz$?Ù≠√>Jπõ>‘∏jæ∫>*#4?ñ†ª<Ç‚l>,jå>=æS>Àâ·=ÿ¬>#û¡=_R§æ,?Q¸≠>ØîÆ>™W†Ω∫úôæSÜ>Lå≈=ÈHíºÅ|@æıLøj0?‰tΩ¶≥±>>U>	,(Ωh√>Üœ%>0ûæZü=>˘œº≈F˙>oD§>RæÄº*%>Ø\”º¯ù ?ﬂHΩ€Z`>íÛâ>å/Õ>≈i?3/É>∞O”ªÚ0>\ç_>tä>nvmønÁ]>V=
+ﬁö>PXX>‹È>Képº∑≈Á>Ÿπ>∂™„æ†îöΩ˚>ö’ø>*ú@Bmodel.model.24.biasJÄñè>"q)=7◊˚>Yê=¡Aï>œZΩùS>ÂºÉ®>‘^†>ÿ)>h* >ÑÉræ§.`>Óıælôæ∑Y˚<#	øøUë>˜?ﬂÎ?ÒH>¿5–>k¶!øj˚2>‹˘ÄøU‚â>vvtæ«©ªÛØ>πU©>ò@>Ú»æ0Êè>¬Ì>
+‡‰>æv>´∆ß> ˚ı=ôg/æî∞>ƒ;·>d…©>í‡ëæ 0í>ı‰)ºy√OΩn-<ãr=Íl ?˝í>(>˛Û=Z∂◊æ⁄§Cæ.ó>xVπ>!2?n·®=c‡8?4t·æ˝:ô>∏y>Ë^>*ú@Bmodel.model.26.biasJÄbô€=àÍ¡ΩìyE>n g=¶~Ì>≈PäΩ-lÄªHóå>wT><Œ">¶£G>	ª‡>¢´RΩQƒ(>òÇÕ>•R?ÚãØ>§æé&>[Ìæ˘Ñ>≤gÉ>
+øª*> “P?Yí´=3Ÿﬂº"v%Ω∆B’Ω5‘ﬂ>q{=≈7î>ä?Ñ=;º¢Ωõ>ÄUæíºa?úiõ=¬Jv>¨¡>I+∫<¨ã>
+¶õ>íH„=¶`ˆ>hU´>Ç≤≠;ƒP©>ÎeÑΩz⁄#=ãÌ#>ÿÈ=!7ˆºò¥k>ºÛà∫>‚˙=ÁÑ0=≤‘Äº±9+>πõ>d◊{Ω¿7?kÔ>x¿ëΩ*ú@Bmodel.model.28.biasJÄ≈q~>ª
+{Ωw©k>ﬁ_Ù>∞I]>πm⁄Ωˇbr>?Ø>ù	f=œ›iæÚˆ4?Õ*æ1˝ë>ª„">F4ç=Ω‹v>Öix<Zîæ¯'#>u?"[?eÜΩz∂>@jñæô¥ƒ>Bå?obúΩD≠“ΩãßÎ>gî=ó&„>¡≠†æ€m[>@2 =cÇ>Ù¬?[?>ìbƒ>fB Ω˜€R>#Rå>e¯ÇªÕÙ/øù	ñ=ñ[ΩD[E>=≥?|ú >ÈËíΩXRì>«8ì>'ı˚=£π<^ø≥˝æ9“>‹⁄8?îN9>+|˜>P~æ¢á<∂ûØ=ã<ô>±1Ü>*ú@Bmodel.model.30.biasJÄhÄ="ÅñΩ\ÜrºÔ¥áΩÀ.v=i=É{ÊºØVâ;=â"∫=9\Á=z¸@Ωïç˚=«ÓY=˙B>+-@>÷jº'3≥=ΩÛ=çÓÖ=çŒË=:·‘<`9¢Ωl°πΩ±ÄΩ◊¨D=ÓßåΩò∑d=¥‘ºC‘ïΩæ»¬=‡V˜=Ü†öª"â:4+;=5q=;ÅK>û óº˝mΩôõ°º E%ΩŸÎFΩÇ§n>ﬁ º∞Ù⁄=-ÿ¨=*ÅºŒ‡=M≥j<ÜΩªWØ!ºíü<›q<ª%Í=±Vnº∞h%æ§≥=n\ª=Rï∫=L◊ºOà¡Ω®>ÙèøºPÑº*[@Bmodel.model.32.weightj
+location
+dncnn.dataj
+offset2304j
+length2304p*Bmodel.model.32.biasJi"≈8*Bval_1J    *Bval_3J  Ä?*\@@Bmodel.model.2.weightj
+location
+dncnn.dataj
+offset4608j
+length147456p*^@@Bmodel.model.4.weightj
+location
+dncnn.dataj
+offset152064j
+length147456p*^@@Bmodel.model.6.weightj
+location
+dncnn.dataj
+offset299520j
+length147456p*^@@Bmodel.model.8.weightj
+location
+dncnn.dataj
+offset446976j
+length147456p*_@@Bmodel.model.10.weightj
+location
+dncnn.dataj
+offset594432j
+length147456p*_@@Bmodel.model.12.weightj
+location
+dncnn.dataj
+offset741888j
+length147456p*_@@Bmodel.model.14.weightj
+location
+dncnn.dataj
+offset889344j
+length147456p*`@@Bmodel.model.16.weightj
+location
+dncnn.dataj
+offset1036800j
+length147456p*`@@Bmodel.model.18.weightj
+location
+dncnn.dataj
+offset1184256j
+length147456p*`@@Bmodel.model.20.weightj
+location
+dncnn.dataj
+offset1331712j
+length147456p*`@@Bmodel.model.22.weightj
+location
+dncnn.dataj
+offset1479168j
+length147456p*`@@Bmodel.model.24.weightj
+location
+dncnn.dataj
+offset1626624j
+length147456p*`@@Bmodel.model.26.weightj
+location
+dncnn.dataj
+offset1774080j
+length147456p*`@@Bmodel.model.28.weightj
+location
+dncnn.dataj
+offset1921536j
+length147456p*`@@Bmodel.model.30.weightj
+location
+dncnn.dataj
+offset2068992j
+length147456pZü
+image
+
+
+
+Ä
+Ä"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNonebk
+denoised_image
+
+
+
+Ä
+Ä"?
+0pkg.torch.export.graph_signature.OutputSpec.kindUSER_OUTPUTjË
+model.model.0.weight
+
+@
+
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone";
+!pkg.torch.onnx.original_node_namep_model_model_0_weightjÿ
+model.model.0.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"9
+!pkg.torch.onnx.original_node_namep_model_model_0_biasjÿ
+model.model.2.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"9
+!pkg.torch.onnx.original_node_namep_model_model_2_biasjÿ
+model.model.4.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"9
+!pkg.torch.onnx.original_node_namep_model_model_4_biasjÿ
+model.model.6.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"9
+!pkg.torch.onnx.original_node_namep_model_model_6_biasjÿ
+model.model.8.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"9
+!pkg.torch.onnx.original_node_namep_model_model_8_biasj⁄
+model.model.10.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_10_biasj⁄
+model.model.12.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_12_biasj⁄
+model.model.14.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_14_biasj⁄
+model.model.16.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_16_biasj⁄
+model.model.18.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_18_biasj⁄
+model.model.20.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_20_biasj⁄
+model.model.22.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_22_biasj⁄
+model.model.24.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_24_biasj⁄
+model.model.26.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_26_biasj⁄
+model.model.28.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_28_biasj⁄
+model.model.30.bias
+
+
+@"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_30_biasjÍ
+model.model.32.weight
+
+
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_32_weightj⁄
+model.model.32.bias
+
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone":
+!pkg.torch.onnx.original_node_namep_model_model_32_biasjB
+val_1
+ "1
+$pkg.onnxscript.optimizer.folded_from	['val_0']jB
+val_3
+ "1
+$pkg.onnxscript.optimizer.folded_from	['val_2']jË
+model.model.2.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone";
+!pkg.torch.onnx.original_node_namep_model_model_2_weightjË
+model.model.4.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone";
+!pkg.torch.onnx.original_node_namep_model_model_4_weightjË
+model.model.6.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone";
+!pkg.torch.onnx.original_node_namep_model_model_6_weightjË
+model.model.8.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone";
+!pkg.torch.onnx.original_node_namep_model_model_8_weightjÍ
+model.model.10.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_10_weightjÍ
+model.model.12.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_12_weightjÍ
+model.model.14.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_14_weightjÍ
+model.model.16.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_16_weightjÍ
+model.model.18.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_18_weightjÍ
+model.model.20.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_20_weightjÍ
+model.model.22.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_22_weightjÍ
+model.model.24.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_24_weightjÍ
+model.model.26.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_26_weightjÍ
+model.model.28.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_28_weightjÍ
+model.model.30.weight
+
+@
+@
+
+"<
+/pkg.torch.export.graph_signature.InputSpec.kind	PARAMETER"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"<
+!pkg.torch.onnx.original_node_namep_model_model_30_weightj"
+conv2d
+
+
+@
+Ä
+Äj 
+relu
+
+
+@
+Ä
+Äj$
+conv2d_1
+
+
+@
+Ä
+Äj"
+relu_1
+
+
+@
+Ä
+Äj$
+conv2d_2
+
+
+@
+Ä
+Äj"
+relu_2
+
+
+@
+Ä
+Äj$
+conv2d_3
+
+
+@
+Ä
+Äj"
+relu_3
+
+
+@
+Ä
+Äj$
+conv2d_4
+
+
+@
+Ä
+Äj"
+relu_4
+
+
+@
+Ä
+Äj$
+conv2d_5
+
+
+@
+Ä
+Äj"
+relu_5
+
+
+@
+Ä
+Äj$
+conv2d_6
+
+
+@
+Ä
+Äj"
+relu_6
+
+
+@
+Ä
+Äj$
+conv2d_7
+
+
+@
+Ä
+Äj"
+relu_7
+
+
+@
+Ä
+Äj$
+conv2d_8
+
+
+@
+Ä
+Äj"
+relu_8
+
+
+@
+Ä
+Äj$
+conv2d_9
+
+
+@
+Ä
+Äj"
+relu_9
+
+
+@
+Ä
+Äj%
+	conv2d_10
+
+
+@
+Ä
+Äj#
+relu_10
+
+
+@
+Ä
+Äj%
+	conv2d_11
+
+
+@
+Ä
+Äj#
+relu_11
+
+
+@
+Ä
+Äj%
+	conv2d_12
+
+
+@
+Ä
+Äj#
+relu_12
+
+
+@
+Ä
+Äj%
+	conv2d_13
+
+
+@
+Ä
+Äj#
+relu_13
+
+
+@
+Ä
+Äj%
+	conv2d_14
+
+
+@
+Ä
+Äj#
+relu_14
+
+
+@
+Ä
+Äj%
+	conv2d_15
+
+
+@
+Ä
+Äj#
+relu_15
+
+
+@
+Ä
+Äj%
+	conv2d_16
+
+
+
+Ä
+Äj
+sub
+
+
+
+Ä
+ÄÇ€
+0pkg.torch.export.ExportedProgram.graph_signature¶
+# inputs
+p_model_model_0_weight: PARAMETER target='model.model.0.weight'
+p_model_model_0_bias: PARAMETER target='model.model.0.bias'
+p_model_model_2_weight: PARAMETER target='model.model.2.weight'
+p_model_model_2_bias: PARAMETER target='model.model.2.bias'
+p_model_model_4_weight: PARAMETER target='model.model.4.weight'
+p_model_model_4_bias: PARAMETER target='model.model.4.bias'
+p_model_model_6_weight: PARAMETER target='model.model.6.weight'
+p_model_model_6_bias: PARAMETER target='model.model.6.bias'
+p_model_model_8_weight: PARAMETER target='model.model.8.weight'
+p_model_model_8_bias: PARAMETER target='model.model.8.bias'
+p_model_model_10_weight: PARAMETER target='model.model.10.weight'
+p_model_model_10_bias: PARAMETER target='model.model.10.bias'
+p_model_model_12_weight: PARAMETER target='model.model.12.weight'
+p_model_model_12_bias: PARAMETER target='model.model.12.bias'
+p_model_model_14_weight: PARAMETER target='model.model.14.weight'
+p_model_model_14_bias: PARAMETER target='model.model.14.bias'
+p_model_model_16_weight: PARAMETER target='model.model.16.weight'
+p_model_model_16_bias: PARAMETER target='model.model.16.bias'
+p_model_model_18_weight: PARAMETER target='model.model.18.weight'
+p_model_model_18_bias: PARAMETER target='model.model.18.bias'
+p_model_model_20_weight: PARAMETER target='model.model.20.weight'
+p_model_model_20_bias: PARAMETER target='model.model.20.bias'
+p_model_model_22_weight: PARAMETER target='model.model.22.weight'
+p_model_model_22_bias: PARAMETER target='model.model.22.bias'
+p_model_model_24_weight: PARAMETER target='model.model.24.weight'
+p_model_model_24_bias: PARAMETER target='model.model.24.bias'
+p_model_model_26_weight: PARAMETER target='model.model.26.weight'
+p_model_model_26_bias: PARAMETER target='model.model.26.bias'
+p_model_model_28_weight: PARAMETER target='model.model.28.weight'
+p_model_model_28_bias: PARAMETER target='model.model.28.bias'
+p_model_model_30_weight: PARAMETER target='model.model.30.weight'
+p_model_model_30_bias: PARAMETER target='model.model.30.bias'
+p_model_model_32_weight: PARAMETER target='model.model.32.weight'
+p_model_model_32_bias: PARAMETER target='model.model.32.bias'
+image: USER_INPUT
+
+# outputs
+clamp: USER_OUTPUT
+Ç8
+2pkg.torch.export.ExportedProgram.range_constraints{}B
+ r
+source_model_type.pt2

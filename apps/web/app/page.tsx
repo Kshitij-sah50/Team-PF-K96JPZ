@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import {
   ArrowUpRight,
   Cloud,
@@ -121,10 +122,10 @@ export default function Home() {
             <ScrollText size={18} />
             Celestial Scroll
           </a>
-          <span>
+          <Link href="/spirit-lens">
             <Telescope size={18} />
-            Spirit Lens<small>Coming later</small>
-          </span>
+            Spirit Lens<ArrowUpRight size={15} />
+          </Link>
         </nav>
         <div className="watch-proverb">
           <JapaneseText meaning="In stillness, find the stars.">
