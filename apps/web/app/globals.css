@@ -84,12 +84,28 @@ html {
   gap: 10px;
 }
 .watch-sidebar nav > * {
-  display: flex;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) 14px;
+  min-height: 56px;
+  border-left: 2px solid transparent;
   align-items: center;
-  gap: 12px;
-  padding: 14px 10px;
+  gap: 8px;
+  padding: 10px 8px;
   font-size: 12px;
   color: var(--watch-muted);
+}
+.watch-sidebar nav a > span {
+  min-width: 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.watch-sidebar nav a > .watch-nav-icon,
+.watch-sidebar nav a > .watch-nav-arrow {
+  display: block;
+  margin: 0;
+}
+.watch-sidebar {
+  overflow-y: auto;
 }
 .watch-sidebar nav a[aria-current="page"] {
   background: var(--watch-selected);
@@ -282,8 +298,9 @@ html {
     max-width: 360px;
   }
   .watch-sidebar nav {
-    display: flex;
-    gap: 4px;
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
   }
   .watch-sidebar nav a {
     padding: 10px 7px;
@@ -806,9 +823,10 @@ html {
   .watch-sidebar {
     position: static;
     width: 100%;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 18px;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     padding: 18px 22px;
     border-bottom: 1px solid var(--watch-border);
   }
@@ -857,6 +875,16 @@ html {
 @media (max-width: 480px) {
   .watch-sidebar nav a > svg {
     display: none;
+  }
+  .watch-sidebar nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .watch-sidebar nav a {
+    font-size: 11px;
+    padding: 10px;
+  }
+  .watch-sidebar nav a:last-child {
+    grid-column: 1 / -1;
   }
   .watch-topbar {
     height: 55px;

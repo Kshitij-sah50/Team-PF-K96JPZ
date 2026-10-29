@@ -115,19 +115,19 @@ export default function Home() {
         <p className="watch-nav-label">YOUR CELESTIAL GUIDE</p>
         <nav aria-label="Main navigation">
           <a href="#watchtower" aria-current="page">
-            <Mountain size={18} />
-            The Watchtower <ArrowUpRight size={15} />
+            <Mountain className="watch-nav-icon" size={18} />
+            <span>The Watchtower</span><ArrowUpRight className="watch-nav-arrow" size={14} />
           </a>
           <a href="#celestial-scroll">
-            <ScrollText size={18} />
-            Celestial Scroll
+            <ScrollText className="watch-nav-icon" size={18} />
+            <span>Celestial Scroll</span><ArrowUpRight className="watch-nav-arrow" size={14} />
           </a>
           <Link href="/spirit-lens">
-            <Telescope size={18} />
-            Spirit Lens<ArrowUpRight size={15} />
+            <Telescope className="watch-nav-icon" size={18} />
+            <span>Spirit Lens</span><ArrowUpRight className="watch-nav-arrow" size={14} />
           </Link>
-          <Link href="/analysis"><Telescope size={18} /> Signal Observatory</Link>
-          <Link href="/dojo"><ScrollText size={18} /> Honor journal</Link>
+          <Link href="/analysis"><Telescope className="watch-nav-icon" size={18} /><span>Signal Observatory</span><ArrowUpRight className="watch-nav-arrow" size={14} /></Link>
+          <Link href="/dojo"><ScrollText className="watch-nav-icon" size={18} /><span>Honor journal</span><ArrowUpRight className="watch-nav-arrow" size={14} /></Link>
         </nav>
         <div className="watch-proverb">
           <JapaneseText meaning="In stillness, find the stars.">
