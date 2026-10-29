@@ -5,16 +5,16 @@ A Japanese-inspired celestial guide built with Next.js, tRPC, Drizzle, and Postg
 ## Implemented
 
 - Part 1: database foundation for users, preferences, locations, weather, events, alerts, observations, and honor points.
-- Part 2: Watchtower dashboard with a seeded destination catalog, browser geolocation, radius filtering, an interactive OpenStreetMap view, live nighttime forecasts, and a weather-only Night Honor Score.
+- Part 2: Watchtower dashboard with a seeded destination catalog, city/destination search, browser geolocation, radius filtering, weather-based nearby ranking, an interactive parchment-scroll map with shrine, mountain, and temple markers, live nighttime forecasts, and a weather-only Night Honor Score.
 - Part 3 (first slice): Celestial Scroll with USNO moon phases, Launch Library rocket launches, a month calendar, type/day filters, internal event detail pages, source health, database feed caching, and calendar reminder downloads.
 
 Spirit Lens and the authenticated Dojo are future parts. ISS passes, meteor showers,
-eclipses, daily moon data, and server-delivered alerts remain to be added to the Scroll.
+eclipses and server-delivered alerts remain to be added to the Scroll. Daily moon data and device-local moonrise reminders are connected.
 See [API setup](docs/API_SETUP.md) for providers, signup links, key requirements,
 and which integrations are currently connected.
 
-The header offers Tsukuyomi (indigo), Akatsuki (crimson), Sakura (rose), and
-Bamboo (jade) palettes, each with light and dark modes. Palette and mode choices
+The header offers Ink Wash (indigo), Torii (crimson), Sakura (rose), and
+Katana (black and gold) themes, each with light and dark modes. Palette and mode choices
 are saved locally. Event cards open full details at `/events/[id]` within the app.
 
 ## Local development
@@ -52,7 +52,7 @@ Weather snapshots and score components are written together in a database transa
 
 The initial score uses the project document's clear-sky, visibility, and dry-air weights: 40, 20, and 15 points. Visibility receives full credit at 20 km. Their sum is divided by 75 and scaled to 100. **Moonlight and light pollution are excluded**, and this is explicitly labelled in the dashboard. The score is a planning estimate, not a visibility guarantee. Provider night means sunset-to-sunrise, not astronomical darkness.
 
-The four seeded destinations use approximate coordinates and no unverified Bortle ratings. Nearby filtering uses Haversine distance over a bounded catalog of up to 500 locations. PostGIS and a larger geographic catalog remain future work. The seed is idempotent and preserves existing records.
+The six seeded destinations use approximate coordinates and no unverified Bortle ratings. Nearby filtering uses Haversine distance over a bounded catalog of up to 500 locations. PostGIS and a larger geographic catalog remain future work. The seed is idempotent and preserves existing records.
 
 ## Checks
 
@@ -62,6 +62,7 @@ pnpm --filter web build
 pnpm --filter @repo/api build
 pnpm --filter @repo/database exec tsx --test ../services/watchtower/weather.test.ts
 pnpm --filter @repo/database exec tsx --test ../services/celestial/providers.test.ts
+pnpm --filter @repo/database exec tsx --test ../services/watchtower/moon.test.ts
 pnpm exec tsc --noEmit -p packages/services
 pnpm exec tsc --noEmit -p packages/trpc
 pnpm exec tsc --noEmit -p packages/database
@@ -73,9 +74,15 @@ The local implementation was also checked against PostgreSQL: migrations, idempo
 
 ## Next parts
 
-3. Complete the Celestial Scroll: ISS passes, meteor showers, eclipses, daily moon data, and server-side alerts. Primary phases, launches, date/type filters, and calendar export are implemented.
+3. Complete the Celestial Scroll: ISS passes, meteor showers, eclipses, and server-side alerts. Primary phases, daily moon tracking, launches, date/type filters, device-local moonrise reminders, and calendar export are implemented.
 4. Spirit Lens: image storage, restoration worker, detection, comparison view.
 5. Dojo: authenticated saved places, observations, transactional honor awards.
 6. Optional NASA SkyView and transient analysis.
 
 See [database implementation notes](packages/database/IMPLEMENTATION.md) for schema decisions.
+
+## Moonrise and scroll-map notes
+
+The moon tracker uses USNO daily phase, illumination, and location-specific rise/set predictions. Three UTC days are cached in PostgreSQL and displayed in your browser timezone. Device-local alerts run while the app is open; calendar downloads provide reminders through your calendar app after closing the site. No server email or background push is sent.
+
+The Leaflet map uses local public-domain Natural Earth country outlines. It supports pan, zoom, selected markers, fit-to-spots, and search around the map center without an external tile service. Outlines and destination coordinates are approximate; this is not a route map. The current six-place India catalog is a prototype, and the two shrine/temple areas have unverified night access and observing suitability.

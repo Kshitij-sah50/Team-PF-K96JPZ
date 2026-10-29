@@ -53,3 +53,9 @@ per-provider/month refresh state and feed membership. Successful refreshes repla
 membership without deleting historical event rows or their alerts. The source/API
 external-ID unique constraint handles updates and deduplication.
 See the repository README and `docs/API_SETUP.md` for startup and provider setup.
+
+The Watchtower moon tracker adds phase name, illumination, and a fetch timestamp
+to location-specific daily rise/set records (`0003_moon_conditions`). USNO data is
+requested in UTC and cached for one hour. Three adjacent UTC dates support local
+time displays and the next moonrise. Device-local reminders currently use browser
+storage and do not require accounts or write to `event_alerts`.

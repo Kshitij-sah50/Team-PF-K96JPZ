@@ -6,6 +6,24 @@ import { locationsTable } from "./schema";
 // Approximate destination coordinates. No unverified Bortle ratings are assigned.
 const locations = [
   {
+    id: "00000000-0000-4000-8000-000000000005",
+    name: "Hatu Temple area",
+    type: "temple" as const,
+    lat: 31.245,
+    lng: 77.501,
+    description:
+      "Approximate temple-area destination near Narkanda. This is a cultural landmark, not a verified night-access observing site; check access and permissions locally.",
+  },
+  {
+    id: "00000000-0000-4000-8000-000000000006",
+    name: "Kartik Swami shrine area",
+    type: "shrine" as const,
+    lat: 30.381,
+    lng: 79.084,
+    description:
+      "Approximate hilltop shrine-area destination in Uttarakhand. Night access and stargazing suitability are unverified; confirm local permissions and conditions.",
+  },
+  {
     id: "00000000-0000-4000-8000-000000000001",
     name: "Hanle",
     type: "observatory" as const,

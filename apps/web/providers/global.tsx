@@ -8,6 +8,7 @@ import { Toaster } from "~/components/ui/sonner";
 import { trpc } from "~/trpc/client";
 import { createTRPCHttpBatchClientClient } from "~/trpc/create-client";
 import { PaletteProvider } from "~/providers/palette";
+import { MoonAlertScheduler } from "~/components/moon-alert-scheduler";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +36,7 @@ export const GlobalProviders: React.FC<{ children: React.ReactNode }> = ({ child
         <PaletteProvider>
           <trpc.Provider queryClient={queryClient} client={trpcClient}>
             {children}
+            <MoonAlertScheduler />
             <Toaster />
           </trpc.Provider>
         </PaletteProvider>

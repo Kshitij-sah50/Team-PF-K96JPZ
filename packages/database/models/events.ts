@@ -37,8 +37,14 @@ export const moonRiseSetsTable = pgTable(
     date: date("date").notNull(),
     moonriseUtc: timestamp("moonrise_utc", { withTimezone: true }),
     moonsetUtc: timestamp("moonset_utc", { withTimezone: true }),
+    phaseName: text("phase_name"),
+    illuminationPct: doublePrecision("illumination_pct"),
+    fetchedAt: timestamp("fetched_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [unique("moon_location_date_unique").on(t.locationId, t.date)],
+  (t) => [
+    unique("moon_location_date_unique").on(t.locationId, t.date),
+    check("moon_rise_illumination_valid", sql`${t.illuminationPct} between 0 and 100`),
+  ],
 );
 
 export const issPassesTable = pgTable(

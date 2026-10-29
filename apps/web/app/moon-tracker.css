@@ -1,0 +1,182 @@
+.moon-tracker {
+  margin: 12px 0 30px;
+  padding: 26px;
+  border: 1px solid var(--watch-accent-border);
+  background:
+    radial-gradient(ellipse at 0 50%, var(--watch-glow), transparent 60%), var(--watch-panel);
+}
+.moon-tracker-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.moon-tracker-heading .watch-eyebrow {
+  margin-bottom: 12px;
+}
+.moon-tracker h2 {
+  font:
+    27px Georgia,
+    serif;
+}
+.moon-tracker-heading p:not(.watch-eyebrow) {
+  font-size: 10px;
+  color: var(--watch-muted);
+  margin-top: 10px;
+  line-height: 1.8;
+}
+.moon-tracker-heading > svg {
+  color: var(--watch-accent);
+  flex-shrink: 0;
+}
+.moon-tracker-body {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px;
+  align-items: center;
+  margin-top: 26px;
+}
+.moon-phase-summary {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.moon-phase-disc {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 16px var(--watch-glow));
+}
+.moon-phase-summary small {
+  font-size: 7px;
+  letter-spacing: 1.6px;
+  color: var(--watch-accent);
+}
+.moon-phase-summary h3 {
+  font:
+    22px Georgia,
+    serif;
+  margin: 10px 0;
+}
+.moon-phase-summary p {
+  font-size: 10px;
+  color: var(--watch-muted);
+}
+.moon-phase-summary meter {
+  width: 100%;
+  height: 5px;
+  margin-top: 12px;
+  accent-color: var(--watch-accent);
+}
+.moon-phase-summary meter::-webkit-meter-bar {
+  background: var(--watch-control);
+  border: 0;
+  border-radius: 5px;
+}
+.moon-phase-summary meter::-webkit-meter-optimum-value {
+  background: var(--watch-accent);
+  border-radius: 5px;
+}
+.moon-phase-summary meter::-moz-meter-bar {
+  background: var(--watch-accent);
+}
+.moonrise-message {
+  font:
+    22px/1.45 Georgia,
+    serif;
+  color: var(--watch-highlight);
+}
+.moon-rise-summary > p:not(.moonrise-message) {
+  font-size: 10px;
+  color: var(--watch-muted);
+  margin-top: 12px;
+}
+.moon-alert-controls {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.moon-alert-controls label {
+  font-size: 10px;
+  color: var(--watch-muted);
+}
+.moon-alert-controls select {
+  margin-left: 6px;
+  padding: 8px;
+  border: 1px solid var(--watch-border-strong);
+  background: var(--watch-control);
+  color: var(--watch-text);
+  font-size: 10px;
+}
+.moon-alert-status {
+  min-height: 15px;
+  line-height: 1.8;
+}
+.moon-tracker-note {
+  border-top: 1px solid var(--watch-border);
+  padding-top: 16px;
+  margin-top: 22px;
+  font-size: 9px;
+  line-height: 1.9;
+  color: var(--watch-muted);
+}
+.moon-tracker-note a {
+  text-decoration: underline;
+}
+.moon-alert-queue {
+  margin-top: 22px;
+  border-top: 1px solid var(--watch-border);
+  padding-top: 18px;
+}
+.moon-alert-queue h3 {
+  font:
+    17px Georgia,
+    serif;
+  margin-bottom: 15px;
+}
+.moon-alert-queue > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  font-size: 11px;
+  color: var(--watch-muted);
+}
+.moon-alert-queue small {
+  display: block;
+  margin-top: 4px;
+  font-size: 9px;
+}
+.moon-alert-queue button {
+  margin-left: auto;
+}
+@media (max-width: 1100px) {
+  .moon-tracker-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .moon-phase-disc {
+    width: 95px;
+    height: 95px;
+  }
+}
+@media (max-width: 480px) {
+  .moon-tracker {
+    padding: 20px;
+  }
+  .moon-tracker h2 {
+    font-size: 23px;
+  }
+  .moonrise-message {
+    font-size: 20px;
+  }
+  .moon-alert-controls {
+    gap: 8px;
+  }
+  .moon-alert-controls label {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+}

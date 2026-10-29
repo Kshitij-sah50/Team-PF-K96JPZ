@@ -1,0 +1,275 @@
+.scroll-map-shell {
+  position: relative;
+  background: #e8d8af;
+  color: #493b29;
+  min-width: 0;
+  border: 1px solid #937749;
+  isolation: isolate;
+}
+.scroll-map-shell::before,
+.scroll-map-shell::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  right: -5px;
+  height: 8px;
+  z-index: 3;
+  pointer-events: none;
+  border: 1px solid #8f6d3e;
+  border-radius: 4px;
+  background: linear-gradient(#826139, #d2b984 45%, #967043);
+}
+.scroll-map-shell::before {
+  top: -4px;
+}
+.scroll-map-shell::after {
+  bottom: -4px;
+}
+.scroll-map-ribbon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px 12px;
+  font-size: 9px;
+  letter-spacing: 1.6px;
+  border-bottom: 1px solid #93774944;
+  background: linear-gradient(90deg, #ac844526, transparent, #ac844526);
+}
+.scroll-map-canvas {
+  height: 440px;
+  width: 100%;
+  z-index: 0;
+  isolation: isolate;
+  background-color: #e8d8af;
+  background-image:
+    radial-gradient(ellipse at 20% 30%, #cfb98655, transparent 50%),
+    repeating-linear-gradient(0deg, #6f573509 0 1px, transparent 1px 4px);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+.scroll-map-canvas:focus-visible {
+  outline: 2px solid #a62e35;
+  outline-offset: -3px;
+}
+.scroll-map-canvas .leaflet-control-zoom a {
+  background: #f5e8ca;
+  color: #593a24;
+  border-color: #9e805044;
+}
+.scroll-map-canvas .leaflet-control-attribution {
+  background: #f6ead0e6;
+  color: #69512d;
+  font-size: 8px;
+}
+.scroll-map-canvas .leaflet-control-attribution a {
+  color: #7a3b25;
+}
+.scroll-map-canvas .leaflet-control-scale-line {
+  background: #f6ead099;
+  color: #59482c;
+  border-color: #81643d;
+  font-size: 9px;
+}
+.scroll-spot-marker {
+  background: transparent;
+  border: none;
+}
+.scroll-marker-glyph {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #8c5c35;
+  background: #fbefd4;
+  color: #694128;
+  border-radius: 50% 50% 50% 4px;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 5px #59351533;
+}
+.scroll-marker-glyph svg {
+  width: 25px;
+  height: 25px;
+  transform: rotate(45deg);
+}
+.scroll-marker-rank {
+  position: absolute;
+  top: -4px;
+  right: -2px;
+  border: 1px solid #e5c78e;
+  background: #842e2c;
+  color: #fff1cf;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 9px;
+  line-height: 15px;
+}
+.scroll-spot-marker.selected .scroll-marker-glyph {
+  color: #fff0c9;
+  background: #932e31;
+  border-color: #f4cf81;
+  box-shadow:
+    0 0 0 4px #a9363226,
+    0 3px 8px #4c2e2940;
+}
+.scroll-spot-popup .leaflet-popup-content-wrapper,
+.scroll-spot-popup .leaflet-popup-tip {
+  color: #4c3527;
+  background: #fff1d4;
+  border: 1px solid #b79b65;
+  border-radius: 3px;
+  box-shadow: 0 4px 15px #3b241d30;
+}
+.scroll-spot-popup strong {
+  font:
+    17px Georgia,
+    serif;
+}
+.scroll-spot-popup p {
+  font-size: 10px;
+  margin: 8px 0 0;
+}
+.scroll-country-label {
+  color: #5d4b30;
+  border-color: #b79b65;
+  background: #fff1d4;
+  box-shadow: none;
+  font:
+    12px Georgia,
+    serif;
+}
+.scroll-map-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid #93774933;
+}
+.watchtower .scroll-map-actions button {
+  color: #653c23;
+  background: #f6e8c6;
+  border-color: #9e805066;
+  font-size: 10px;
+}
+.scroll-map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 0 16px 12px;
+  font-size: 9px;
+}
+.scroll-map-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.scroll-map-legend svg {
+  width: 21px;
+  height: 21px;
+}
+.scroll-map-footnote,
+.scroll-map-error {
+  font-size: 9px;
+  line-height: 1.7;
+  padding: 0 16px 14px;
+  color: #715b38;
+}
+.scroll-map-error {
+  color: #842e2c;
+}
+.scroll-map-loading {
+  position: absolute;
+  top: 130px;
+  width: 100%;
+  text-align: center;
+  font:
+    18px Georgia,
+    serif;
+  pointer-events: none;
+}
+.watch-map-ranking-note {
+  font-size: 10px;
+  line-height: 1.8;
+  color: var(--watch-muted);
+  margin: 0 0 18px;
+}
+.watchtower .watch-place-list {
+  max-height: 640px;
+  overflow-y: auto;
+  scrollbar-color: var(--watch-scroll-thumb) var(--watch-scroll-track);
+}
+.watchtower .watch-explorer {
+  grid-template-columns: minmax(230px, 0.8fr) minmax(0, 1.6fr);
+}
+.watch-ink-wash,
+.watch-katana-motif,
+.watch-sakura-branch {
+  display: none;
+  pointer-events: none;
+  position: absolute;
+}
+:root[data-palette="tsukuyomi"] .watch-ink-wash {
+  display: block;
+  width: 105%;
+  height: 85%;
+  bottom: 0;
+  left: 0;
+  opacity: 0.6;
+  z-index: 1;
+}
+:root[data-palette="akatsuki"] .watch-torii {
+  fill: var(--watch-vermilion);
+  width: 88px;
+  height: 98px;
+}
+:root[data-palette="sakura"] .watch-sakura-branch {
+  display: block;
+  width: 65%;
+  top: 0;
+  right: -4%;
+  z-index: 2;
+  opacity: 0.7;
+}
+:root[data-palette="sakura"] .watch-petals {
+  display: block;
+}
+:root[data-palette="katana"] .watch-katana-motif {
+  display: block;
+  height: 190px;
+  width: 100px;
+  right: 28%;
+  bottom: 0;
+  z-index: 2;
+}
+@media (max-width: 800px) {
+  .watchtower .watch-explorer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .watchtower .watch-place-list {
+    max-height: 280px;
+  }
+  .scroll-map-canvas {
+    height: 380px;
+  }
+}
+@media (max-width: 480px) {
+  .scroll-map-canvas {
+    height: 340px;
+  }
+  .scroll-map-ribbon {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+  .scroll-map-legend {
+    gap: 10px;
+  }
+  :root[data-palette="katana"] .watch-katana-motif {
+    height: 125px;
+    width: 70px;
+  }
+  :root[data-palette="akatsuki"] .watch-torii {
+    width: 60px;
+    height: 68px;
+  }
+}

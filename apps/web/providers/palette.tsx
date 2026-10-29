@@ -3,10 +3,10 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 export const palettes = [
-  { id: "tsukuyomi", label: "月 Tsukuyomi · Indigo" },
-  { id: "akatsuki", label: "暁 Akatsuki · Crimson" },
+  { id: "tsukuyomi", label: "墨 Ink Wash · Indigo" },
+  { id: "akatsuki", label: "鳥居 Torii · Crimson" },
   { id: "sakura", label: "桜 Sakura · Rose" },
-  { id: "bamboo", label: "竹 Bamboo · Jade" },
+  { id: "katana", label: "刀 Katana · Black & Gold" },
 ] as const;
 type Palette = (typeof palettes)[number]["id"];
 const isPalette = (value: string | null): value is Palette =>
@@ -23,7 +23,8 @@ export function PaletteProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const stored = localStorage.getItem("tsukuyomi-palette");
-      if (isPalette(stored)) setPalette(stored);
+      if (stored === "bamboo") setPalette("katana");
+      else if (isPalette(stored)) setPalette(stored);
     } catch {
       /* The default works without storage. */
     }

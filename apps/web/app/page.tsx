@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowUpRight,
   Cloud,
@@ -19,6 +19,9 @@ import { trpc } from "~/trpc/client";
 import { CelestialScroll } from "~/components/celestial-scroll";
 import { ThemeToggle } from "~/components/theme-toggle";
 import { SkyAtmosphere, DriftingPetals } from "~/components/sky-atmosphere";
+import { ScrollMap } from "~/components/scroll-map";
+import { MoonTracker } from "~/components/moon-tracker";
+import { LocationSearch } from "~/components/location-search";
 
 const formatTime = (date: string | Date) =>
   new Date(date).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
@@ -42,16 +45,25 @@ export default function Home() {
     }
   }
   const [origin, setOrigin] = useState<{ lat: number; lng: number } | undefined>();
+  const [originName, setOriginName] = useState("Your location");
   const [radiusKm, setRadiusKm] = useState(500);
   const [geoError, setGeoError] = useState("");
   const [locating, setLocating] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [rankBySky, setRankBySky] = useState(false);
   const locations = trpc.watchtower.locations.useQuery(
     { origin: origin ? { ...origin, radiusKm } : undefined },
     { staleTime: 300000, retry: 1 },
   );
-  const selected =
-    locations.data?.find((location) => location.id === selectedId) ?? locations.data?.[0];
+  const ranked = trpc.watchtower.ranked.useQuery(
+    { origin: origin ? { ...origin, radiusKm } : undefined },
+    { enabled: rankBySky, staleTime: 300000, retry: 1 },
+  );
+  const spots = useMemo(
+    () => (rankBySky ? (ranked.data ?? locations.data) : locations.data)?.slice(0, 8) ?? [],
+    [rankBySky, ranked.data, locations.data],
+  );
+  const selected = spots.find((location) => location.id === selectedId) ?? spots[0];
   const conditions = trpc.watchtower.conditions.useQuery(
     { locationId: selected?.id ?? "" },
     { enabled: !!selected, staleTime: 300000, retry: 1 },
@@ -67,6 +79,7 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setOrigin({ lat: position.coords.latitude, lng: position.coords.longitude });
+        setOriginName("Your location");
         setLocating(false);
       },
       () => {
@@ -178,11 +191,32 @@ export default function Home() {
             </div>
             <span>01 / EXPLORE</span>
           </div>
+          <LocationSearch
+            onDestination={(id) => {
+              setOrigin(undefined);
+              setSelectedId(id);
+              setRankBySky(false);
+            }}
+            onPlace={(point, name) => {
+              setOrigin(point);
+              setOriginName(name);
+            }}
+          />
           <div className="watch-toolbar">
             <p>
-              {origin ? "Destinations near your location" : "A small catalog. A boundless sky."}
+              {origin ? `Top destinations near ${originName}` : "A small catalog. A boundless sky."}
             </p>
             <div>
+              <label className="watch-radius">
+                Sort{" "}
+                <select
+                  value={rankBySky ? "sky" : "nearest"}
+                  onChange={(event) => setRankBySky(event.target.value === "sky")}
+                >
+                  <option value="nearest">Nearest first</option>
+                  <option value="sky">Best sky score</option>
+                </select>
+              </label>
               <label className="watch-radius">
                 Radius{" "}
                 <select
@@ -211,6 +245,18 @@ export default function Home() {
               )}
             </div>
           </div>
+          {rankBySky && (
+            <p className="watch-map-ranking-note" role="status">
+              {ranked.isFetching
+                ? "Comparing nighttime forecasts for up to eight nearby destinations…"
+                : "Ranked by weather-only Night Honor Score. Missing forecasts appear last."}
+            </p>
+          )}
+          {rankBySky && ranked.error && (
+            <p className="watch-message" role="alert">
+              {ranked.error.message}
+            </p>
+          )}
           {geoError && (
             <p className="watch-message" role="alert">
               {geoError}
@@ -236,10 +282,10 @@ export default function Home() {
               </p>
             </div>
           )}
-          {!!locations.data?.length && (
+          {!!spots.length && (
             <div className="watch-explorer">
               <div className="watch-place-list" aria-label="Stargazing destinations">
-                {locations.data.map((location, index) => (
+                {spots.map((location, index) => (
                   <button
                     key={location.id}
                     className={selected?.id === location.id ? "chosen" : ""}
@@ -248,7 +294,10 @@ export default function Home() {
                   >
                     <span className="watch-place-number">0{index + 1}</span>
                     <div>
-                      <small>{location.type.toUpperCase()}</small>
+                      <small>
+                        {location.type.toUpperCase()}
+                        {location.nightScore !== null && ` · ${location.nightScore}/100`}
+                      </small>
                       <h3>{location.name}</h3>
                       <p>
                         <MapPin size={12} />
@@ -261,31 +310,20 @@ export default function Home() {
                   </button>
                 ))}
               </div>
-              <div className="watch-map">
-                {selected && (
-                  <iframe
-                    title={`Interactive map of ${selected.name}`}
-                    key={selected.id}
-                    loading="lazy"
-                    src={`https://www.openstreetmap.org/export/embed.html?bbox=${selected.lng - 0.3},${selected.lat - 0.2},${selected.lng + 0.3},${selected.lat + 0.2}&layer=mapnik&marker=${selected.lat},${selected.lng}`}
-                  />
-                )}
-                <div className="watch-map-caption">
-                  <span>地図 · YOUR NEXT HORIZON</span>
-                  {selected && (
-                    <a
-                      target="_blank"
-                      rel="noreferrer"
-                      href={`https://www.openstreetmap.org/?mlat=${selected.lat}&mlon=${selected.lng}#map=12/${selected.lat}/${selected.lng}`}
-                    >
-                      Open map ↗
-                    </a>
-                  )}
-                </div>
-              </div>
+              <ScrollMap
+                spots={spots}
+                selectedId={selected?.id}
+                origin={origin}
+                onSelect={setSelectedId}
+                onSearch={(point) => {
+                  setOrigin(point);
+                  setOriginName("the map center");
+                }}
+              />
             </div>
           )}
         </section>
+        {selected && <MoonTracker locationId={selected.id} locationName={selected.name} />}
         {selected && (
           <section className="watch-conditions" aria-label="Nighttime weather forecast">
             <div className="watch-conditions-heading">

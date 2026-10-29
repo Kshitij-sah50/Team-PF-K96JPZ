@@ -1,0 +1,83 @@
+.watch-search {
+  position: relative;
+  margin-top: 26px;
+}
+.watch-search-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--watch-border-strong);
+  background: var(--watch-panel);
+  color: var(--watch-accent);
+}
+.watch-search-input:focus-within {
+  border-color: var(--watch-accent);
+  box-shadow: 0 0 0 2px var(--watch-tint);
+}
+.watch-search-input input {
+  width: 100%;
+  min-width: 0;
+  font-size: 12px;
+  background: transparent;
+  color: var(--watch-text);
+  outline: none;
+}
+.watch-search-input input::placeholder {
+  color: var(--watch-faint);
+}
+.watchtower .watch-search-input button {
+  padding: 4px;
+  border: none;
+  background: transparent;
+}
+.watch-search-results {
+  border: 1px solid var(--watch-border-strong);
+  border-top: 0;
+  padding: 12px 16px;
+  background: var(--watch-panel);
+  max-height: 390px;
+  overflow-y: auto;
+}
+.watch-search-results h3 {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--watch-accent);
+  margin: 12px 0;
+  text-transform: uppercase;
+}
+.watchtower .watch-search-results button {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  gap: 12px;
+  padding: 12px 8px;
+  border: 0;
+  border-bottom: 1px solid var(--watch-border);
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+}
+.watch-search-results button > span:last-child {
+  margin-left: auto;
+  font-size: 9px;
+  color: var(--watch-accent);
+}
+.watch-search-results small {
+  display: block;
+  font-size: 9px;
+  color: var(--watch-muted);
+  margin-top: 4px;
+}
+.watch-search-results p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--watch-muted);
+  padding: 10px 0;
+}
+.watch-search-results .watch-search-credit {
+  font-size: 9px;
+}
+.watch-search-credit a {
+  text-decoration: underline;
+}

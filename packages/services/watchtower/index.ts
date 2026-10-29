@@ -8,9 +8,30 @@ export async function listLocations(origin?: { lat: number; lng: number; radiusK
     .map((location) => ({
       ...location,
       distanceKm: origin ? distanceKm(origin.lat, origin.lng, location.lat, location.lng) : null,
+      nightScore: null as number | null,
+      forecastFor: null as Date | null,
     }))
     .filter((location) => !origin || location.distanceKm! <= origin.radiusKm)
     .sort((a, b) => (a.distanceKm ?? 0) - (b.distanceKm ?? 0));
+}
+
+export async function rankedLocations(origin?: { lat: number; lng: number; radiusKm: number }) {
+  const nearby = (await listLocations(origin)).slice(0, 8);
+  const results = await Promise.allSettled(nearby.map((location) => getConditions(location.id)));
+  return nearby
+    .map((location, index) => {
+      const result = results[index];
+      const conditions = result?.status === "fulfilled" ? result.value : null;
+      return {
+        ...location,
+        nightScore: conditions?.score.score ?? null,
+        forecastFor: conditions?.weather.forecastFor ?? null,
+      };
+    })
+    .sort(
+      (a, b) =>
+        (b.nightScore ?? -1) - (a.nightScore ?? -1) || (a.distanceKm ?? 0) - (b.distanceKm ?? 0),
+    );
 }
 
 const inFlight = new Map<string, Promise<Awaited<ReturnType<typeof loadConditions>>>>();

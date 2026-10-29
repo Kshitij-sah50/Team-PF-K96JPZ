@@ -1,8 +1,59 @@
-import type { CSSProperties } from "react";
+import { useId, type CSSProperties } from "react";
 
 export function SkyAtmosphere() {
+  const washId = useId().replace(/:/g, "");
   return (
     <>
+      <svg className="watch-ink-wash" viewBox="0 0 500 280" aria-hidden="true">
+        <defs>
+          <filter id={washId}>
+            <feTurbulence type="fractalNoise" baseFrequency=".025" numOctaves="3" seed="8" />
+            <feDisplacementMap in="SourceGraphic" scale="18" />
+          </filter>
+        </defs>
+        <path
+          d="M-20 280 60 220 130 240 235 80 300 165 340 130 520 270V300H-20Z"
+          fill="var(--watch-ridge-back)"
+          filter={`url(#${washId})`}
+        />
+      </svg>
+      <svg className="watch-katana-motif" viewBox="0 0 100 200" aria-hidden="true">
+        <g transform="rotate(28 50 100)">
+          <path d="M43 145 46 20Q48 10 55 3L56 145Z" fill="var(--watch-moon-center)" />
+          <path d="M48 140 51 20" stroke="var(--watch-accent)" strokeWidth="1" />
+          <path d="M32 145H67V152H32Z" fill="var(--watch-accent)" />
+          <path d="M44 153H55V193H44Z" fill="var(--watch-vermilion)" />
+          <path
+            d="M44 157 55 165 44 173 55 181 44 189"
+            fill="none"
+            stroke="var(--watch-accent)"
+            strokeWidth="2"
+          />
+        </g>
+      </svg>
+      <svg className="watch-sakura-branch" viewBox="0 0 220 150" aria-hidden="true">
+        <path
+          d="M225 10Q165 45 125 58T40 115M170 37 155 4M127 57 111 25M98 72 67 57"
+          fill="none"
+          stroke="var(--watch-accent)"
+          strokeWidth="3"
+        />
+        {[
+          [155, 12],
+          [115, 28],
+          [128, 59],
+          [70, 59],
+          [46, 109],
+          [177, 33],
+        ].map(([x, y], index) => (
+          <g key={index} transform={`translate(${x} ${y})`} fill="var(--watch-petal)">
+            {[0, 72, 144, 216, 288].map((angle) => (
+              <ellipse key={angle} cy="-6" rx="4" ry="6" transform={`rotate(${angle})`} />
+            ))}
+            <circle r="2" fill="var(--watch-accent)" />
+          </g>
+        ))}
+      </svg>
       <div className="watch-stars" aria-hidden="true">
         {Array.from({ length: 24 }, (_, index) => (
           <span
