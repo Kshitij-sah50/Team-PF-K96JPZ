@@ -72,6 +72,36 @@ Tests cover score boundaries, weights, visibility caps, malformed/missing foreca
 
 The local implementation was also checked against PostgreSQL: migrations, idempotent seed, nearby filtering, a live weather request, and a subsequent cache hit.
 
+## Production (Vercel + Render)
+
+Checked-in deploy files:
+
+- `apps/web/vercel.json` — Next.js web app on **Vercel**
+- `render.yaml` — Express/tRPC API + PostgreSQL on **Render**
+
+If Git root is the parent `trpc-monorepo` folder, Render uses that parent `render.yaml` instead (`rootDir: pecathon`).
+
+### Render (API + database)
+
+1. Push this repo to GitHub.
+2. Render → New → Blueprint → select the repo. Confirm `BASE_URL` when prompted (`https://<service>.onrender.com`).
+3. After Postgres is up, seed destinations once from your machine using the **external** DB URL:
+
+```powershell
+$env:DATABASE_URL = "postgresql://USER:PASS@HOST:5432/DB"
+pnpm --filter @repo/database db:seed
+```
+
+Migrations run on each API deploy via `preDeployCommand`. `NODE_ENV` is `prod` (required by the API). The starter plan is required for that pre-deploy step.
+
+### Vercel (web)
+
+1. Vercel → Add Project → same GitHub repo.
+2. Set **Root Directory** to `apps/web` (or `pecathon/apps/web` if Git root is the parent folder).
+3. Turn on including files outside the root directory so `packages/*` are visible.
+4. `API_URL` defaults to `https://tsukuyomi-api.onrender.com` in `apps/web/vercel.json`. Override it in the Vercel project env if your Render URL differs. Do not set `NEXT_PUBLIC_API_URL`.
+5. Deploy. Browser traffic stays on `/trpc` and Vercel rewrites it to Render.
+
 ## Next parts
 
 3. Complete the Celestial Scroll: ISS passes, meteor showers, eclipses, and server-side alerts. Primary phases, daily moon tracking, launches, date/type filters, device-local moonrise reminders, and calendar export are implemented.

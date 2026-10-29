@@ -1,0 +1,54 @@
+# Tsukuyomi Watch — Express/tRPC API + PostgreSQL on Render.
+# Import this Blueprint from a Git repo whose root is this pecathon folder
+# (the directory that contains pnpm-workspace.yaml).
+#
+# Dashboard: Dashboard → New → Blueprint → this repo.
+# After the first deploy, set BASE_URL to https://<this-service>.onrender.com
+# Google OAuth fields can be left empty (sign-in is not required yet).
+# and run seed once against the DB external URL from your machine:
+#   pnpm --filter @repo/database db:seed
+#
+# NODE_ENV must be "prod" (not "production") to match apps/api env validation.
+
+services:
+  - type: web
+    name: tsukuyomi-api
+    runtime: node
+    plan: starter
+    healthCheckPath: /health
+    buildCommand: corepack enable && pnpm install --frozen-lockfile --filter @repo/api... && pnpm --filter @repo/api build
+    preDeployCommand: pnpm --filter @repo/database exec drizzle-kit migrate
+    startCommand: pnpm --filter @repo/api start
+    buildFilter:
+      paths:
+        - apps/api/**
+        - packages/**
+        - pnpm-lock.yaml
+        - pnpm-workspace.yaml
+        - package.json
+        - turbo.json
+        - render.yaml
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: prod
+      - key: LOGGER_LEVEL
+        value: error
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tsukuyomi-db
+          property: connectionString
+      - key: BASE_URL
+        sync: false
+      - key: GOOGLE_OAUTH_CLIENT_ID
+        sync: false
+      - key: GOOGLE_OAUTH_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_OAUTH_REDIRECT_URI
+        sync: false
+
+databases:
+  - name: tsukuyomi-db
+    plan: basic-256mb
+    postgresMajorVersion: "15"
