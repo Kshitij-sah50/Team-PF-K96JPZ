@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   Cloud,
@@ -9,6 +9,8 @@ import {
   LocateFixed,
   MapPin,
   Mountain,
+  Pause,
+  Play,
   RefreshCw,
   ScrollText,
   Telescope,
@@ -16,11 +18,29 @@ import {
 import { trpc } from "~/trpc/client";
 import { CelestialScroll } from "~/components/celestial-scroll";
 import { ThemeToggle } from "~/components/theme-toggle";
+import { SkyAtmosphere, DriftingPetals } from "~/components/sky-atmosphere";
 
 const formatTime = (date: string | Date) =>
   new Date(date).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 
 export default function Home() {
+  const [motionPaused, setMotionPaused] = useState<boolean | null>(null);
+  useEffect(() => {
+    try {
+      setMotionPaused(localStorage.getItem("tsukuyomi-motion") === "paused");
+    } catch {
+      setMotionPaused(false);
+    }
+  }, []);
+  function toggleMotion() {
+    const paused = !motionPaused;
+    setMotionPaused(paused);
+    try {
+      localStorage.setItem("tsukuyomi-motion", paused ? "paused" : "active");
+    } catch {
+      /* Keep the current tab usable when storage is blocked. */
+    }
+  }
   const [origin, setOrigin] = useState<{ lat: number; lng: number } | undefined>();
   const [radiusKm, setRadiusKm] = useState(500);
   const [geoError, setGeoError] = useState("");
@@ -59,7 +79,11 @@ export default function Home() {
     );
   }
   return (
-    <div className="watchtower">
+    <div
+      className="watchtower"
+      data-motion={motionPaused === null ? "loading" : motionPaused ? "paused" : "active"}
+    >
+      <DriftingPetals />
       <aside className="watch-sidebar">
         <a href="/" className="watch-brand">
           <span>月</span>
@@ -103,7 +127,23 @@ export default function Home() {
           <span>
             <i /> THE NIGHT IS YOURS TO EXPLORE
           </span>
-          <ThemeToggle />
+          <div className="watch-topbar-actions">
+            <button
+              type="button"
+              onClick={toggleMotion}
+              disabled={motionPaused === null}
+              aria-label={motionPaused ? "Resume animations" : "Pause animations"}
+              aria-pressed={motionPaused === true}
+              title={motionPaused ? "Resume animations" : "Pause animations"}
+            >
+              {motionPaused ? (
+                <Play size={15} aria-hidden="true" />
+              ) : (
+                <Pause size={15} aria-hidden="true" />
+              )}
+            </button>
+            <ThemeToggle />
+          </div>
         </header>
         <section className="watch-hero">
           <div>
@@ -122,6 +162,7 @@ export default function Home() {
             </a>
           </div>
           <div className="watch-sky" aria-hidden="true">
+            <SkyAtmosphere />
             <div className="watch-moon" />
             <span>星の道を歩む</span>
             <div className="watch-ridge back" />

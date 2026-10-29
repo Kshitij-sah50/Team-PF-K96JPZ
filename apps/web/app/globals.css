@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./watch-theme.css";
+@import "./watch-motion.css";
 
 html {
   scroll-behavior: smooth;

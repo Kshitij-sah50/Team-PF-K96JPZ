@@ -1,0 +1,318 @@
+/* Atmospheric layers never intercept the map, calendar, or other controls. */
+.watchtower {
+  position: relative;
+  isolation: isolate;
+}
+.watch-main {
+  position: relative;
+  z-index: 1;
+}
+.watch-sidebar {
+  z-index: 3;
+}
+.watch-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.watch-topbar-actions button {
+  min-height: 36px;
+  letter-spacing: normal;
+}
+.watch-stars,
+.watch-constellation,
+.watch-shooting-star,
+.watch-torii,
+.watch-petals {
+  pointer-events: none;
+}
+.watch-stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.watch-stars > span {
+  position: absolute;
+  border-radius: 50%;
+  background: #eadab1;
+  opacity: 0.65;
+  box-shadow: 0 0 7px #eadab150;
+  animation: watch-twinkle var(--star-duration) ease-in-out var(--star-delay) infinite alternate;
+}
+.watch-sky::before {
+  content: "";
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  left: 26%;
+  top: -48px;
+  background: radial-gradient(circle, #c4a67418, transparent 67%);
+  border-radius: 50%;
+  animation: watch-lunar-glow 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.watch-moon {
+  animation: watch-moon-float 10s ease-in-out infinite;
+}
+.watch-constellation {
+  position: absolute;
+  width: 34%;
+  height: 56%;
+  left: 0;
+  top: 5%;
+  opacity: 0.45;
+}
+.watch-constellation path {
+  stroke: var(--watch-accent);
+  stroke-width: 0.6;
+  stroke-dasharray: 240;
+  animation: watch-trace 3s ease-out both;
+}
+.watch-constellation circle {
+  fill: var(--watch-highlight);
+  animation: watch-twinkle 5s ease-in-out infinite alternate;
+}
+.watch-shooting-star {
+  position: absolute;
+  top: 10%;
+  left: 8%;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #eadab1);
+  opacity: 0;
+  transform: rotate(-30deg);
+  animation: watch-meteor 18s 3s linear infinite;
+}
+.watch-torii {
+  position: absolute;
+  z-index: 2;
+  height: 80px;
+  width: 74px;
+  bottom: 12px;
+  right: 15%;
+  fill: #0e140e;
+  opacity: 0.9;
+}
+.watch-sky > span {
+  animation: watch-arrive 1.2s 0.4s both;
+}
+.watch-hero > div:first-child > * {
+  animation: watch-arrive 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.watch-hero h1 {
+  animation-delay: 0.12s !important;
+}
+.watch-hero > div:first-child > p:not(.watch-eyebrow) {
+  animation-delay: 0.24s;
+}
+.watch-hero .watch-primary {
+  animation-delay: 0.36s;
+}
+.watch-destinations,
+.watch-conditions,
+.celestial-scroll {
+  animation: watch-arrive 0.6s ease-out both;
+}
+.watch-conditions {
+  animation-delay: 0.08s;
+}
+.watchtower :where(button, a, select) {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+.watchtower button:active:not(:disabled),
+.watch-primary:active {
+  transform: scale(0.97);
+}
+.watch-theme-toggle svg {
+  animation: watch-theme-turn 0.4s ease-out;
+}
+.watch-petals {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+}
+.watch-petals > span {
+  position: absolute;
+  top: -5%;
+  width: 9px;
+  height: 13px;
+  background: #bb687d;
+  opacity: 0;
+  border-radius: 80% 0 80% 35%;
+  animation: watch-petal-fall var(--petal-duration) linear var(--petal-delay) infinite;
+}
+.light .watch-petals {
+  display: block;
+}
+.light .watch-stars > span {
+  background: #99702e;
+  box-shadow: none;
+  opacity: 0.4;
+}
+.light .watch-shooting-star {
+  background: linear-gradient(90deg, transparent, #99702e);
+}
+.light .watch-sky::before {
+  background: radial-gradient(circle, #b08b3620, transparent 67%);
+}
+.light .watch-torii {
+  fill: #794a34;
+}
+@media (hover: hover) {
+  .watchtower button:hover:not(:disabled),
+  .watch-radius select:hover {
+    border-color: var(--watch-accent-border);
+    background-color: var(--watch-selected);
+  }
+  .watch-place-list button:hover {
+    transform: translateX(3px);
+  }
+  .watch-sidebar nav a:hover {
+    background: var(--watch-selected);
+  }
+  .watch-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px #a6483733;
+  }
+  .watch-primary:hover svg,
+  .scroll-event-actions a:hover svg {
+    transform: translate(2px, -2px);
+  }
+  .watchtower a svg {
+    transition: transform 0.2s ease;
+  }
+}
+@keyframes watch-twinkle {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+@keyframes watch-lunar-glow {
+  from {
+    transform: scale(0.92);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+@keyframes watch-moon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+@keyframes watch-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes watch-trace {
+  from {
+    stroke-dashoffset: 240;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes watch-meteor {
+  0%,
+  4% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(-30deg);
+  }
+  5% {
+    opacity: 0.7;
+  }
+  10%,
+  100% {
+    opacity: 0;
+    transform: translate(220px, -100px) rotate(-30deg);
+  }
+}
+@keyframes watch-petal-fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0) rotate(0);
+  }
+  10% {
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate3d(40px, 50vh, 0) rotate(180deg);
+  }
+  90% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-20px, 105vh, 0) rotate(340deg);
+  }
+}
+@keyframes watch-theme-turn {
+  from {
+    opacity: 0.4;
+    transform: rotate(-60deg) scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+/* Pausing leaves decorative elements still and makes entrance content visible. */
+.watchtower[data-motion="paused"] *,
+.watchtower[data-motion="paused"] *::before,
+.watchtower[data-motion="loading"] *,
+.watchtower[data-motion="loading"] *::before {
+  animation: none !important;
+  transition: none !important;
+}
+.watchtower[data-motion="paused"] .watch-shooting-star,
+.watchtower[data-motion="paused"] .watch-petals,
+.watchtower[data-motion="loading"] .watch-shooting-star,
+.watchtower[data-motion="loading"] .watch-petals {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .watchtower *,
+  .watchtower *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+  .watch-petals,
+  .watch-shooting-star {
+    display: none !important;
+  }
+}
+@media (max-width: 480px) {
+  .watch-topbar-actions button {
+    padding: 8px;
+  }
+  .watch-petals > span {
+    width: 6px;
+    height: 9px;
+  }
+  .watch-torii {
+    height: 55px;
+    width: 51px;
+  }
+}

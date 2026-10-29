@@ -19,7 +19,11 @@ export function ThemeToggle() {
       aria-label={label}
       title={label}
     >
-      {isLight ? <Moon size={16} aria-hidden="true" /> : <Sun size={16} aria-hidden="true" />}
+      {isLight ? (
+        <Moon key="moon" size={16} aria-hidden="true" />
+      ) : (
+        <Sun key="sun" size={16} aria-hidden="true" />
+      )}
       <span>{isLight ? "Dark mode" : "Light mode"}</span>
     </button>
   );
