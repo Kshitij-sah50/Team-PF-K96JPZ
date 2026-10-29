@@ -16,6 +16,7 @@ import { ThemeToggle } from "~/components/theme-toggle";
 import { downloadEventCalendar } from "~/lib/event-calendar";
 import { z } from "zod";
 import { JapaneseText } from "~/components/japanese-text";
+import { ObservationForm } from "~/components/observation-form";
 
 export function EventDetails({ id }: { id: string }) {
   const validId = z.uuid().safeParse(id).success;
@@ -109,6 +110,7 @@ export function EventDetails({ id }: { id: string }) {
             </section>
             <div className="event-details-grid">
               <article className="event-story">
+                <ObservationForm eventId={event.id} title={event.title} startUtc={new Date(event.startUtc).toISOString()} />
                 <p className="watch-eyebrow">THE STORY BEHIND THE MOMENT</p>
                 <h2>{isMoon ? "Read the moon." : "Follow the mission."}</h2>
                 <p className="event-description">

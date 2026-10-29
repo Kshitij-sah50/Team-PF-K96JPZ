@@ -126,6 +126,8 @@ export default function Home() {
             <Telescope size={18} />
             Spirit Lens<ArrowUpRight size={15} />
           </Link>
+          <Link href="/analysis"><Telescope size={18} /> Signal Observatory</Link>
+          <Link href="/dojo"><ScrollText size={18} /> Honor journal</Link>
         </nav>
         <div className="watch-proverb">
           <JapaneseText meaning="In stillness, find the stars.">
