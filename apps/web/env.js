@@ -7,7 +7,7 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    API_URL: z.string().url().optional(),
+    API_URL: z.string().url().optional().refine(value => process.env.VERCEL_ENV !== "production" || !!value?.startsWith("https://"), "Production Vercel deployments require API_URL set to the HTTPS Render API URL."),
   },
 
   /**

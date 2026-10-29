@@ -1,0 +1,16 @@
+# Optional additional paid Render cron service. Import after the API is deployed.
+# Review the compute plan in the Render dashboard before applying.
+services:
+  - type: cron
+    name: tsukuyomi-push-scheduler
+    runtime: node
+    schedule: "* * * * *"
+    buildCommand: "node --version"
+    startCommand: node ops/push-cron.mjs
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: API_URL
+        sync: false
+      - key: CRON_SECRET
+        sync: false

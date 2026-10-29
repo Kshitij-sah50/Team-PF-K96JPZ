@@ -92,14 +92,14 @@ $env:DATABASE_URL = "postgresql://USER:PASS@HOST:5432/DB"
 pnpm --filter @repo/database db:seed
 ```
 
-Migrations run on each API deploy via `preDeployCommand`. `NODE_ENV` is `prod` (required by the API). The starter plan is required for that pre-deploy step.
+Migrations and the idempotent destination seed run on each API deploy via `preDeployCommand`. `NODE_ENV` is `prod` (required by the API). Review the paid Render plans before creating resources. See [production deployment](docs/PRODUCTION.md) for the complete setup, including push scheduling.
 
 ### Vercel (web)
 
 1. Vercel → Add Project → same GitHub repo.
 2. Set **Root Directory** to `apps/web` (or `pecathon/apps/web` if Git root is the parent folder).
 3. Turn on including files outside the root directory so `packages/*` are visible.
-4. `API_URL` defaults to `https://tsukuyomi-api.onrender.com` in `apps/web/vercel.json`. Override it in the Vercel project env if your Render URL differs. Do not set `NEXT_PUBLIC_API_URL`.
+4. Set server-side `API_URL` to your actual HTTPS Render API URL in the Vercel project environment before deploying. A missing/non-HTTPS URL is rejected in production. Do not set `NEXT_PUBLIC_API_URL`.
 5. Deploy. Browser traffic stays on `/trpc` and Vercel rewrites it to Render.
 
 ## Next parts

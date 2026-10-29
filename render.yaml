@@ -16,8 +16,8 @@ services:
     runtime: node
     plan: starter
     healthCheckPath: /health
-    buildCommand: corepack enable && pnpm install --frozen-lockfile --filter @repo/api... && pnpm --filter @repo/api build
-    preDeployCommand: pnpm --filter @repo/database exec drizzle-kit migrate
+    buildCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile --prod=false --filter @repo/api... && pnpm --filter @repo/api build
+    preDeployCommand: pnpm --filter @repo/database exec drizzle-kit migrate && pnpm --filter @repo/database db:seed
     startCommand: pnpm --filter @repo/api start
     buildFilter:
       paths:
@@ -30,7 +30,7 @@ services:
         - render.yaml
     envVars:
       - key: NODE_VERSION
-        value: "20"
+        value: "22"
       - key: NODE_ENV
         value: prod
       - key: LOGGER_LEVEL
@@ -41,6 +41,14 @@ services:
           property: connectionString
       - key: BASE_URL
         sync: false
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        value: https://github.com/PECathon-2026/Team-PF-K96JPZ
+      - key: CRON_SECRET
+        generateValue: true
       - key: GOOGLE_OAUTH_CLIENT_ID
         sync: false
       - key: GOOGLE_OAUTH_CLIENT_SECRET
