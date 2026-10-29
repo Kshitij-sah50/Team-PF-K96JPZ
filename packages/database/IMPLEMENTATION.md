@@ -47,5 +47,9 @@ Do not run the migration against a shared database without reviewing the SQL.
 5. Authenticated saved places, observation awards, and Dojo dashboard.
 6. Optional SkyView and transient-analysis features.
 
-Part 1 added schema and migration. Part 2 now implements the Watchtower UI and
-weather service; see the repository README for startup and verification.
+Part 1 added schema and migration. Part 2 implements the Watchtower UI and
+weather service. Part 3 adds `event_feed_sync` and `event_feed_items` to track
+per-provider/month refresh state and feed membership. Successful refreshes replace
+membership without deleting historical event rows or their alerts. The source/API
+external-ID unique constraint handles updates and deduplication.
+See the repository README and `docs/API_SETUP.md` for startup and provider setup.

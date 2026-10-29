@@ -15,6 +15,13 @@
       "when": 1793288047265,
       "tag": "0001_celestial_foundation",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793289724872,
+      "tag": "0002_celestial_feeds",
+      "breakpoints": true
     }
   ]
 }

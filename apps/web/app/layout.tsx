@@ -13,7 +13,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Tsukuyomi Watch — The Watchtower",
+  title: "Tsukuyomi Watch — Your Celestial Guide",
   description: "Find a place beneath the stars with your samurai's celestial guide.",
 };
 

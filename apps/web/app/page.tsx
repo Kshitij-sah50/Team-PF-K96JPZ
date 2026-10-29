@@ -15,6 +15,7 @@ import {
   Telescope,
 } from "lucide-react";
 import { trpc } from "~/trpc/client";
+import { CelestialScroll } from "~/components/celestial-scroll";
 
 const formatTime = (date: string | Date) =>
   new Date(date).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
@@ -72,10 +73,10 @@ export default function Home() {
             <Mountain size={18} />
             The Watchtower <ArrowUpRight size={15} />
           </a>
-          <span>
+          <a href="#celestial-scroll">
             <ScrollText size={18} />
-            Celestial Scroll<small>Next part</small>
-          </span>
+            Celestial Scroll
+          </a>
           <span>
             <Telescope size={18} />
             Spirit Lens<small>Coming later</small>
@@ -326,6 +327,7 @@ export default function Home() {
             )}
           </section>
         )}
+        <CelestialScroll />
         <section className="watch-note">
           <span>✧</span>
           <div>

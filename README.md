@@ -6,8 +6,12 @@ A Japanese-inspired celestial guide built with Next.js, tRPC, Drizzle, and Postg
 
 - Part 1: database foundation for users, preferences, locations, weather, events, alerts, observations, and honor points.
 - Part 2: Watchtower dashboard with a seeded destination catalog, browser geolocation, radius filtering, an interactive OpenStreetMap view, live nighttime forecasts, and a weather-only Night Honor Score.
+- Part 3 (first slice): Celestial Scroll with USNO moon phases, Launch Library rocket launches, a month calendar, type/day filters, source health, database feed caching, and calendar reminder downloads.
 
-The Celestial Scroll, Spirit Lens, and authenticated Dojo are future parts. Navigation labels indicate their status.
+Spirit Lens and the authenticated Dojo are future parts. ISS passes, meteor showers,
+eclipses, daily moon data, and server-delivered alerts remain to be added to the Scroll.
+See [API setup](docs/API_SETUP.md) for providers, signup links, key requirements,
+and which integrations are currently connected.
 
 ## Local development
 
@@ -53,6 +57,7 @@ pnpm --filter web check-types
 pnpm --filter web build
 pnpm --filter @repo/api build
 pnpm --filter @repo/database exec tsx --test ../services/watchtower/weather.test.ts
+pnpm --filter @repo/database exec tsx --test ../services/celestial/providers.test.ts
 pnpm exec tsc --noEmit -p packages/services
 pnpm exec tsc --noEmit -p packages/trpc
 pnpm exec tsc --noEmit -p packages/database
@@ -64,7 +69,7 @@ The local implementation was also checked against PostgreSQL: migrations, idempo
 
 ## Next parts
 
-3. Celestial Scroll: event feeds, date/type filters, moon display, alerts.
+3. Complete the Celestial Scroll: ISS passes, meteor showers, eclipses, daily moon data, and server-side alerts. Primary phases, launches, date/type filters, and calendar export are implemented.
 4. Spirit Lens: image storage, restoration worker, detection, comparison view.
 5. Dojo: authenticated saved places, observations, transactional honor awards.
 6. Optional NASA SkyView and transient analysis.
