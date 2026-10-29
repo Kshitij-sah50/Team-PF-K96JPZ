@@ -1,12 +1,11 @@
-# Tsukuyomi Watch — Express/tRPC API + PostgreSQL on Render.
+# Tsukuyomi Watch — Express/tRPC API on Render, PostgreSQL on Neon.
 # Import this Blueprint from a Git repo whose root is this pecathon folder
 # (the directory that contains pnpm-workspace.yaml).
 #
 # Dashboard: Dashboard → New → Blueprint → this repo.
 # After the first deploy, set BASE_URL to https://<this-service>.onrender.com
 # Google OAuth fields can be left empty (sign-in is not required yet).
-# and run seed once against the DB external URL from your machine:
-#   pnpm --filter @repo/database db:seed
+# The startup script runs migrations and the idempotent location seed.
 #
 # NODE_ENV must be "prod" (not "production") to match apps/api env validation.
 
@@ -14,11 +13,11 @@ services:
   - type: web
     name: tsukuyomi-api
     runtime: node
-    plan: starter
+    plan: free
+    region: singapore
     healthCheckPath: /health
     buildCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile --prod=false --filter @repo/api... && pnpm --filter @repo/api build
-    preDeployCommand: pnpm --filter @repo/database exec drizzle-kit migrate && pnpm --filter @repo/database db:seed
-    startCommand: pnpm --filter @repo/api start
+    startCommand: node ops/render-start.mjs
     buildFilter:
       paths:
         - apps/api/**
@@ -28,6 +27,7 @@ services:
         - package.json
         - turbo.json
         - render.yaml
+        - ops/**
     envVars:
       - key: NODE_VERSION
         value: "22"
@@ -36,9 +36,7 @@ services:
       - key: LOGGER_LEVEL
         value: error
       - key: DATABASE_URL
-        fromDatabase:
-          name: tsukuyomi-db
-          property: connectionString
+        sync: false
       - key: BASE_URL
         sync: false
       - key: VAPID_PUBLIC_KEY
@@ -55,8 +53,3 @@ services:
         sync: false
       - key: GOOGLE_OAUTH_REDIRECT_URI
         sync: false
-
-databases:
-  - name: tsukuyomi-db
-    plan: basic-256mb
-    postgresMajorVersion: "15"

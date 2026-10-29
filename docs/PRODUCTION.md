@@ -1,10 +1,10 @@
-# Production deployment: Vercel + Render
+# Demo deployment: Vercel + Render + Neon
 
 The repository is prepared for deployment; a Git push is not confirmation that either hosting service has deployed successfully.
 
 ## Render API and database
 
-Import `render.yaml` as a Blueprint from the repository root. It creates the API and PostgreSQL with the existing paid plans; review charges in Render before creating resources. Use Node 22 and the pinned pnpm 9.0.0. The pre-deploy command applies migrations (including persistent push jobs) and idempotently seeds destinations.
+Import `render.yaml` as a Blueprint from the repository root. The selected profile uses a free Render API in Singapore and the supplied Neon PostgreSQL database, Node 22 and pinned pnpm 9.0.0. The free API can sleep; this is not always-on production hosting. No extra Render database or paid cron is created. Set the supplied Neon connection string in private hosting settings, not Git. The startup script applies migrations (including persistent push jobs) and idempotently seeds destinations because the free plan does not support a pre-deploy command. For CLI provisioning, private settings can be supplied through a Render `runtime.json` secret file; `ops/render-start.mjs` loads its allowlisted fields without printing credentials.
 
 Set `BASE_URL` to the actual public HTTPS URL assigned to the API. The optional Google OAuth values may remain unset. For push, copy `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY` from your private local `.env` into the API's secret settings; do not commit them. Render generates `CRON_SECRET`. Keep it private. Using the same VAPID keys preserves existing subscriptions.
 
