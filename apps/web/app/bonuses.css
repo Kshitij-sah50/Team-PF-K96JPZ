@@ -1,0 +1,122 @@
+.bonus-main {
+  padding: 20px 0 60px;
+  max-width: 1050px;
+  margin: auto;
+}
+.bonus-main > h1 {
+  font:
+    46px/1.15 Georgia,
+    serif;
+  margin: 20px 0;
+}
+.bonus-panel {
+  padding: 24px;
+  background: var(--watch-panel);
+  border: 1px solid var(--watch-border);
+  margin: 25px 0;
+}
+.bonus-form {
+  display: grid;
+  gap: 16px;
+}
+.bonus-form label {
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--watch-muted);
+}
+.bonus-form input,
+.bonus-form select,
+.bonus-form textarea {
+  width: 100%;
+  min-width: 0;
+  background: var(--watch-control);
+  color: var(--watch-text);
+  border: 1px solid var(--watch-border-strong);
+  padding: 10px;
+  font: 12px/1.7 inherit;
+  border-radius: 3px;
+}
+.bonus-form textarea {
+  font-family: monospace;
+  resize: vertical;
+}
+.bonus-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.signal-chart {
+  width: 100%;
+  height: auto;
+  color: var(--watch-muted);
+  margin: 20px 0;
+}
+.bonus-table {
+  overflow: auto;
+  margin: 20px 0;
+}
+.bonus-table table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+.bonus-table td,
+.bonus-table th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid var(--watch-border);
+}
+.bonus-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+.bonus-cards > div {
+  background: var(--watch-control);
+  padding: 22px;
+}
+.bonus-cards strong {
+  display: block;
+  font:
+    32px Georgia,
+    serif;
+  color: var(--watch-accent);
+  margin-bottom: 10px;
+}
+.bonus-cards span {
+  font-size: 12px;
+  color: var(--watch-muted);
+}
+.honor-observation {
+  padding: 20px;
+  margin: 25px 0;
+  border: 1px solid var(--watch-accent-border);
+  background: var(--watch-tint);
+}
+.honor-observation h2 {
+  font:
+    24px Georgia,
+    serif;
+}
+.honor-observation button {
+  padding: 10px;
+  border: 1px solid var(--watch-accent-border);
+  margin-top: 12px;
+  background: var(--watch-control);
+  color: var(--watch-text);
+}
+.honor-observation a {
+  color: var(--watch-accent);
+}
+@media (max-width: 600px) {
+  .bonus-main > h1 {
+    font-size: 34px;
+  }
+  .bonus-panel {
+    padding: 16px;
+  }
+  .bonus-cards {
+    grid-template-columns: 1fr;
+  }
+}

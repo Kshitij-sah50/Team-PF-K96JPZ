@@ -35,6 +35,8 @@ import {
   type LensStrength,
 } from "~/lib/spirit-lens/model";
 import "~/app/spirit-lens.css";
+import { SkyViewImport, type SkyViewSource } from "./skyview-import";
+import "~/app/bonuses.css";
 
 type LensResult = {
   blob: Blob;
@@ -60,6 +62,7 @@ function useBlobUrl(blob?: Blob) {
 
 export function SpiritLens() {
   const [input, setInput] = useState<LensInput | null>(null);
+  const [skySource, setSkySource] = useState<SkyViewSource | null>(null);
   const [result, setResult] = useState<LensResult | null>(null);
   const [strength, setStrength] = useState<LensStrength>("gentle");
   const [selected, setSelected] = useState<number | null>(null);
@@ -67,6 +70,7 @@ export function SpiritLens() {
   const [progress, setProgress] = useState(0);
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [remoteBusy, setRemoteBusy] = useState(false);
   const [error, setError] = useState("");
   const [dragging, setDragging] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
@@ -75,7 +79,7 @@ export function SpiritLens() {
   const generation = useRef(0);
   const originalUrl = useBlobUrl(input?.preview);
   const restoredUrl = useBlobUrl(result?.blob);
-  const locked = busy || loading;
+  const locked = busy || loading || remoteBusy;
   const object = result?.objects.find((item) => item.id === selected);
 
   function stopWorker() {
@@ -92,8 +96,8 @@ export function SpiritLens() {
     [],
   );
 
-  async function openImage(file?: File) {
-    if (locked) return;
+  async function openImage(file?: File, source?: SkyViewSource) {
+    if (busy || loading || (remoteBusy && !source)) return;
     const version = ++generation.current;
     setLoading(true);
     setError("");
@@ -102,6 +106,7 @@ export function SpiritLens() {
       const image = file ? await decodeImageFile(file) : await syntheticImage();
       if (generation.current !== version) return;
       setInput(image);
+      setSkySource(source ?? null);
       setResult(null);
       setSelected(null);
       setProgress(0);
@@ -209,6 +214,7 @@ export function SpiritLens() {
     if (!input || !result) return;
     const report = {
       schemaVersion: 1,
+      skyViewSource: skySource,
       createdAt: new Date().toISOString(),
       source: {
         name: input.name,
@@ -359,6 +365,20 @@ export function SpiritLens() {
                   {input.synthetic && <span>Synthetic demonstration, not an observation</span>}
                 </div>
               </div>
+            )}
+            <SkyViewImport
+              disabled={busy || loading}
+              onImport={openImage}
+              onBusyChange={setRemoteBusy}
+            />
+            {skySource && (
+              <p className="lens-help">
+                Imported from NASA SkyView · {skySource.survey} · {skySource.target} ·{" "}
+                {skySource.fieldDegrees}° field.{" "}
+                <a href={skySource.sourceUrl} target="_blank" rel="noreferrer">
+                  Source query
+                </a>
+              </p>
             )}
             <div className="lens-settings">
               <p className="watch-eyebrow">02 / RESTORATION</p>
