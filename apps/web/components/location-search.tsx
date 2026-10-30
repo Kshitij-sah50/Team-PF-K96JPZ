@@ -2,6 +2,8 @@
 import { useEffect, useId, useState } from "react";
 import { Search, MapPin, Mountain, X } from "lucide-react";
 import { trpc } from "~/trpc/client";
+import { useQuery } from "@tanstack/react-query";
+import type { CityPlace } from "~/lib/geocoding";
 
 export function LocationSearch({
   onDestination,
@@ -18,9 +20,21 @@ export function LocationSearch({
     return () => clearTimeout(timer);
   }, [value]);
   const search = trpc.watchtower.search.useQuery(
-    { query },
+    { query, catalogOnly: true },
     { enabled: query.length >= 2, staleTime: 300000, retry: false },
   );
+  const cities = useQuery<{ places: CityPlace[] }>({
+    queryKey: ["city-suggestions", query],
+    enabled: query.length >= 2,
+    staleTime: 300000,
+    retry: false,
+    queryFn: async ({ signal }) => {
+      const response = await fetch(`/api/cities?${new URLSearchParams({ query })}`, { signal });
+      if (!response.ok)
+        throw new Error("City search is temporarily unavailable. Please try again.");
+      return response.json();
+    },
+  });
   const showing = value.trim().length >= 2;
   function clear() {
     setValue("");
@@ -52,13 +66,18 @@ export function LocationSearch({
           aria-label="Location search results"
           aria-live="polite"
         >
-          {(search.isFetching || query !== value.trim()) && (
+          {(cities.isFetching || search.isFetching || query !== value.trim()) && (
             <p role="status">Searching the scroll…</p>
           )}
-          {search.error && <p role="alert">{search.error.message}</p>}
-          {query === value.trim() && search.data && (
+          {query === value.trim() && search.error && (
+            <p role="alert">
+              Catalog destinations are unavailable. City suggestions can still be selected.
+            </p>
+          )}
+          {query === value.trim() && cities.error && <p role="alert">{cities.error.message}</p>}
+          {query === value.trim() && (
             <>
-              {!!search.data.destinations.length && (
+              {!!search.data?.destinations.length && (
                 <>
                   <h3>Catalog destinations</h3>
                   {search.data.destinations.map((spot) => (
@@ -79,10 +98,10 @@ export function LocationSearch({
                   ))}
                 </>
               )}
-              {!!search.data.places.length && (
+              {!!cities.data?.places.length && (
                 <>
-                  <h3>Cities & places · Search nearby</h3>
-                  {search.data.places.map((place) => (
+                  <h3>Worldwide cities & places · Search nearby</h3>
+                  {cities.data.places.map((place) => (
                     <button
                       key={place.id}
                       onClick={() => {
@@ -101,13 +120,15 @@ export function LocationSearch({
                 </>
               )}
               {!search.isFetching &&
+                !cities.isFetching &&
+                !search.error &&
+                !cities.error &&
+                search.data &&
+                cities.data &&
                 !search.data.destinations.length &&
-                !search.data.places.length && (
+                !cities.data.places.length && (
                   <p>No places match. Try a nearby city or a different spelling.</p>
                 )}
-              {search.data.geocodingUnavailable && (
-                <p>City search is temporarily unavailable. Catalog matches are still shown.</p>
-              )}
               <p className="watch-search-credit">
                 City search:{" "}
                 <a
@@ -117,7 +138,8 @@ export function LocationSearch({
                 >
                   Open-Meteo / GeoNames
                 </a>
-                . Nearby spots come from a small curated catalog; not every city has entries yet.
+                . Showing up to 20 name matches worldwide; type more of the name to narrow results.
+                Nearby stargazing spots come from a separate small curated catalog.
               </p>
             </>
           )}

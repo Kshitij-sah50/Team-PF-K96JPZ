@@ -7,10 +7,12 @@ import { publicProcedure, router } from "../../trpc";
 
 export const watchtowerRouter = router({
   search: publicProcedure
-    .input(z.object({ query: z.string().trim().min(2).max(80) }))
+    .input(
+      z.object({ query: z.string().trim().min(2).max(80), catalogOnly: z.boolean().optional() }),
+    )
     .query(async ({ input }) => {
       try {
-        return await searchLocations(input.query);
+        return await searchLocations(input.query, input.catalogOnly);
       } catch {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",

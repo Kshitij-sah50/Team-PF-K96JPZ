@@ -18,13 +18,14 @@ const geocodingSchema = z.object({
 });
 type Place = { id: number; name: string; lat: number; lng: number; region: string };
 const cache = new Map<string, { at: number; places: Place[] }>();
-export async function searchLocations(query: string) {
+export async function searchLocations(query: string, catalogOnly = false) {
   const safe = query.replace(/[\\%_]/g, (char) => `\\${char}`);
   const destinations = await db
     .select()
     .from(locationsTable)
     .where(ilike(locationsTable.name, `%${safe}%`))
     .limit(8);
+  if (catalogOnly) return { destinations, places: [] as Place[], geocodingUnavailable: false };
   const key = query.toLowerCase();
   const cached = cache.get(key);
   if (cached && Date.now() - cached.at < 3600000)
