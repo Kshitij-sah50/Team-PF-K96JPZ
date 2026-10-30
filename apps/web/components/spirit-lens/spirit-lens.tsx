@@ -37,6 +37,7 @@ import {
 import "~/app/spirit-lens.css";
 import { SkyViewImport, type SkyViewSource } from "./skyview-import";
 import { ThemeLandscape } from "../theme-landscape";
+import { NavigationHint, NavigationLink } from "../navigation-hint";
 import "~/app/bonuses.css";
 
 type LensResult = {
@@ -279,11 +280,11 @@ export function SpiritLens() {
           <ThemeToggle />
         </header>
         <nav className="event-breadcrumb" aria-label="Breadcrumb">
-          <Link href="/">
+          <NavigationLink section="watchtower" href="/">
             <ArrowLeft size={15} /> The Watchtower
-          </Link>
+          </NavigationLink>
           <span>/</span>
-          <span>Spirit Lens</span>
+          <NavigationHint section="lens"><span tabIndex={0}>Spirit Lens</span></NavigationHint>
         </nav>
         <ThemeLandscape />
         <section className="lens-hero">

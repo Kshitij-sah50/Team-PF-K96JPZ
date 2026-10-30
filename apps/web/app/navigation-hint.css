@@ -1,0 +1,25 @@
+.navigation-hint {
+  max-width: min(310px, calc(100vw - 28px));
+  padding: 14px 16px;
+  border: 1px solid var(--watch-border, #505875);
+  background: var(--watch-panel, #161d36);
+  color: var(--watch-text, #f5eee5);
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: left;
+  text-wrap: pretty;
+  box-shadow: 0 8px 28px #0004;
+  z-index: 100;
+}
+.navigation-hint strong {
+  color: var(--watch-accent, #efbd73);
+  font-size: 13px;
+}
+.navigation-hint p {
+  margin-top: 7px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .navigation-hint {
+    animation: none;
+  }
+}

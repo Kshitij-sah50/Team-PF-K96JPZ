@@ -19,6 +19,7 @@ import { JapaneseText } from "~/components/japanese-text";
 import { ObservationForm } from "~/components/observation-form";
 import { ThemeLandscape } from "~/components/theme-landscape";
 import { BackgroundAlerts } from "~/components/background-alerts";
+import { NavigationLink } from "~/components/navigation-hint";
 
 export function EventDetails({ id }: { id: string }) {
   const validId = z.uuid().safeParse(id).success;
@@ -42,10 +43,10 @@ export function EventDetails({ id }: { id: string }) {
           <ThemeToggle />
         </header>
         <nav className="event-breadcrumb" aria-label="Breadcrumb">
-          <Link href="/#celestial-scroll">
+          <NavigationLink section="scroll" href="/#celestial-scroll">
             <ArrowLeft size={15} />
             Celestial Scroll
-          </Link>
+          </NavigationLink>
           <span>/</span>
           <span>Event details</span>
         </nav>

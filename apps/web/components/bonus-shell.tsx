@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { ThemeLandscape } from "./theme-landscape";
+import { NavigationLink } from "./navigation-hint";
 import "~/app/spirit-lens.css";
 import "~/app/bonuses.css";
 export function BonusShell({ title, children }: { title: string; children: React.ReactNode }) {
@@ -13,11 +14,22 @@ export function BonusShell({ title, children }: { title: string; children: React
           </Link>
           <ThemeToggle />
         </header>
-        <nav className="event-breadcrumb">
-          <Link href="/">Watchtower</Link>
-          <Link href="/spirit-lens">Spirit Lens</Link>
-          <Link href="/analysis">Signal Observatory</Link>
-          <Link href="/dojo">Honor journal</Link>
+        <nav className="event-breadcrumb" aria-label="Feature navigation">
+          <NavigationLink section="watchtower" href="/">
+            Watchtower
+          </NavigationLink>
+          <NavigationLink section="scroll" href="/#celestial-scroll">
+            Celestial Scroll
+          </NavigationLink>
+          <NavigationLink section="lens" href="/spirit-lens">
+            Spirit Lens
+          </NavigationLink>
+          <NavigationLink section="signals" href="/analysis">
+            Signal Observatory
+          </NavigationLink>
+          <NavigationLink section="honor" href="/dojo">
+            Honor journal
+          </NavigationLink>
         </nav>
         <main className="bonus-main">
           <ThemeLandscape />

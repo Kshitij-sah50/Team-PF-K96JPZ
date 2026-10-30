@@ -8,6 +8,7 @@
 @import "./watchtower-map.css";
 @import "./moon-tracker.css";
 @import "./location-search.css";
+@import "./navigation-hint.css";
 
 html {
   scroll-behavior: smooth;

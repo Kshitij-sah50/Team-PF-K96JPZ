@@ -26,6 +26,7 @@ import { ScrollMap } from "~/components/scroll-map";
 import { MoonTracker } from "~/components/moon-tracker";
 import { LocationSearch } from "~/components/location-search";
 import { JapaneseText } from "~/components/japanese-text";
+import { NavigationLink } from "~/components/navigation-hint";
 
 const formatTime = (date: string | Date) =>
   new Date(date).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
@@ -107,29 +108,29 @@ export default function Home() {
           asChild
           touchToggle={false}
         >
-          <a href="/" className="watch-brand">
+          <Link href="/" className="watch-brand">
             <span>月</span>
             <div>
               TSUKUYOMI<small>WATCH · 月読</small>
             </div>
-          </a>
+          </Link>
         </JapaneseText>
         <p className="watch-nav-label">YOUR CELESTIAL GUIDE</p>
         <nav aria-label="Main navigation">
-          <a href="#watchtower" aria-current="page">
+          <NavigationLink section="watchtower" href="#watchtower" aria-current="page">
             <Mountain className="watch-nav-icon" size={18} />
             <span>The Watchtower</span><ArrowUpRight className="watch-nav-arrow" size={14} />
-          </a>
-          <a href="#celestial-scroll">
+          </NavigationLink>
+          <NavigationLink section="scroll" href="#celestial-scroll">
             <ScrollText className="watch-nav-icon" size={18} />
             <span>Celestial Scroll</span><ArrowUpRight className="watch-nav-arrow" size={14} />
-          </a>
-          <Link href="/spirit-lens">
+          </NavigationLink>
+          <NavigationLink section="lens" href="/spirit-lens">
             <Telescope className="watch-nav-icon" size={18} />
             <span>Spirit Lens</span><ArrowUpRight className="watch-nav-arrow" size={14} />
-          </Link>
-          <Link href="/analysis"><Telescope className="watch-nav-icon" size={18} /><span>Signal Observatory</span><ArrowUpRight className="watch-nav-arrow" size={14} /></Link>
-          <Link href="/dojo"><ScrollText className="watch-nav-icon" size={18} /><span>Honor journal</span><ArrowUpRight className="watch-nav-arrow" size={14} /></Link>
+          </NavigationLink>
+          <NavigationLink section="signals" href="/analysis"><Telescope className="watch-nav-icon" size={18} /><span>Signal Observatory</span><ArrowUpRight className="watch-nav-arrow" size={14} /></NavigationLink>
+          <NavigationLink section="honor" href="/dojo"><ScrollText className="watch-nav-icon" size={18} /><span>Honor journal</span><ArrowUpRight className="watch-nav-arrow" size={14} /></NavigationLink>
         </nav>
         <div className="watch-proverb">
           <JapaneseText meaning="In stillness, find the stars.">
