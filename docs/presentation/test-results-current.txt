@@ -1,0 +1,39 @@
+✔ signal analysis isolates an injected brightening and handles zero scatter (1.7143ms)
+✔ spectrum flags positive and negative features (0.9209ms)
+✔ CSV rejects duplicate epochs, missing values, and ambiguous timezones (1.7323ms)
+✔ Honor awards once per event, rejects future/pre-event observations, and derives badges (3.4521ms)
+✔ city suggestions query worldwide independently of the destination catalog (38.1641ms)
+✔ empty city results differ from a failed or malformed provider response (7.4481ms)
+✔ invalid city queries never reach the upstream provider (1.3578ms)
+✔ reflection handles small images and repeated out-of-bounds positions (1.4504ms)
+✔ cleanup bounds changes and preserves color, alpha, and detected sources (8.4905ms)
+✔ detection finds an injected source and rejects a flat sky (25.4826ms)
+✔ image validation rejects invalid and oversized decoded dimensions before decoding (1.2414ms)
+✔ elongated extended light is exposed as an unconfirmed galaxy candidate (5.3416ms)
+✔ deconvolution reduces error on a known blurred source (35.9304ms)
+✔ push endpoints reject local networks and arbitrary upstreams (1.1104ms)
+✔ delivery requires scheduler credentials before looking up devices (0.5652ms)
+✔ eclipse search returns the August 2026 total solar eclipse (24.051ms)
+✔ meteor catalogue exposes estimates and limits them to requested month (0.4631ms)
+✔ Japanese lunisolar calendar handles new year and leap sixth month (0.2964ms)
+✔ ISS rejects invalid orbital data instead of synthesizing passes (0.577ms)
+✔ ISS illumination and propagation produce bounded future segments (37.9231ms)
+✔ UTC month boundaries handle December rollover and leap February (2.9538ms)
+✔ moon phases preserve UTC instants, exclude other months, and reject impossible dates (9.5673ms)
+✔ launches retain provider IDs for upserts, source status and pagination warning (4.344ms)
+✔ calendar export uses UTC and escapes injection, punctuation, and Unicode line folding (2.2387ms)
+✔ moon data preserves UTC and parses phase and illumination (4.8837ms)
+✔ missing polar rise/set stays null, malformed data is rejected (9.1065ms)
+✔ moonrise alerts use the observer timezone and distinguish past/day/night (28.8569ms)
+✔ score bounds, weighted components, and visibility cap (5.084ms)
+✔ chooses the next future nighttime hour and converts metres to km (5.1832ms)
+✔ rejects malformed, missing, and daytime-only forecast responses (3.3829ms)
+✔ distance handles identical coordinates, known arc, and date-line crossing (0.9809ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1313.0852

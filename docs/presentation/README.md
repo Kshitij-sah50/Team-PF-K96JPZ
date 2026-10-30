@@ -1,5 +1,21 @@
 # Judging presentation
 
+## Submission materials
+
+`Tsukuyomi-Watch-8-Slide-Pitch.pptx` is the new concise project explanation and pitch, with exactly eight editable slides and speaker notes. Its PDF has the same eight pages. The original detailed 17-slide deck below remains available for technical questions.
+
+`Tsukuyomi-Watch-Project-Notes.md` and `.txt` explain every feature, the architecture, limitations and each tracked project file. Regenerate the inventory with `python docs/presentation/build-notes.py` after adding/renaming files. `test-results-current.txt` records the updated 31-case suite; the original deck and transcript retain their historical 28-case audit.
+
+Rebuild the new deck using the same PptxGenJS setup below:
+
+```powershell
+node docs/presentation/build-pitch.cjs
+powershell -NoProfile -ExecutionPolicy Bypass -File docs/presentation/export-pitch.ps1
+python docs/presentation/verify-deck.py Tsukuyomi-Watch-8-Slide-Pitch
+```
+
+Submission copies are placed in the user's Desktop `Tsukuyomi-Watch-Submission` folder, outside this repository. Choose the eight-slide `.pptx` in Google Forms' file picker if the form requests PowerPoint, or the matching PDF if it requests PDF. Local copies are not automatically uploaded to the form.
+
 - `Tsukuyomi-Watch-Judging-Deck.pptx`: editable 16:9 PowerPoint, 17 slides, speaker notes on every slide.
 - `Tsukuyomi-Watch-Judging-Deck.pdf`: portable viewing and offline fallback.
 - `READINESS.md`: rubric assessment, requirement mapping, evidence and remaining gaps.

@@ -1,17 +1,20 @@
 """Structural artifact checks; visual review remains necessary. Standard library only."""
 from pathlib import Path
 import re
+import sys
 import xml.etree.ElementTree as ET
 from zipfile import ZipFile
 
 root = Path(__file__).resolve().parent
 ns = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main",
       "p": "http://schemas.openxmlformats.org/presentationml/2006/main"}
-with ZipFile(root / "Tsukuyomi-Watch-Judging-Deck.pptx") as archive:
+stem = sys.argv[1] if len(sys.argv) > 1 else "Tsukuyomi-Watch-Judging-Deck"
+expected = 8 if stem == "Tsukuyomi-Watch-8-Slide-Pitch" else 17
+with ZipFile(root / (stem + ".pptx")) as archive:
     assert archive.testzip() is None, "Corrupt ZIP member"
     slides = sorted(n for n in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", n))
     notes = sorted(n for n in archive.namelist() if re.fullmatch(r"ppt/notesSlides/notesSlide\d+\.xml", n))
-    assert len(slides) == len(notes) == 17, (len(slides), len(notes))
+    assert len(slides) == len(notes) == expected, (len(slides), len(notes))
     size = ET.fromstring(archive.read("ppt/presentation.xml")).find("p:sldSz", ns)
     width, height = int(size.attrib["cx"]), int(size.attrib["cy"])
     texts = []
@@ -32,8 +35,11 @@ with ZipFile(root / "Tsukuyomi-Watch-Judging-Deck.pptx") as archive:
         words = " ".join(t.text or "" for t in ET.fromstring(archive.read(name)).findall(".//a:t", ns))
         assert len(words) > 100, f"Missing speaker notes: {name}"
     joined = " ".join(texts)
-    assert "28" in joined and "41" in joined and "15.8" in joined
+    if expected == 17:
+        assert "28" in joined and "41" in joined and "15.8" in joined
+    else:
+        assert "31 / 31" in joined and "Spirit Lens" in joined
     assert "postgresql://" not in joined and "npg_" not in joined
-pdf = (root / "Tsukuyomi-Watch-Judging-Deck.pdf").read_bytes()
+pdf = (root / (stem + ".pdf")).read_bytes()
 assert pdf.startswith(b"%PDF-"), "Invalid PDF header"
-print("PASS: 17 slides, 17 speaker-note pages, valid ZIP/PDF, no off-slide shapes.")
+print(f"PASS: {expected} slides, {expected} speaker-note pages, valid ZIP/PDF, no off-slide shapes.")
