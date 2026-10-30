@@ -43,15 +43,17 @@ type Section = keyof typeof sections;
 export function NavigationHint({
   section,
   children,
+  side = "top",
 }: {
   section: Section;
   children: ReactElement;
+  side?: "top" | "right";
 }) {
   const note = sections[section];
   return (
     <Tooltip>
       <TooltipTrigger asChild>{children}</TooltipTrigger>
-      <TooltipContent side="bottom" sideOffset={8} className="navigation-hint">
+      <TooltipContent side={side} sideOffset={8} className="navigation-hint">
         <strong>{note.name}</strong>
         <p>{note.meaning}</p>
         <p>{note.action}</p>
@@ -62,10 +64,11 @@ export function NavigationHint({
 
 export function NavigationLink({
   section,
+  hintSide,
   ...props
-}: ComponentProps<typeof Link> & { section: Section }) {
+}: ComponentProps<typeof Link> & { section: Section; hintSide?: "top" | "right" }) {
   return (
-    <NavigationHint section={section}>
+    <NavigationHint section={section} side={hintSide}>
       <Link {...props} />
     </NavigationHint>
   );

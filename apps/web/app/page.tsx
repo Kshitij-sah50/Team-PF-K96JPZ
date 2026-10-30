@@ -117,20 +117,20 @@ export default function Home() {
         </JapaneseText>
         <p className="watch-nav-label">YOUR CELESTIAL GUIDE</p>
         <nav aria-label="Main navigation">
-          <NavigationLink section="watchtower" href="#watchtower" aria-current="page">
+          <NavigationLink section="watchtower" hintSide="right" href="#watchtower" aria-current="page">
             <Mountain className="watch-nav-icon" size={18} />
             <span>The Watchtower</span><ArrowUpRight className="watch-nav-arrow" size={14} />
           </NavigationLink>
-          <NavigationLink section="scroll" href="#celestial-scroll">
+          <NavigationLink section="scroll" hintSide="right" href="#celestial-scroll">
             <ScrollText className="watch-nav-icon" size={18} />
             <span>Celestial Scroll</span><ArrowUpRight className="watch-nav-arrow" size={14} />
           </NavigationLink>
-          <NavigationLink section="lens" href="/spirit-lens">
+          <NavigationLink section="lens" hintSide="right" href="/spirit-lens">
             <Telescope className="watch-nav-icon" size={18} />
             <span>Spirit Lens</span><ArrowUpRight className="watch-nav-arrow" size={14} />
           </NavigationLink>
-          <NavigationLink section="signals" href="/analysis"><Telescope className="watch-nav-icon" size={18} /><span>Signal Observatory</span><ArrowUpRight className="watch-nav-arrow" size={14} /></NavigationLink>
-          <NavigationLink section="honor" href="/dojo"><ScrollText className="watch-nav-icon" size={18} /><span>Honor journal</span><ArrowUpRight className="watch-nav-arrow" size={14} /></NavigationLink>
+          <NavigationLink section="signals" hintSide="right" href="/analysis"><Telescope className="watch-nav-icon" size={18} /><span>Signal Observatory</span><ArrowUpRight className="watch-nav-arrow" size={14} /></NavigationLink>
+          <NavigationLink section="honor" hintSide="right" href="/dojo"><ScrollText className="watch-nav-icon" size={18} /><span>Honor journal</span><ArrowUpRight className="watch-nav-arrow" size={14} /></NavigationLink>
         </nav>
         <div className="watch-proverb">
           <JapaneseText meaning="In stillness, find the stars.">
