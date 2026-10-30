@@ -1,0 +1,7 @@
+{
+  "capturedAt": "2026-10-29T23:39:26.458Z",
+  "url": "https://tsukuyomi-watch.vercel.app",
+  "source": "Explicitly synthetic 444×330 demo",
+  "status": "Restoration complete in 15.8 seconds. 41 candidate objects found.",
+  "metrics": "INPUT SIMILARITY · SSIM\n0.975\nINPUT SIMILARITY · PSNR\n41.6 dB\nESTIMATED NOISE\n8.6 → 6.5\nMAX CHANNEL CHANGE\n6 / 255"
+}
